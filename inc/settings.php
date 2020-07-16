@@ -9,8 +9,8 @@ function bootstrap() {
 
 function add_altis_privacy_page() {
 	add_options_page(
-		'Privacy',
-		'Cookies', // Calling this Cookies for now, so it's a distinct page from the existing WP Core Privacy page.
+		__( 'Privacy Settings', 'altis-consent' ),
+		'Altis Privacy', // Calling this Altis Privacy for now, so it's a distinct page from the existing WP Core Privacy page.
 		'manage_options',
 		'altis_privacy',
 		__NAMESPACE__ . '\\render_altis_privacy_page'
