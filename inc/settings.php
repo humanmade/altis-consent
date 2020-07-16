@@ -65,6 +65,27 @@ function register_consent_settings() {
 	}
 }
 
+function get_privacy_policy_text() {
+	ob_start();
+	?>
+	<p>
+		<?php _e( 'As a website owner, you may need to follow national or international privacy laws. For example, you may need to create and display a Privacy Policy.' ); ?>
+		<?php _e( 'If you already have a Privacy Policy page, please select it below. If not, please create one.' ); ?>
+	</p>
+	<p>
+		<?php _e( 'The new page will include help and suggestions for your Privacy Policy.' ); ?>
+		<?php _e( 'However, it is your responsibility to use those resources correctly, to provide the information that your Privacy Policy requires, and to keep that information current and accurate.' ); ?>
+	</p>
+	<p>
+		<?php _e( 'After your Privacy Policy page is set, we suggest that you edit it.' ); ?>
+		<?php _e( 'We would also suggest reviewing your Privacy Policy from time to time, especially after installing or updating any themes or plugins. There may be changes or new suggested information for you to consider adding to your policy.' ); ?>
+	</p>
+	<?php
+
+	$privacy_message = ob_get_clean();
+
+	return apply_filters( 'altis.consent.privacy_policy_message', $privacy_message );
+}
 
 function validate_some_stuff( $stuff ) {
 	return $stuff;
