@@ -3,8 +3,8 @@
 namespace Altis\Consent\Settings;
 
 function bootstrap() {
-	add_action( 'admin_init', 'register_consent_settings', 99 );
-	add_action( 'admin_menu', 'add_altis_privacy_page' );
+	add_action( 'admin_init', __NAMESPACE__ . '\\register_consent_settings', 99 );
+	add_action( 'admin_menu', __NAMESPACE__ . '\\add_altis_privacy_page' );
 }
 
 function add_altis_privacy_page() {
@@ -13,7 +13,7 @@ function add_altis_privacy_page() {
 		'Cookies',
 		'manage_options',
 		'altis_privacy',
-		'render_altis_privacy_page'
+		__NAMESPACE__ . '\\render_altis_privacy_page'
 	);
 }
 
@@ -22,22 +22,22 @@ function get_cookie_consent_settings_fields() {
 		[
 			'id'       => 'cookie_expiration',
 			'title'    => __( 'Cookie Expiration', 'altis-consent' ),
-			'callback' => 'cookie_expiration',
+			'callback' => __NAMESPACE__ . '\\cookie_expiration',
 		],
 		[
 			'id'       => 'banner_options',
 			'title'    => __( 'Consent Banner Options', 'altis-consent' ),
-			'callback' => 'render_banner_options',
+			'callback' => __NAMESPACE__ . '\\render_banner_options',
 		],
 		[
 			'id' => 'banner_text',
 			'title' => __( 'Banner Message', 'altis-consent' ),
-			'callback' => 'render_banner_message',
+			'callback' => __NAMESPACE__ . '\\render_banner_message',
 		],
 		[
 			'id' => 'cookie_policy_page',
 			'title' => __( 'Cookie Policy Page', 'altis-consent' ),
-			'callback' => 'render_cookie_policy_page',
+			'callback' => __NAMESPACE__ . '\\render_cookie_policy_page',
 		],
 	];
 
@@ -51,10 +51,10 @@ function register_consent_settings() {
 	register_setting( 'cookie_consent_options', 'cookie_consent_options', 'validate_some_stuff' );
 
 	add_settings_section(
-		$section,                                // New settings section
-		__( 'Cookie Consent', 'altis-consent' ), // Section title
-		'cookie_settings_page',                  // Callback function
-		$page                                    // Settings Page.
+		$section,                                  // New settings section
+		__( 'Cookie Consent', 'altis-consent' ),   // Section title
+		__NAMESPACE__ . '\\altis_consent_section', // Callback function
+		$page                                      // Settings Page.
 
 	);
 
@@ -83,7 +83,7 @@ function render_altis_privacy_page() {
 	<?php
 }
 
-function cookie_settings_page() {
+function altis_consent_section() {
 }
 
 function cookie_expiration() {
