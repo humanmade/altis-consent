@@ -72,14 +72,16 @@ function validate_some_stuff( $stuff ) {
 
 function render_altis_privacy_page() {
 	?>
-	<h1>Cookie Settings</h1>
-	<form action="options.php" method="post">
-		<?php
-		settings_fields( 'cookie_consent_options' );
-		do_settings_sections( 'altis_privacy' );
-		?>
-		<input name="submit" class="button button-primary" type="submit" value="<?php esc_attr_e( 'Save' ); ?>" />
-	</form>
+	<div class="wrap">
+		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+		<form action="options.php" method="post">
+			<?php
+			settings_fields( 'cookie_consent_options' );
+			do_settings_sections( 'altis_privacy' );
+			?>
+			<input name="submit" class="button button-primary" type="submit" value="<?php esc_attr_e( 'Save' ); ?>" />
+		</form>
+	</div>
 	<?php
 }
 
