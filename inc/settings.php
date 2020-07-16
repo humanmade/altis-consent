@@ -1,5 +1,7 @@
 <?php
 
+namespace Altis\Consent\Settings;
+
 function bootstrap() {
 	add_action( 'admin_init', 'register_consent_settings', 99 );
 	add_action( 'admin_menu', 'add_altis_privacy_page' );
