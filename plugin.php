@@ -1,16 +1,18 @@
 <?php
 /**
- * Plugin Name: Example plugin for the WP Consent Level API
- * Plugin URI: https://www.wordpress.org/plugins/wp-consent-api
- * Description: Example plugin to demonstrate usage of the Consent API
- * Version: 1.0.0
- * Text Domain: wp-consent-api
+ * Plugin Name: Altis Consent
+ * Plugin URI: https://github.com/humanmade/altis-consent
+ * Description: Hooks into the Consent API to provide basic settings and a cookie consent banner for Altis.
+ * Version: 0.0.1
+ * Text Domain: altis-consent
  * Domain Path: /languages
- * Author: WP privacy team
- * Author URI:
+ * Author: Human Made
+ * Author URI: https://altis-dxp.com
  */
 
-require_once __DIR__ . '/settings.php';
+namespace Altis\Consent;
+
+require_once __DIR__ . '/inc/settings.php';
 
 $plugin_data = get_file_data( __FILE__, array( 'Version' => 'Version' ), false );
 define( 'CONSENT_API_EXAMPLE_PLUGIN_VERSION', $plugin_data['Version'] );$plugin = plugin_basename(__FILE__);
@@ -22,7 +24,7 @@ add_filter("wp_consent_api_registered_$plugin", function(){return true;});
 
 add_action( 'wp_enqueue_scripts', 'example_plugin_enqueue_assets' );
 function example_plugin_enqueue_assets( $hook ) {
-	wp_enqueue_script( 'example-plugin', plugin_dir_url(__FILE__) . "main.js", array('jquery'), CONSENT_API_EXAMPLE_PLUGIN_VERSION, true );
+	wp_enqueue_script( 'example-plugin', plugin_dir_url(__FILE__) . "assets/js/main.js", array('jquery'), CONSENT_API_EXAMPLE_PLUGIN_VERSION, true );
 }
 
 add_shortcode('example-plugin-shortcode', 'example_plugin_load_document');
