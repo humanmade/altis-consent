@@ -15,9 +15,5 @@ namespace Altis\Consent;
 require_once __DIR__ . '/inc/namespace.php';
 require_once __DIR__ . '/inc/settings.php';
 
-$plugin_data = get_file_data( __FILE__, array( 'Version' => 'Version' ), false );
-define( 'CONSENT_PLUGIN_VERSION', $plugin_data['Version'] );
-define( 'PLUGIN', plugin_basename( __FILE__ ) );
-
 bootstrap();
 Settings\bootstrap();

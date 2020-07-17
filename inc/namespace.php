@@ -6,7 +6,7 @@ function bootstrap() {
 	/**
 	 * Tell the consent API we're following the api
 	 */
-	add_filter( 'wp_consent_api_registered_' . PLUGIN, '__return_true' );
+	add_filter( 'wp_consent_api_registered_' . plugin_basename( __FILE__ ), '__return_true' );
 
 	// Default Altis consent type to "opt-in".
 	add_filter( 'wp_get_consent_type', function() {
@@ -20,7 +20,7 @@ function bootstrap() {
 }
 
 function enqueue_assets() {
-	wp_enqueue_script( 'altis.consent', plugin_dir_url( PLUGIN ) . 'assets/js/main.js', [ 'jquery' ], CONSENT_PLUGIN_VERSION, true );
+	wp_enqueue_script( 'altis-consent', plugin_dir_url( __DIR__ ) . 'assets/js/main.js', [ 'jquery' ], '0.0.1', true );
 }
 
 function example_plugin_load_document( $atts = [], $content = null, $tag = '' ) : string {
