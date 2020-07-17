@@ -208,4 +208,14 @@ function render_cookie_policy_page() {
 	}
 }
 
-bootstrap();
+function render_privacy_policy_page_setting() {
+	$privacy_policy_page_id = (int) get_option( 'wp_page_for_privacy_policy' );
+
+	wp_dropdown_pages( [
+		'name'              => 'wp_page_for_privacy_policy',
+		'show_option_none'  => '&mdash; Select an option &mdash;',
+		'option_none_value' => '0',
+		'selected'          => $privacy_policy_page_id,
+		'post_status'       => [ 'draft', 'publish' ],
+	] );
+}
