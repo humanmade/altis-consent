@@ -148,6 +148,12 @@ function render_altis_privacy_page() {
 function altis_consent_section() {
 }
 
+function altis_privacy_section() {
+	$nonce = wp_create_nonce( 'altis.privacy_policy_page' );
+	echo wp_kses_post( get_privacy_policy_text() );
+	echo '<input type="hidden" name="_altis_privacy_policy_page_nonce" value="' . sanitize_text_field( $nonce ) . '" />';
+}
+
 function cookie_expiration() {
 	$options = get_option( 'cookie_consent_options' );
 	$expiration = ! empty( $options['cookie_expiration'] ) ? $options['cookie_expiration'] : 14;
