@@ -9,7 +9,6 @@ function bootstrap() {
 	add_action( 'admin_init', __NAMESPACE__ . '\\register_consent_settings' );
 	add_action( 'admin_menu', __NAMESPACE__ . '\\add_altis_privacy_page' );
 	add_action( 'admin_init', __NAMESPACE__ . '\\update_privacy_policy_page' );
-
 }
 
 function update_privacy_policy_page() {
@@ -92,7 +91,6 @@ function register_consent_settings() {
 		__( 'Cookie Consent', 'altis-consent' ),   // Section title
 		__NAMESPACE__ . '\\altis_consent_section', // Callback function
 		$page                                      // Settings Page.
-
 	);
 
 	$fields = get_cookie_consent_settings_fields();
@@ -145,16 +143,16 @@ function get_privacy_policy_text() {
 	ob_start();
 	?>
 	<p>
-		<?php _e( 'As a website owner, you may need to follow national or international privacy laws. For example, you may need to create and display a Privacy Policy.' ); ?>
-		<?php _e( 'If you already have a Privacy Policy page, please select it below. If not, please create one.' ); ?>
+		<?php esc_html_e( 'As a website owner, you may need to follow national or international privacy laws. For example, you may need to create and display a Privacy Policy.', 'altis-consent' ); ?>
+		<?php esc_html_e( 'If you already have a Privacy Policy page, please select it below. If not, please create one.', 'altis-consent' ); ?>
 	</p>
 	<p>
-		<?php _e( 'The new page will include help and suggestions for your Privacy Policy.' ); ?>
-		<?php _e( 'However, it is your responsibility to use those resources correctly, to provide the information that your Privacy Policy requires, and to keep that information current and accurate.' ); ?>
+		<?php esc_html_e( 'The new page will include help and suggestions for your Privacy Policy.', 'altis-consent' ); ?>
+		<?php esc_html_e( 'However, it is your responsibility to use those resources correctly, to provide the information that your Privacy Policy requires, and to keep that information current and accurate.', 'altis-consent' ); ?>
 	</p>
 	<p>
-		<?php _e( 'After your Privacy Policy page is set, we suggest that you edit it.' ); ?>
-		<?php _e( 'We would also suggest reviewing your Privacy Policy from time to time, especially after installing or updating any themes or plugins. There may be changes or new suggested information for you to consider adding to your policy.' ); ?>
+		<?php esc_html_e( 'After your Privacy Policy page is set, we suggest that you edit it.', 'altis-consent' ); ?>
+		<?php esc_html_e( 'We would also suggest reviewing your Privacy Policy from time to time, especially after installing or updating any themes or plugins. There may be changes or new suggested information for you to consider adding to your policy.', 'altis-consent' ); ?>
 	</p>
 	<?php
 
@@ -189,7 +187,7 @@ function altis_consent_section() {
 function altis_privacy_section() {
 	$nonce = wp_create_nonce( 'altis.privacy_policy_page' );
 	echo wp_kses_post( get_privacy_policy_text() );
-	echo '<input type="hidden" name="_altis_privacy_policy_page_nonce" value="' . sanitize_text_field( $nonce ) . '" />';
+	echo '<input type="hidden" name="_altis_privacy_policy_page_nonce" value="' . sanitize_text_field( $nonce ) . '" />'; // phpcs:ignore
 }
 
 function cookie_expiration() {
@@ -232,7 +230,7 @@ function render_banner_message() {
 
 function render_cookie_policy_page() {
 	$options = get_option( 'cookie_consent_options' );
-	$page_id = $options['policy_page'] ?: 0;
+	$page_id = sanitize_text_field( $options['policy_page'] ) ?: 0;
 	$has_pages = (bool) get_posts( [
 		'post_type'      => 'page',
 		'posts_per_page' => 1,
@@ -244,7 +242,7 @@ function render_cookie_policy_page() {
 			'name' => 'cookie_consent_options[policy_page]',
 			'show_option_none' => '&mdash; Select an option &mdash;',
 			'option_none_value' => '0',
-			'selected'          => $page_id,
+			'selected'          => $page_id, // phpcs:ignore
 			'post_status'       => [ 'draft', 'publish' ],
 		] );
 	} else {
@@ -259,7 +257,7 @@ function render_privacy_policy_page_setting() {
 		'name'              => 'wp_page_for_privacy_policy',
 		'show_option_none'  => '&mdash; Select an option &mdash;',
 		'option_none_value' => '0',
-		'selected'          => $privacy_policy_page_id,
+		'selected'          => $privacy_policy_page_id, // phpcs:ignore
 		'post_status'       => [ 'draft', 'publish' ],
 	] );
 }
