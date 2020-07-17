@@ -3,7 +3,7 @@
 namespace Altis\Consent\Settings;
 
 function bootstrap() {
-	add_action( 'admin_init', __NAMESPACE__ . '\\register_consent_settings', 99 );
+	add_action( 'admin_init', __NAMESPACE__ . '\\register_consent_settings' );
 	add_action( 'admin_menu', __NAMESPACE__ . '\\add_altis_privacy_page' );
 }
 
