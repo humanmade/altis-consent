@@ -51,6 +51,15 @@ function register_consent_settings() {
 	register_setting( 'cookie_consent_options', 'cookie_consent_options', 'validate_some_stuff' );
 
 	add_settings_section(
+		'privacy_policy',
+		__( 'Privacy Policy', 'altis-consent' ),
+		__NAMESPACE__ . '\\altis_privacy_section',
+		$page
+	);
+
+	privacy_policy_page_settings( $page );
+
+	add_settings_section(
 		$section,                                  // New settings section
 		__( 'Cookie Consent', 'altis-consent' ),   // Section title
 		__NAMESPACE__ . '\\altis_consent_section', // Callback function
