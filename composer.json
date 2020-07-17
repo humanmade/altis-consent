@@ -1,0 +1,21 @@
+{
+    "name": "altis/consent",
+    "description": "Privacy and consent module for Altis",
+    "type": "package",
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "humanmade/coding-standards": "^0.8.0"
+    },
+    "scripts": {
+        "lint:php": "vendor/squizlabs/php_codesniffer/bin/phpcs -s --standard=phpcs.ruleset.xml ."
+    },
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Human Made Limited",
+            "email": "hello@humanmade.com"
+        }
+    ]
+}
