@@ -13,10 +13,10 @@ function bootstrap() {
 		return 'optin';
 	}, 10 );
 
-	add_action( 'wp_enqueue_scripts', 'enqueue_assets' );
+	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 
 	// Shortcode. Replace with an actual way to display a banner.
-	add_shortcode('example-plugin-shortcode', 'example_plugin_load_document');
+	add_shortcode( 'example-plugin-shortcode', __NAMESPACE__ . '\\example_plugin_load_document' );
 }
 
 function enqueue_assets() {
