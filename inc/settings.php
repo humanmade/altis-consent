@@ -65,6 +65,45 @@ function register_consent_settings() {
 	}
 }
 
+function privacy_policy_page_settings( string $page ) {
+	// If a Privacy Policy page ID is available, make sure the page actually exists. If not, display an error.
+	$privacy_policy_page_exists = false;
+	$privacy_policy_page_id     = (int) get_option( 'wp_page_for_privacy_policy' );
+
+	if ( ! empty( $privacy_policy_page_id ) ) {
+
+		$privacy_policy_page = get_post( $privacy_policy_page_id );
+
+		if ( ! $privacy_policy_page instanceof \WP_Post ) {
+			add_settings_error(
+				'page_for_privacy_policy',
+				'page_for_privacy_policy',
+				__( 'The currently selected Privacy Policy page does not exist. Please create or select a new page.' ),
+				'error'
+			);
+		} else {
+			if ( 'trash' === $privacy_policy_page->post_status ) {
+				add_settings_error(
+					'page_for_privacy_policy',
+					'page_for_privacy_policy',
+					sprintf(
+						/* translators: %s: URL to Pages Trash. */
+						__( 'The currently selected Privacy Policy page is in the Trash. Please create or select a new Privacy Policy page or <a href="%s">restore the current page</a>.' ),
+						'edit.php?post_status=trash&post_type=page'
+					),
+					'error'
+				);
+			} else {
+				$privacy_policy_page_exists = true;
+			}
+		}
+	}
+
+	$label = $privacy_policy_page_exists ? __( 'Change your Privacy Policy page', 'altis-consent' ) : __( 'Select a Privacy Policy page', 'altis-consent' );
+
+	add_settings_field( 'wp_page_for_privacy_policy', $label, __NAMESPACE__ . '\\render_privacy_policy_page_setting', $page, 'privacy_policy' );
+}
+
 function get_privacy_policy_text() {
 	ob_start();
 	?>
