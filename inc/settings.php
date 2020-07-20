@@ -229,7 +229,14 @@ function render_banner_options() {
 
 function render_banner_message() {
 	$options = get_option( 'cookie_consent_options' );
-	$message = $options['banner_message'] ?: 'This site uses cookies to provide a better user experience.';
+
+	/**
+	 * Allow the default cookie banner message to be filtered.
+	 *
+	 * @var string $default_message The default cookie consent banner message.
+	 */
+	$default_message = apply_filters( 'altis.consent.default_banner_message', esc_html__( 'This site uses cookies to provide a better user experience.', 'altis-consent' ) );
+	$message         = $options['banner_message'] ?: $default_message;
 
 	wp_editor( wp_kses_post( $message ), 'banner_message', [
 		'textarea_name' => 'cookie_consent_options[banner_message]',
