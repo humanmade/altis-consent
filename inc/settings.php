@@ -64,13 +64,13 @@ function get_cookie_consent_settings_fields() {
 			'callback' => __NAMESPACE__ . '\\render_banner_options',
 		],
 		[
-			'id' => 'banner_text',
-			'title' => __( 'Banner Message', 'altis-consent' ),
+			'id'       => 'banner_text',
+			'title'    => __( 'Banner Message', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\render_banner_message',
 		],
 		[
-			'id' => 'cookie_policy_page',
-			'title' => __( 'Cookie Policy Page', 'altis-consent' ),
+			'id'       => 'cookie_policy_page',
+			'title'    => __( 'Cookie Policy Page', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\render_cookie_policy_page',
 		],
 	];
