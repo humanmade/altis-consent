@@ -71,6 +71,8 @@ function banner_shortcode() : string {
 			<h3>Woohoo! consent has been given for category <?php echo $category?> :)</h3>
 		</div>
 
+		<?php echo wp_kses_post( $button ); ?>
+
 	</div>
 
 	<?php
