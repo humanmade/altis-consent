@@ -271,3 +271,16 @@ function render_privacy_policy_page_setting() {
 		'post_status'       => [ 'draft', 'publish' ],
 	] );
 }
+
+/**
+ * Check if pages exist.
+ *
+ * @return bool True if pages exist, false if no pages exist. Checks if there are published or draft pages.
+ */
+function pages_exist() : bool {
+	return (bool) get_posts( [
+		'post_type'      => 'page',
+		'posts_per_page' => 1,
+		'post_status'    => [ 'publish', 'draft' ],
+	] );
+}
