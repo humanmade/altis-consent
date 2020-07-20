@@ -259,13 +259,17 @@ function render_cookie_policy_page() {
 function render_privacy_policy_page_setting() {
 	$privacy_policy_page_id = (int) get_option( 'wp_page_for_privacy_policy' );
 
-	wp_dropdown_pages( [
-		'name'              => 'wp_page_for_privacy_policy',
-		'show_option_none'  => '&mdash; Select an option &mdash;',
-		'option_none_value' => '0',
-		'selected'          => $privacy_policy_page_id, // phpcs:ignore
-		'post_status'       => [ 'draft', 'publish' ],
-	] );
+	if ( pages_exist() ) {
+		wp_dropdown_pages( [
+			'name'              => 'wp_page_for_privacy_policy',
+			'show_option_none'  => '&mdash; ' . __( 'Select an option', 'altis-consent' ) . ' &mdash;',
+			'option_none_value' => '0',
+			'selected'          => $privacy_policy_page_id, // phpcs:ignore
+			'post_status'       => [ 'draft', 'publish' ],
+		] );
+	} else {
+		esc_html_e( 'There are no pages.', 'altis-consent' );
+	}
 }
 
 /**
