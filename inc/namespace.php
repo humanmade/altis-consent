@@ -65,12 +65,10 @@ function banner_shortcode() : string {
 	?>
 	<div id="example-plugin-content" data-consentcategory="<?php echo $category?>">
 		<div class="functional-content">
-			<h1>No consent has been given yet for category <?php echo $category?>. </h1>
-			<button class="give-consent">Give consent for <?php echo $category; ?></button>
+			<h3>No consent has been given yet for category <?php echo $category?>. </h3>
 		</div>
 		<div class="marketing-content" style="display:none">
-			<h1>Woohoo! consent has been given for category <?php echo $category?> :)</h1>
-			<button class="revoke-consent">Revoke consent for <?php echo $category; ?></button>
+			<h3>Woohoo! consent has been given for category <?php echo $category?> :)</h3>
 		</div>
 
 	</div>
