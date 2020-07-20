@@ -18,14 +18,14 @@ function bootstrap() {
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 
 	// Shortcode. Replace with an actual way to display a banner.
-	add_shortcode( 'example-plugin-shortcode', __NAMESPACE__ . '\\example_plugin_load_document' );
+	add_shortcode( 'cookie-consent-banner', __NAMESPACE__ . '\\banner_shortcode' );
 }
 
 function enqueue_assets() {
 	wp_enqueue_script( 'altis-consent', plugin_dir_url( __DIR__ ) . 'assets/js/main.js', [ 'jquery' ], '0.0.1', true );
 }
 
-function example_plugin_load_document( $atts = [], $content = null, $tag = '' ) : string {
+function banner_shortcode() : string {
 	$atts = array_change_key_case((array)$atts, CASE_LOWER);
 	ob_start();
 
