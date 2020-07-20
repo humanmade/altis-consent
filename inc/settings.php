@@ -101,6 +101,28 @@ function get_cookie_consent_settings_fields() {
 }
 
 /**
+ * Return an array of cookie banner options.
+ */
+function get_cookie_banner_options() {
+	$options = [
+		[
+			'value' => '',
+			'label' => '&mdash; ' . __( 'Please select an option', 'altis-consent' ) . ' &mdash;',
+		],
+		[
+			'value' => 'all-categories',
+			'label' => __( 'All Cookie Categories', 'altis-consent' ),
+		],
+		[
+			'value' => 'none',
+			'label' => __( 'Allow/Deny All Cookies', 'altis-consent' ),
+		]
+	];
+
+	return apply_filters( 'altis.consent.banner_options', $options );
+}
+
+/**
  * Register the Altis Consent settings.
  */
 function register_consent_settings() {
