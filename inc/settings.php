@@ -14,12 +14,21 @@ function bootstrap() {
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_core_privacy_page' );
 }
 
+/**
+ * Remove the WordPress core Privacy page from the Settings menu.
+ */
 function remove_core_privacy_page() {
 	global $submenu;
 
 	unset( $submenu['options-general.php'][45] );
 }
 
+/**
+ * Update the Privacy Policy Page setting.
+ *
+ * Handles updating the privacy page option.
+ * Since this page and setting is not registered like a normal WordPress option, we need to intercept the $_POST data if the privacy policy page setting was updated, and update it manually.
+ */
 function update_privacy_policy_page() {
 	if (
 		// Validate the nonce.
@@ -43,6 +52,9 @@ function update_privacy_policy_page() {
 	update_option( $privacy_option, $updated_id );
 }
 
+/**
+ * Register the Altis Privacy submenu page.
+ */
 function add_altis_privacy_page() {
 	add_options_page(
 		__( 'Privacy Settings', 'altis-consent' ),
@@ -53,6 +65,9 @@ function add_altis_privacy_page() {
 	);
 }
 
+/**
+ * Return an array of Altis Consent settings.
+ */
 function get_cookie_consent_settings_fields() {
 	$fields = [
 		[
@@ -77,9 +92,17 @@ function get_cookie_consent_settings_fields() {
 		],
 	];
 
+	/**
+	 * Allow these fields to be filtered. New options fields can be added in the above format.
+	 *
+	 * @var array $fields An array of settings fields with unique IDs, titles and callback functions.
+	 */
 	return apply_filters( 'altis.consent.consent_settings_fields', $fields );
 }
 
+/**
+ * Register the Altis Consent settings.
+ */
 function register_consent_settings() {
 	$page    = 'altis_privacy';
 	$section = 'cookie_consent';
@@ -103,14 +126,19 @@ function register_consent_settings() {
 		$page                                      // Settings Page.
 	);
 
+	// Get the Altis Consent settings and loop through them, registering each.
 	$fields = get_cookie_consent_settings_fields();
-
 	foreach ( $fields as $field ) {
 		add_settings_field( $field['id'], $field['title'], $field['callback'], $page, $section );
 	}
 }
 
-function privacy_policy_page_settings( string $page ) {
+/**
+ * Handle the Privacy Policy page settings.
+ *
+ * Much of this code is copy pasta from the WordPress core Privacy page.
+ */
+function privacy_policy_page_settings() {
 	// If a Privacy Policy page ID is available, make sure the page actually exists. If not, display an error.
 	$privacy_policy_page_exists = false;
 	$privacy_policy_page_id     = (int) get_option( 'wp_page_for_privacy_policy' );
@@ -149,6 +177,11 @@ function privacy_policy_page_settings( string $page ) {
 	add_settings_field( 'wp_page_for_privacy_policy', $label, __NAMESPACE__ . '\\render_privacy_policy_page_setting', 'altis_privacy', 'privacy_policy' );
 }
 
+/**
+ * Return the Privacy Policy admin text.
+ *
+ * This text is copy pasta from WordPress core's Privacy page, but can be filtered to say whatever you want, or removed entirely.
+ */
 function get_privacy_policy_text() {
 	ob_start();
 	?>
@@ -168,13 +201,26 @@ function get_privacy_policy_text() {
 
 	$privacy_message = ob_get_clean();
 
+	/**
+	 * Allow the privacy policy message to be filtered or removed.
+	 *
+	 * @var string $privacy_message The message to display above the Privacy Policy page setting.
+	 */
 	return apply_filters( 'altis.consent.privacy_policy_message', $privacy_message );
 }
 
+/**
+ * Validation function that I need to flesh out still.
+ *
+ * @param [type] $stuff
+ */
 function validate_some_stuff( $stuff ) {
 	return $stuff;
 }
 
+/**
+ * Render the Altis Privacy page.
+ */
 function render_altis_privacy_page() {
 	?>
 	<div class="wrap">
@@ -191,17 +237,26 @@ function render_altis_privacy_page() {
 	<?php
 }
 
-function altis_consent_section() {
-}
+/**
+ * The Cookie Consent section. Nothing is here  yet but it could contain a notice or information about cookie consent policies.
+ */
+function altis_consent_section() {}
 
+/**
+ * The Privacy Policy page section.
+ * This just adds a nonce that we can validate against when we intercept the $_POST data to update the privacy policy page setting.
+ */
 function altis_privacy_section() {
 	$nonce = wp_create_nonce( 'altis.privacy_policy_page' );
 	echo wp_kses_post( get_privacy_policy_text() );
 	echo '<input type="hidden" name="_altis_privacy_policy_page_nonce" value="' . sanitize_text_field( $nonce ) . '" />'; // phpcs:ignore
 }
 
+/**
+ * Render the cookie expiration setting.
+ */
 function cookie_expiration() {
-	$options = get_option( 'cookie_consent_options' );
+	$options    = get_option( 'cookie_consent_options' );
 	$expiration = ! empty( $options['cookie_expiration'] ) ? $options['cookie_expiration'] : 14;
 	?>
 	<input id="cookie_consent_expiration" name="cookie_consent_options[cookie_expiration]" type="number" value="<?php echo absint( $expiration ); ?>" />
@@ -211,6 +266,9 @@ function cookie_expiration() {
 	<?php
 }
 
+/**
+ * Render the consent banner options setting.
+ */
 function render_banner_options() {
 	$options  = get_option( 'cookie_consent_options' );
 	$selected = $options['banner_options'] ?: '';
@@ -227,6 +285,9 @@ function render_banner_options() {
 	<?php
 }
 
+/**
+ * Render the banner message setting.
+ */
 function render_banner_message() {
 	$options = get_option( 'cookie_consent_options' );
 
@@ -238,6 +299,7 @@ function render_banner_message() {
 	$default_message = apply_filters( 'altis.consent.default_banner_message', esc_html__( 'This site uses cookies to provide a better user experience.', 'altis-consent' ) );
 	$message         = $options['banner_message'] ?: $default_message;
 
+	// Render a TinyMCE editor for the banner message.
 	wp_editor( wp_kses_post( $message ), 'banner_message', [
 		'textarea_name' => 'cookie_consent_options[banner_message]',
 		'teeny'         => true,
@@ -245,6 +307,9 @@ function render_banner_message() {
 	] );
 }
 
+/**
+ * Render the cookie policy page setting.
+ */
 function render_cookie_policy_page() {
 	$options = get_option( 'cookie_consent_options' );
 	$page_id = sanitize_text_field( $options['policy_page'] ) ?: 0;
@@ -263,6 +328,9 @@ function render_cookie_policy_page() {
 	}
 }
 
+/**
+ * Render the privacy policy page setting.
+ */
 function render_privacy_policy_page_setting() {
 	$privacy_policy_page_id = (int) get_option( 'wp_page_for_privacy_policy' );
 
