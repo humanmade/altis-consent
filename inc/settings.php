@@ -93,7 +93,8 @@ function register_consent_settings() {
 		$page
 	);
 
-	privacy_policy_page_settings( $page );
+	// Pull in the privacy policy page settings.
+	privacy_policy_page_settings();
 
 	add_settings_section(
 		$section,                                  // New settings section
@@ -145,7 +146,7 @@ function privacy_policy_page_settings( string $page ) {
 
 	$label = $privacy_policy_page_exists ? __( 'Update your Privacy Policy page', 'altis-consent' ) : __( 'Select a Privacy Policy page', 'altis-consent' );
 
-	add_settings_field( 'wp_page_for_privacy_policy', $label, __NAMESPACE__ . '\\render_privacy_policy_page_setting', $page, 'privacy_policy' );
+	add_settings_field( 'wp_page_for_privacy_policy', $label, __NAMESPACE__ . '\\render_privacy_policy_page_setting', 'altis_privacy', 'privacy_policy' );
 }
 
 function get_privacy_policy_text() {
