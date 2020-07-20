@@ -353,9 +353,18 @@ function render_privacy_policy_page_setting() {
  * @return bool True if pages exist, false if no pages exist. Checks if there are published or draft pages.
  */
 function pages_exist() : bool {
-	return (bool) get_posts( [
-		'post_type'      => 'page',
-		'posts_per_page' => 1,
-		'post_status'    => [ 'publish', 'draft' ],
-	] );
+	$has_pages = wp_cache_get( 'altis.privacy.has_pages', 'altis' );
+
+	if ( ! $has_pages ) {
+		$has_pages = (bool) get_posts( [
+			'post_type'      => 'page',
+			'posts_per_page' => 1,
+			'post_status'    => [ 'publish', 'draft' ],
+		] );
+
+		// Cache the result so we don't need to run another get_posts later.
+		wp_cache_set( 'altis.privacy.has_pages', $has_pages, 'altis' );
+	}
+
+	return $has_pages;
 }
