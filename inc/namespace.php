@@ -11,7 +11,7 @@ function bootstrap() {
 	// Default Altis consent type to "opt-in".
 	add_filter( 'wp_get_consent_type', function() {
 		return 'optin';
-	}, 10 );
+	} );
 
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 
