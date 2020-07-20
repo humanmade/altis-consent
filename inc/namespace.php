@@ -15,6 +15,7 @@ function bootstrap() {
 		return 'optin';
 	} );
 
+	// Enqueue the javascript handler.
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 
 	// Shortcode. Replace with an actual way to display a banner.
