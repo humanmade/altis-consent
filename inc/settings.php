@@ -245,14 +245,14 @@ function render_cookie_policy_page() {
 	// If there are pages, display the page dropdown mehu. Otherwise, display a message stating that there are no pages.
 	if ( pages_exist() ) {
 		wp_dropdown_pages( [
-			'name' => 'cookie_consent_options[policy_page]',
-			'show_option_none' => '&mdash; Select an option &mdash;',
+			'name'              => 'cookie_consent_options[policy_page]',
+			'show_option_none'  => '&mdash; ' . __( 'Select an option', 'altis-consent' ) . ' &mdash;',
 			'option_none_value' => '0',
 			'selected'          => $page_id, // phpcs:ignore
 			'post_status'       => [ 'draft', 'publish' ],
 		] );
 	} else {
-		esc_html_e( 'There are no pages.' );
+		esc_html_e( 'There are no pages.', 'altis-consent' );
 	}
 }
 
