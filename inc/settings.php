@@ -116,7 +116,7 @@ function get_cookie_banner_options() {
 		[
 			'value' => 'none',
 			'label' => __( 'Allow/Deny All Cookies', 'altis-consent' ),
-		]
+		],
 	];
 
 	return apply_filters( 'altis.consent.banner_options', $options );
@@ -366,7 +366,7 @@ function render_cookie_policy_page() {
 	if ( pages_exist() ) {
 		wp_dropdown_pages( [
 			'name'              => 'cookie_consent_options[policy_page]',
-			'show_option_none'  => '&mdash; ' . __( 'Select an option', 'altis-consent' ) . ' &mdash;',
+			'show_option_none'  => '&mdash; ' . esc_html__( 'Select an option', 'altis-consent' ) . ' &mdash;',
 			'option_none_value' => '0',
 			'selected'          => $page_id, // phpcs:ignore
 			'post_status'       => [ 'draft', 'publish' ],
@@ -385,7 +385,7 @@ function render_privacy_policy_page_setting() {
 	if ( pages_exist() ) {
 		wp_dropdown_pages( [
 			'name'              => 'wp_page_for_privacy_policy',
-			'show_option_none'  => '&mdash; ' . __( 'Select an option', 'altis-consent' ) . ' &mdash;',
+			'show_option_none'  => '&mdash; ' . esc_html__( 'Select an option', 'altis-consent' ) . ' &mdash;',
 			'option_none_value' => '0',
 			'selected'          => $privacy_policy_page_id, // phpcs:ignore
 			'post_status'       => [ 'draft', 'publish' ],
