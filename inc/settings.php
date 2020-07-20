@@ -9,6 +9,13 @@ function bootstrap() {
 	add_action( 'admin_init', __NAMESPACE__ . '\\register_consent_settings' );
 	add_action( 'admin_init', __NAMESPACE__ . '\\update_privacy_policy_page' );
 	add_action( 'admin_menu', __NAMESPACE__ . '\\add_altis_privacy_page' );
+	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_core_privacy_page' );
+}
+
+function remove_core_privacy_page() {
+	global $submenu;
+
+	unset( $submenu['options-general.php'][45] );
 }
 
 function update_privacy_policy_page() {
