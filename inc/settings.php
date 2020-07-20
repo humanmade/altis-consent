@@ -303,7 +303,7 @@ function cookie_expiration() {
 	$options    = get_option( 'cookie_consent_options' );
 	$expiration = ! empty( $options['cookie_expiration'] ) ? $options['cookie_expiration'] : 14;
 	?>
-	<input id="cookie_consent_expiration" name="cookie_consent_options[cookie_expiration]" type="number" value="<?php echo absint( $expiration ); ?>" />
+	<input id="cookie_consent_expiration" name="cookie_consent_options[cookie_expiration]" type="number" value="<?php echo absint( $expiration ); ?>" class="small-text" step="1" />
 	<p class="description">
 		<?php esc_html_e( 'How long, in days, cookies should be stored.', 'altis-consent' ); ?>
 	</p>
