@@ -44,7 +44,7 @@ function update_privacy_policy_page() {
 function add_altis_privacy_page() {
 	add_options_page(
 		__( 'Privacy Settings', 'altis-consent' ),
-		'Altis Privacy', // Calling this Altis Privacy for now, so it's a distinct page from the existing WP Core Privacy page.
+		__( 'Privacy', 'altis-consent' ),
 		'manage_options',
 		'altis_privacy',
 		__NAMESPACE__ . '\\render_altis_privacy_page'
