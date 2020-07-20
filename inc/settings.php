@@ -234,10 +234,32 @@ function get_privacy_policy_text() {
 /**
  * Validation function that I need to flesh out still.
  *
- * @param [type] $stuff
+ * @param array $dirty An array of unvalidated option data to validate.
  */
-function validate_some_stuff( $stuff ) {
-	return $stuff;
+function validate_privacy_options( $dirty ) {
+	$validated = [];
+
+	// Make sure cookie_expiration is a number.
+	$validated['cookie_expiration'] = is_numeric( $dirty['cookie_expiration'] ) ? $dirty['cookie_expiration'] : '14';
+
+	// Make sure the banner_options is in the array of options we expect.
+	$validated['banner_options'] = in_array( $dirty['banner_options'], wp_list_pluck( get_cookie_banner_options(), 'value' ) ) ? $dirty['banner_options'] : '';
+
+	// Strip evil scripts from the message.
+	$validated['banner_message'] = wp_kses_post( $dirty['banner_message'] );
+
+	// Make sure the page exists.
+	$page_exists = (bool) get_post( absint( $dirty['policy_page'] ) );
+	$validated['policy_page'] = $page_exists ? $dirty['policy_page'] : '';
+
+	/**
+	 * Allow the validated data to be filtered.
+	 * This is useful if additional settings are added to the page that need to be validated.
+	 *
+	 * @var array $validated An array of validated data.
+	 * @var array $dirty     An array of unvalidated data.
+	 */
+	return apply_filters( 'altis.consent.validate_privacy_options', $validated, $dirty );
 }
 
 /**
