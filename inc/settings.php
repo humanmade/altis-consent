@@ -206,7 +206,7 @@ function cookie_expiration() {
 	?>
 	<input id="cookie_consent_expiration" name="cookie_consent_options[cookie_expiration]" type="number" value="<?php echo absint( $expiration ); ?>" />
 	<p class="description">
-		How long, in days, cookies should be stored.
+		<?php esc_html_e( 'How long, in days, cookies should be stored.', 'altis-consent' ); ?>
 	</p>
 	<?php
 }
@@ -216,13 +216,13 @@ function render_banner_options() {
 	$selected = $options['banner_options'] ?: '';
 	?>
 	<select name="cookie_consent_options[banner_options]" id="banner_options" value="<?php echo esc_attr( $selected ); ?>">
-		<option value="" <?php selected( $selected, '' ); ?>>&mdash; Please select an option &mdash;</option>
-		<option value="all-categories" <?php selected( $selected, 'all-categories' ); ?>>All Cookie Categories</option>
-		<option value="none" <?php selected( $selected, 'none' ); ?>>Allow/Deny All Cookies</option>
+		<option value="" <?php selected( $selected, '' ); ?>>&mdash; <?php esc_html_e( 'Please select an option', 'altis-consent' ); ?> &mdash;</option>
+		<option value="all-categories" <?php selected( $selected, 'all-categories' ); ?>><?php esc_html_e( 'All Cookie Categories', 'altis-consent' ); ?></option>
+		<option value="none" <?php selected( $selected, 'none' ); ?>><?php esc_html_e( 'Allow/Deny All Cookies', 'altis-consent' ); ?></option>
 	</select>
 	<p class="description">
-		If you would like to display an option to configure each cookie category in the consent banner, select All Cookie Categories.<br />
-		If you would like to only display an option to accept or deny all non-functional cookies, select Allow/Deny All Cookies.
+		<?php esc_html_e( 'If you would like to display an option to configure each cookie category in the consent banner, select All Cookie Categories.', 'altis-consent' ); ?><br />
+		<?php esc_html_e( 'If you would like to only display an option to accept or deny all non-functional cookies, select Allow/Deny All Cookies.', 'altis-consent' ); ?>
 	</p>
 	<?php
 }
