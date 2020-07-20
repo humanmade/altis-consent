@@ -241,13 +241,9 @@ function render_banner_message() {
 function render_cookie_policy_page() {
 	$options = get_option( 'cookie_consent_options' );
 	$page_id = sanitize_text_field( $options['policy_page'] ) ?: 0;
-	$has_pages = (bool) get_posts( [
-		'post_type'      => 'page',
-		'posts_per_page' => 1,
-		'post_status'    => [ 'publish', 'draft' ],
-	] );
 
-	if ( $has_pages ) {
+	// If there are pages, display the page dropdown mehu. Otherwise, display a message stating that there are no pages.
+	if ( pages_exist() ) {
 		wp_dropdown_pages( [
 			'name' => 'cookie_consent_options[policy_page]',
 			'show_option_none' => '&mdash; Select an option &mdash;',
