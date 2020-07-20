@@ -292,13 +292,17 @@ function cookie_expiration() {
  * Render the consent banner options setting.
  */
 function render_banner_options() {
-	$options  = get_option( 'cookie_consent_options' );
-	$selected = $options['banner_options'] ?: '';
+	$options        = get_option( 'cookie_consent_options' );
+	$selected       = $options['banner_options'] ?: '';
+	$banner_options = get_cookie_banner_options();
 	?>
 	<select name="cookie_consent_options[banner_options]" id="banner_options" value="<?php echo esc_attr( $selected ); ?>">
-		<option value="" <?php selected( $selected, '' ); ?>>&mdash; <?php esc_html_e( 'Please select an option', 'altis-consent' ); ?> &mdash;</option>
-		<option value="all-categories" <?php selected( $selected, 'all-categories' ); ?>><?php esc_html_e( 'All Cookie Categories', 'altis-consent' ); ?></option>
-		<option value="none" <?php selected( $selected, 'none' ); ?>><?php esc_html_e( 'Allow/Deny All Cookies', 'altis-consent' ); ?></option>
+		<?php
+		// Loop through each of the options and render the html.
+		foreach ( $banner_options as $option ) {
+			?>
+			<option value="<?php echo esc_attr( $option['value'] ); ?>" <?php selected( $selected, $option['value'] ); ?>><?php echo esc_html( $option['label'] ); ?></option>
+		<?php } ?>
 	</select>
 	<p class="description">
 		<?php esc_html_e( 'If you would like to display an option to configure each cookie category in the consent banner, select All Cookie Categories.', 'altis-consent' ); ?><br />
