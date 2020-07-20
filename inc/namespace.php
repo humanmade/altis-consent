@@ -33,9 +33,30 @@ function banner_shortcode() : string {
 	$categories = WP_CONSENT_API::$config->consent_categories();
 	ob_start();
 
-	// override default attributes with user attributes
-	$atts = shortcode_atts(array('category' => 'marketing'), $atts, $tag);
-	//default
+	switch ( $options['banner_options'] ) {
+		case '' :
+			// Do some error if no options were set.
+			$button = sprintf(
+				__( 'No consent option has been set. Please visit the <a href="%s">Privacy Settings page</a> and set the consent banner option.', 'altis-consent.' ),
+				admin_url( 'options-general.php?page=altis_privacy' )
+			);
+			break;
+		case 'none' :
+			$button  = '<button class="give-consent">';
+			$button .= apply_filters( 'altis.consent.accept_all_cookies_button_text', esc_html__( 'Accept all cookies', 'altis-consent' ) );
+			$button .= '</button>';
+			$button .= '<button class="revoke-consent">';
+			$button .= apply_filters( 'altis.consent.accept_only_functional_cookies_button_text', esc_html__( 'Accept only functional cookies', 'altis-consent' ) );
+			$button .= '</button>';
+			break;
+		case 'all-categories' :
+			var_dump( $categories );
+			break;
+	}
+
+	$button .= '</div>';
+
+	// Come back to this if we're doing fuller consent preferences.
 	$category = 'marketing';
 	if (function_exists('wp_validate_consent_category')){
 		$category = wp_validate_consent_category($atts['category']);
