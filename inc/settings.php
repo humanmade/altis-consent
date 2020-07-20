@@ -107,7 +107,7 @@ function register_consent_settings() {
 	$page    = 'altis_privacy';
 	$section = 'cookie_consent';
 
-	register_setting( 'cookie_consent_options', 'cookie_consent_options', 'validate_some_stuff' );
+	register_setting( 'cookie_consent_options', 'cookie_consent_options', __NAMESPACE__ . '\\validate_privacy_options' );
 
 	add_settings_section(
 		'privacy_policy',
