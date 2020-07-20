@@ -73,6 +73,20 @@ function banner_shortcode() : string {
 
 		<?php echo wp_kses_post( $button ); ?>
 
+		<?php if ( $consent_policy ) : ?>
+			<div class="cookie-consent-policy">
+				<a href="<?php echo esc_url( get_permalink( (int) $consent_policy ) ); ?>">
+					<?php
+					/**
+					 * Allow the cookie consent policy link text to be filtered.
+					 *
+					 * @var string $consent_policy_link_text The
+					 */
+					echo apply_filters( 'altis.consent.cookie_consent_policy_link_text', esc_html__( 'Read our cookie policy', 'altis-consent' ) );
+					?>
+				</a>
+			</div>
+		<?php endif; ?>
 	</div>
 
 	<?php
