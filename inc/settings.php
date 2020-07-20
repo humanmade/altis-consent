@@ -2,6 +2,8 @@
 
 namespace Altis\Consent\Settings;
 
+use WP_Post;
+
 /**
  * Kick off all the things.
  */
@@ -116,7 +118,7 @@ function privacy_policy_page_settings( string $page ) {
 
 		$privacy_policy_page = get_post( $privacy_policy_page_id );
 
-		if ( ! $privacy_policy_page instanceof \WP_Post ) {
+		if ( ! $privacy_policy_page instanceof WP_Post ) {
 			add_settings_error(
 				'page_for_privacy_policy',
 				'page_for_privacy_policy',
