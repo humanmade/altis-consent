@@ -27,7 +27,10 @@ function enqueue_assets() {
 }
 
 function banner_shortcode() : string {
-	$atts = array_change_key_case((array)$atts, CASE_LOWER);
+	$options = get_option( 'cookie_consent_options' );
+	$consent_policy = $options['policy_page'] ?: false;
+	$button = '<div class="button-row">';
+	$categories = WP_CONSENT_API::$config->consent_categories();
 	ob_start();
 
 	// override default attributes with user attributes
