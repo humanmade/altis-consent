@@ -14,7 +14,8 @@
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto 1fr;
     grid-gap: 10px;
-    align-items: center; }
+    align-items: center;
+    display: none; }
     .consent-banner .cookie-preferences .apply-cookie-preferences {
       grid-column-start: -1; }
     .consent-banner .cookie-preferences label {
