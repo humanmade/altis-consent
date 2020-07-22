@@ -24,6 +24,7 @@ function bootstrap() {
 
 function enqueue_assets() {
 	wp_enqueue_script( 'altis-consent', plugin_dir_url( __DIR__ ) . 'assets/js/main.js', [ 'jquery' ], '0.0.1', true );
+	wp_enqueue_style( 'altis-consent', plugin_dir_url( __DIR__ ) . 'assets/css/styles.css', [], '0.0.1-' . time(), 'screen' );
 }
 
 function banner_shortcode() : string {
