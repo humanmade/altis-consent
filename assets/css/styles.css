@@ -23,6 +23,6 @@
       margin-right: 10px; }
   .consent-banner .button-row {
     display: grid;
-    grid-column-start: -1; }
-  .consent-banner button {
-    grid-area: 'button'; }
+    grid-template-columns: 3fr repeat(3, 1fr);
+    grid-gap: 10px;
+    align-items: center; }
