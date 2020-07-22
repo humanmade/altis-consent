@@ -98,7 +98,35 @@ function banner_shortcode() : string {
 			<h3>Woohoo! consent has been given for category <?php echo $category_list ?> :)</h3>
 		</div>
 
-		<?php echo wp_kses_post( $button ); ?>
+		<?php echo wp_kses( $button_wrap, [
+			'button' => [
+				'class' => [],
+			],
+			'div' => [
+				'class' => [],
+			],
+			'a' => [
+				'href' => [],
+				'class' => [],
+			],
+			'label' => [
+				'for' => [],
+				'class' => [],
+			],
+			'input' => [
+				'type' => [
+					'checkbox'
+				],
+				'name' => [],
+				'value' => [],
+				'checked' => [
+					'checked' => [],
+				],
+				'disabled' => [
+					'disabled' => [],
+				],
+			],
+		] ); ?>
 
 		<?php if ( $consent_policy ) : ?>
 			<div class="cookie-consent-policy">
