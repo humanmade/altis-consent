@@ -1,0 +1,29 @@
+.entry-content > #cookie-consent-banner {
+  max-width: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 10px 20px 40px; }
+
+.consent-banner {
+  display: grid;
+  min-height: 100px;
+  width: 100%;
+  z-index: 99; }
+  .consent-banner .cookie-preferences {
+    grid-area: 'preferences';
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-gap: 10px;
+    align-items: center; }
+    .consent-banner .cookie-preferences .apply-cookie-preferences {
+      grid-column-start: -1; }
+    .consent-banner .cookie-preferences label {
+      font-size: 1em; }
+    .consent-banner .cookie-preferences input {
+      margin-right: 10px; }
+  .consent-banner .cookie-consent-policy {
+    grid-area: 'policy';
+    grid-column-start: -1; }
+  .consent-banner button {
+    grid-area: 'button'; }

@@ -1,0 +1,37 @@
+.consent-banner {
+	display: grid;
+	min-height: 100px;
+	width: 100%;
+	z-index: 99;
+
+	.cookie-preferences {
+		grid-area: 'preferences';
+		display: grid;
+		grid-template-columns: repeat( 4, 1fr );
+		grid-template-rows: auto 1fr;
+		grid-gap: 10px;
+		align-items: center;
+		// display: none;
+
+		.apply-cookie-preferences {
+			grid-column-start: -1;
+		}
+
+		label {
+			font-size: 1em;
+		}
+
+		input {
+			margin-right: 10px;
+		}
+	}
+
+	.cookie-consent-policy {
+		grid-area: 'policy';
+		grid-column-start: -1;
+	}
+
+	button {
+		grid-area: 'button';
+	}
+}
