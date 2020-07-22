@@ -72,7 +72,7 @@ function banner_shortcode() : string {
 			$buttons .= '<button class="view-preferences">';
 			$buttons .= apply_filters( 'altis.consent.cookie_preferences_button_text', esc_html__( 'Cookie preferences', 'altis-consent' ) );
 			$buttons .= '</button>';
-			$buttons .= '<div class="cookie-preferences">';
+			$button_wrap .= '<div class="cookie-preferences">';
 			foreach ( $categories as $category ) {
 				// Validate the consent category.
 				if ( ! wp_validate_consent_category( $category ) ) {
@@ -84,19 +84,19 @@ function banner_shortcode() : string {
 					continue;
 				}
 
-				$buttons .= '<label for="cookie-preference-' . esc_attr( $category ) . '">';
-				$buttons .= '<input type="checkbox" name="cookie-preferences[' . esc_attr( $category ) . ']" value="' . esc_attr( $category ) . '"';
+				$button_wrap .= '<label for="cookie-preference-' . esc_attr( $category ) . '">';
+				$button_wrap .= '<input type="checkbox" name="cookie-preferences[' . esc_attr( $category ) . ']" value="' . esc_attr( $category ) . '"';
 				if ( 'functional' === $category ) {
-					$buttons .= ' checked="checked" disabled="disabled" ';
+					$button_wrap .= ' checked="checked" disabled="disabled" ';
 				}
-				$buttons .= '/>';
-				$buttons .= ucfirst( esc_attr( $category ) );
-				$buttons .= '</label>';
+				$button_wrap .= '/>';
+				$button_wrap .= ucfirst( esc_attr( $category ) );
+				$button_wrap .= '</label>';
 			}
-			$buttons .= '<button class="apply-cookie-preferences">';
-			$buttons .= apply_filters( 'altis.consent.apply_cookie_preferences_button_text', esc_html__( 'Apply Changes', 'altis-consent' ) );
-			$buttons .= '</button>';
-			$buttons .= '</div>';
+			$button_wrap .= '<button class="apply-cookie-preferences">';
+			$button_wrap .= apply_filters( 'altis.consent.apply_cookie_preferences_button_text', esc_html__( 'Apply Changes', 'altis-consent' ) );
+			$button_wrap .= '</button>';
+			$button_wrap .= '</div>';
 			$button_wrap .= $buttons;
 			break;
 	}

@@ -10,7 +10,6 @@
   width: 100%;
   z-index: 99; }
   .consent-banner .cookie-preferences {
-    grid-area: 'preferences';
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto 1fr;
@@ -22,8 +21,8 @@
       font-size: 1em; }
     .consent-banner .cookie-preferences input {
       margin-right: 10px; }
-  .consent-banner .cookie-consent-policy {
-    grid-area: 'policy';
+  .consent-banner .button-row {
+    display: grid;
     grid-column-start: -1; }
   .consent-banner button {
     grid-area: 'button'; }

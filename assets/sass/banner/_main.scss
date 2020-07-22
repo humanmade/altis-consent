@@ -5,7 +5,6 @@
 	z-index: 99;
 
 	.cookie-preferences {
-		grid-area: 'preferences';
 		display: grid;
 		grid-template-columns: repeat( 4, 1fr );
 		grid-template-rows: auto 1fr;
@@ -26,8 +25,8 @@
 		}
 	}
 
-	.cookie-consent-policy {
-		grid-area: 'policy';
+	.button-row {
+		display: grid;
 		grid-column-start: -1;
 	}
 
