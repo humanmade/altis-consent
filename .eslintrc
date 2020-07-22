@@ -1,0 +1,10 @@
+{
+	"extends": "humanmade",
+	"env": {
+		"es6": true
+	},
+	"globals": {
+		"Promise": true,
+		"Symbol": true
+	}
+}

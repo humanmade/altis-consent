@@ -1,0 +1,41 @@
+{
+  "name": "altis-consent",
+  "version": "0.0.1",
+  "description": "Hooks into the Consent API to provide basic settings and a cookie consent banner for Altis.",
+  "main": "plugin.php",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/humanmade/altis-consent.git"
+  },
+  "keywords": [
+    "wordpress",
+    "consent",
+    "api",
+    "cookies"
+  ],
+  "author": "Human Made Limited <hello@humanmade.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/humanmade/altis-consent/issues"
+  },
+  "homepage": "https://github.com/humanmade/altis-consent#readme",
+  "scripts": {
+    "build": "gulp build",
+    "watch": "gulp watch",
+    "lint:css": "stylelint assets/sass/*.scss",
+    "lint:php": "vendor/squizlabs/php_codesniffer/bin/phpcs -s --standard=phpcs.ruleset.xml .",
+    "lint:js": "eslint .",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:php"
+  },
+  "devDependencies": {
+    "@humanmade/stylelint-config": "^0.8.0",
+    "babel-eslint": "^10.1.0",
+    "del": "^5.1.0",
+    "eslint": "^7.5.0",
+    "eslint-config-humanmade": "^0.8.0",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.1.0",
+    "node-sass": "^4.14.0",
+    "stylelint": "^13.6.0"
+  }
+}

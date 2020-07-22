@@ -1,0 +1,6 @@
+# Ignore 3rd-party code
+vendor
+node_modules
+
+# Ignore built files
+assets/css
