@@ -87,7 +87,7 @@ function banner_shortcode() : string {
 	$button_wrap .= '</div>';
 
 	?>
-	<div id="example-plugin-content" data-consentcategory="<?php echo $category?>">
+	<div id="cookie-consent-banner" data-consentcategory="all" class="consent-banner">
 		<div class="functional-content">
 			<h3>No consent has been given yet for category <?php echo $category?>. </h3>
 		</div>
