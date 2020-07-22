@@ -30,8 +30,25 @@ function enqueue_assets() {
 function banner_shortcode() : string {
 	$options = get_option( 'cookie_consent_options' );
 	$consent_policy = $options['policy_page'] ?: false;
-	$button_wrap = '<div class="button-row">';
-	$buttons  = '<button class="give-consent">';
+	$banner_message = $options['banner_message'];
+	$button_wrap = '';
+	$buttons  = '<div class="button-row">';
+	$buttons .= '<div class="cookie-consent-message">';
+	$buttons .= wp_kses_post( $banner_message );
+	if ( $consent_policy ) {
+		$buttons .= '<div class="cookie-consent-policy">';
+		$buttons .= '<a href=' . esc_url( get_permalink( (int) $consent_policy ) ) . '">';
+		/**
+		 * Allow the cookie consent policy link text to be filtered.
+		 *
+		 * @var string $consent_policy_link_text The
+		 */
+		$buttons .= apply_filters( 'altis.consent.cookie_consent_policy_link_text', esc_html__( 'Read our cookie policy', 'altis-consent' ) );
+		$buttons .= '</a>';
+		$buttons .= '</div>';
+	}
+	$buttons .= '</div>';
+	$buttons .= '<button class="give-consent">';
 	$buttons .= apply_filters( 'altis.consent.accept_all_cookies_button_text', esc_html__( 'Accept all cookies', 'altis-consent' ) );
 	$buttons .= '</button>';
 	$buttons .= '<button class="revoke-consent">';
@@ -127,21 +144,6 @@ function banner_shortcode() : string {
 				],
 			],
 		] ); ?>
-
-		<?php if ( $consent_policy ) : ?>
-			<div class="cookie-consent-policy">
-				<a href="<?php echo esc_url( get_permalink( (int) $consent_policy ) ); ?>">
-					<?php
-					/**
-					 * Allow the cookie consent policy link text to be filtered.
-					 *
-					 * @var string $consent_policy_link_text The
-					 */
-					echo apply_filters( 'altis.consent.cookie_consent_policy_link_text', esc_html__( 'Read our cookie policy', 'altis-consent' ) );
-					?>
-				</a>
-			</div>
-		<?php endif; ?>
 	</div>
 
 	<?php
