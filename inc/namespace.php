@@ -89,10 +89,13 @@ function banner_shortcode() : string {
 	?>
 	<div id="cookie-consent-banner" data-consentcategory="all" class="consent-banner">
 		<div class="functional-content">
-			<h3>No consent has been given yet for category <?php echo $category?>. </h3>
+			<?php
+				$category_list = implode( ', ', $categories );
+			?>
+			<h3>No consent has been given yet for category <?php echo $category_list ?>. </h3>
 		</div>
 		<div class="marketing-content" style="display:none">
-			<h3>Woohoo! consent has been given for category <?php echo $category?> :)</h3>
+			<h3>Woohoo! consent has been given for category <?php echo $category_list ?> :)</h3>
 		</div>
 
 		<?php echo wp_kses_post( $button ); ?>
