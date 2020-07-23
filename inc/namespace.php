@@ -17,7 +17,7 @@ function bootstrap() {
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 
 	// Shortcode. Replace with an actual way to display a banner.
-	add_shortcode( 'cookie-consent-banner', __NAMESPACE__ . '\\banner_shortcode' );
+	add_shortcode( 'cookie-consent-banner', __NAMESPACE__ . '\\render_consent_banner' );
 }
 
 function enqueue_assets() {
