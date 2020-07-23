@@ -1,8 +1,9 @@
 /* global jQuery wp_has_consent wp_set_consent */
 jQuery( document ).ready( function ( $ ) {
-	const consentCategory = $( '#example-plugin-content' ).data( 'consentcategory' ),
+	const consentCategory = $( '#cookie-consent-banner' ).data( 'consentcategory' ),
 		giveConsentButton = $( '.give-consent' ),
-		revokeConsentButton = $( '.revoke-consent' );
+		revokeConsentButton = $( '.revoke-consent' ),
+		cookiePrefsButton = $( '.view-preferences' );
 
 	console.log( `checking consent for category ${consentCategory}` );
 	/**
@@ -75,6 +76,20 @@ jQuery( document ).ready( function ( $ ) {
 		}
 	}
 
+	function toggleCookiePrefs() {
+		$( '.cookie-preferences' ).toggle();
+
+		// Toggle the other buttons when we show the cookie prefs.
+		if ( giveConsentButton.is( ':visible' ) || revokeConsentButton.is( ':visible' ) ) {
+			giveConsentButton.hide();
+			revokeConsentButton.hide();
+		} else {
+			giveConsentButton.show();
+			revokeConsentButton.show();
+		}
+	}
+
 	giveConsentButton.on( 'click', updateConsent );
 	revokeConsentButton.on( 'click', updateConsent );
+	cookiePrefsButton.on( 'click', toggleCookiePrefs );
 } );
