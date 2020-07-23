@@ -17,7 +17,7 @@ gulp.task( 'clean', () => {
 gulp.task( 'build', gulp.series( [ 'clean', 'styles' ] ) );
 
 gulp.task( 'watch', () => {
-	gulp.watch( 'assets/sass/**/*.scss', ( done ) => {
+	gulp.watch( 'assets/sass/**/*.scss', done => {
 		gulp.series( [ 'clean', 'styles' ] )( done );
 	} );
 } );
