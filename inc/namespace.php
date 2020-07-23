@@ -2,8 +2,6 @@
 
 namespace Altis\Consent;
 
-use WP_CONSENT_API;
-
 function bootstrap() {
 	/**
 	 * Tell the consent API we're following the api
