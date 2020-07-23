@@ -18,9 +18,8 @@ $all_categories = 'all-categories' === $options['banner_options'];
 		<?php endif; ?>
 	</div>
 
-	<button class="give-consent">';
+	<button class="give-consent">
 		<?php echo esc_html( apply_filters( 'altis.consent.accept_all_cookies_button_text', __( 'Accept all cookies', 'altis-consent' ) ) ); ?>
-
 	</button>
 
 	<button class="revoke-consent">
