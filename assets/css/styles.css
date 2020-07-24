@@ -15,7 +15,12 @@
     grid-template-rows: auto 1fr;
     grid-gap: 10px;
     align-items: center;
-    display: none; }
+    height: 0px;
+    opacity: 0;
+    transition: opacity 1s, height 1s ease-in-out; }
+    .consent-banner .cookie-preferences.show {
+      height: 4em;
+      opacity: 1; }
     .consent-banner .cookie-preferences .apply-cookie-preferences {
       grid-column-start: -1; }
     .consent-banner .cookie-preferences label {
@@ -27,3 +32,8 @@
     grid-template-columns: 3fr repeat(3, 1fr);
     grid-gap: 10px;
     align-items: center; }
+    .consent-banner .button-row button {
+      opacity: 1;
+      transition: opacity .2s ease-in-out; }
+      .consent-banner .button-row button.view-preferences {
+        z-index: 1; }
