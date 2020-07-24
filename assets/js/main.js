@@ -4,94 +4,71 @@ jQuery( document ).ready( function ( $ ) {
 		giveConsentButton = $( '.give-consent' ),
 		revokeConsentButton = $( '.revoke-consent' ),
 		cookiePrefsButton = $( '.view-preferences' ),
-		cookiePrefsInput = $( '.cookie-preferences input' ),
 		applyCookiePrefs = $( 'button.apply-cookie-preferences' );
 
-	console.log( `checking consent for category ${consentCategory}` );
-	/**
-	 * cookie placing plugin can listen to consent change
-	 *
-	 */
-	console.log( 'load plugin example' );
-	document.addEventListener( 'wp_listen_for_consent_change', function ( e ) {
-		console.log( 'listen for consent events' );
-		let changedConsentCategory = e.detail;
-		console.log( changedConsentCategory );
-		for ( let key in changedConsentCategory ) {
-			if ( changedConsentCategory.hasOwnProperty( key ) ) {
-				if ( key === consentCategory && changedConsentCategory[key] === 'allow' ) {
-					console.log( `set ${consentCategory} cookie on user actions` );
-					activateConsent();
-				}
+	function updateConsent( category = '' ) {
+		category = ( category ) ? category : consentCategory;
+		if ( wp_has_consent( category ) ) {
+			wp_set_consent( category, 'deny' );
+		} else {
+			wp_set_consent( category, 'allow' );
+		}
+	}
+
+	function updateConsentCategories() {
+		const categories = document.getElementsByClassName( 'category-input' );
+		let selected = [],
+			unselected = [];
+
+		for ( const category of categories ) {
+			if ( category.checked ) {
+				selected.push( category.value );
+			} else {
+				unselected.push( category.value );
 			}
 		}
-	} );
 
-	/**
-	 * Or do stuff as soon as the consenttype is defined
-	 */
-	$( document ).on( 'wp_consent_type_defined', activateMyCookies );
-
-	function activateMyCookies( consentData ) {
-		//your code here
-		if ( wp_has_consent( consentCategory ) ) {
-			console.log( `do ${consentCategory} cookie stuff` );
-		} else {
-			console.log( `no ${consentCategory} cookies please` );
+		for ( const selectedCategory of selected ) {
+			wp_set_consent( selectedCategory, 'allow' );
 		}
-	}
 
-	//check if we need to wait for the consenttype to be set
-	if ( ! window.waitfor_consent_hook ) {
-		console.log( 'we don\'t have to wait for the consent type, we can check the consent level right away!' );
-		if ( wp_has_consent( consentCategory ) ) {
-			activateConsent();
-			console.log( `set ${consentCategory} stuff now!` );
-		} else {
-			console.log( `No ${consentCategory} stuff please!` );
-		}
-	}
-
-	/**
-	 * Do stuff that normally would do stuff like tracking personal user data etc.
-	 */
-
-	function activateConsent() {
-		console.log( `fire ${consentCategory}` );
-		$( '#example-plugin-content .functional-content' ).hide();
-		$( '#example-plugin-content .marketing-content' ).show();
-	}
-
-	function revokeConsent() {
-		console.log( `fire ${consentCategory}` );
-		$( '#example-plugin-content .marketing-content' ).hide();
-		$( '#example-plugin-content .functional-content' ).show();
-	}
-
-	function updateConsent() {
-		if ( wp_has_consent( consentCategory ) ) {
-			wp_set_consent( consentCategory, 'deny' );
-			revokeConsent();
-		} else {
-			wp_set_consent( consentCategory, 'allow' );
-			activateConsent();
+		for ( const unselectedCategory of unselected ) {
+			wp_set_consent( unselectedCategory, 'deny' );
 		}
 	}
 
 	function toggleCookiePrefs() {
-		$( '.cookie-preferences' ).toggle();
+		const cookiePrefs = $( '.cookie-preferences' );
+		cookiePrefs.toggleClass( 'show' );
 
 		// Toggle the other buttons when we show the cookie prefs.
-		if ( giveConsentButton.is( ':visible' ) || revokeConsentButton.is( ':visible' ) ) {
-			giveConsentButton.hide();
-			revokeConsentButton.hide();
+		if ( cookiePrefs.hasClass( 'show' ) ) {
+			giveConsentButton.css( {
+				'opacity': 0,
+				'z-index': -1,
+			} );
+			revokeConsentButton.css( {
+				'opacity': 0,
+				'z-index': -1,
+			} );
 		} else {
-			giveConsentButton.show();
-			revokeConsentButton.show();
+			giveConsentButton.css( {
+				'opacity': 1,
+				'z-index': 1,
+			} );
+			revokeConsentButton.css( {
+				'opacity': 1,
+				'z-index': 1,
+			} );
 		}
 	}
 
 	giveConsentButton.on( 'click', updateConsent );
 	revokeConsentButton.on( 'click', updateConsent );
-	cookiePrefsButton.on( 'click', toggleCookiePrefs );
+
+	// Make sure the preverences button exists before triggering an on-click action.
+	if ( cookiePrefsButton ) {
+		cookiePrefsButton.on( 'click', toggleCookiePrefs );
+		applyCookiePrefs.on( 'click', updateConsentCategories );
+	}
 } );
