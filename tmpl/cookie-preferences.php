@@ -27,6 +27,7 @@ $categories = WP_CONSENT_API::$config->consent_categories();
 				<?php if ( 'functional' === $category ) : ?>
 					checked="checked" disabled="disabled"
 				<?php endif; ?>
+				data-consentcategory="<?php echo esc_attr( $category ); ?>"
 			/>
 			<?php echo esc_attr( ucfirst( $category ) ); ?>
 		</label>
