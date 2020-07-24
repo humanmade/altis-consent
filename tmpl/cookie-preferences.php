@@ -23,7 +23,7 @@ $categories = WP_CONSENT_API::$config->consent_categories();
 		?>
 
 		<label for="cookie-preference-<?php echo esc_attr( $category ); ?>">
-			<input type="checkbox" name="cookie-preferences[<?php echo esc_attr( $category ); ?>]" value="<?php echo esc_attr( $category ); ?>"
+			<input type="checkbox" name="cookie-preferences[<?php echo esc_attr( $category ); ?>]" class="category-input" value="<?php echo esc_attr( $category ); ?>"
 				<?php if ( 'functional' === $category ) : ?>
 					checked="checked" disabled="disabled"
 				<?php endif; ?>
