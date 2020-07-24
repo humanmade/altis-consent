@@ -3,7 +3,9 @@ jQuery( document ).ready( function ( $ ) {
 	const consentCategory = $( '#cookie-consent-banner' ).data( 'consentcategory' ),
 		giveConsentButton = $( '.give-consent' ),
 		revokeConsentButton = $( '.revoke-consent' ),
-		cookiePrefsButton = $( '.view-preferences' );
+		cookiePrefsButton = $( '.view-preferences' ),
+		cookiePrefsInput = $( '.cookie-preferences input' ),
+		applyCookiePrefs = $( 'button.apply-cookie-preferences' );
 
 	console.log( `checking consent for category ${consentCategory}` );
 	/**
