@@ -10,7 +10,7 @@ $no_option_saved_message = sprintf(
 
 <div id="cookie-consent-banner" data-consentcategory="all" class="consent-banner">
 	<?php
-	if ( '' === $options['banner_options'] ) :
+	if ( '' === $options['banner_options'] ) {
 		echo wp_kses_post(
 			/**
 			 * Allow the no option saved message to be filtered.
@@ -19,19 +19,9 @@ $no_option_saved_message = sprintf(
 			 */
 			apply_filters( 'altis.consent.no_option_saved_message', $no_option_saved_message )
 		);
-	else :
-		?>
-		<div class="functional-content">
-			<?php
-				$category_list = implode( ', ', $categories );
-			?>
-			<h3>No consent has been given yet for category <?php echo esc_attr( $category_list ); ?>. </h3>
-		</div>
-		<div class="marketing-content" style="display:none">
-			<h3>Woohoo! consent has been given for category <?php echo esc_attr( $category_list ); ?> :)</h3>
-		</div>
-
-		<?php load_template( __DIR__ . '/cookie-preferences.php' ); ?>
-		<?php load_template( __DIR__ . '/button-row.php' ); ?>
-	<?php endif; ?>
+	} else {
+		load_template( __DIR__ . '/cookie-preferences.php' );
+		load_template( __DIR__ . '/button-row.php' );
+	}
+	?>
 </div>
