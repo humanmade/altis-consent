@@ -27,8 +27,6 @@ function enqueue_assets() {
 
 function render_consent_banner() : string {
 	ob_start();
-
-	load_template( plugin_dir_path( __DIR__ ) . 'tmpl/consent-banner.php' );
-
+	load_consent_banner();
 	return ob_get_clean();
 }
