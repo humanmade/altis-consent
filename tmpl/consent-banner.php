@@ -20,6 +20,7 @@ $no_option_saved_message = sprintf(
 			apply_filters( 'altis.consent.no_option_saved_message', $no_option_saved_message )
 		);
 	} else {
+		load_template( __DIR__ . '/consent-updated.php' );
 		load_template( __DIR__ . '/cookie-preferences.php' );
 		load_template( __DIR__ . '/button-row.php' );
 	}
