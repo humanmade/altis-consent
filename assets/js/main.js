@@ -4,7 +4,7 @@ jQuery( document ).ready( function ( $ ) {
 		giveConsentButton = $( '.give-consent' ),
 		revokeConsentButton = $( '.revoke-consent' ),
 		cookiePrefsButton = $( '.view-preferences' ),
-		applyCookiePrefs = $( 'button.apply-cookie-preferences' );
+		applyCookiePrefs = $( '.apply-cookie-preferences' );
 
 	function updateConsent( category = '' ) {
 		// If no category is passed, default to the category defined in the banner wrap.
