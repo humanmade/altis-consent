@@ -1,0 +1,54 @@
+.consent-banner {
+	opacity: 1;
+	transition: all 1.5s ease-in-out;
+
+	&.hide {
+		z-index: -1;
+		height: 0px;
+		opacity: 0;
+		bottom: -200px;
+	}
+
+	.cookie-preferences {
+		height: 0px;
+		opacity: 0;
+		transition: opacity 1s, height 1s ease-in-out;
+
+		&.show {
+			height: 4em;
+			opacity: 1;
+		}
+	}
+
+	button {
+		opacity: 1;
+		transition: opacity .2s ease-in-out;
+
+		&.view-preferences {
+			z-index: 1;
+		}
+
+		&.give-consent,
+		&.revoke-consent {
+			z-index: 1;
+
+			&.hide {
+				z-index: -1;
+				opacity: 0;
+			}
+		}
+	}
+
+	.consent-updated-message {
+		opacity: 0;
+		z-index: -1;
+		height: 0px;
+		transition: opacity 1s, height 1s ease-in-out;
+
+		&.show {
+			opacity: 1;
+			z-index: 1;
+			height: 2em;
+		}
+	}
+}

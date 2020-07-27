@@ -10,14 +10,6 @@
 		grid-template-rows: auto 1fr;
 		grid-gap: 10px;
 		align-items: center;
-		height: 0px;
-		opacity: 0;
-		transition: opacity 1s, height 1s ease-in-out;
-
-		&.show {
-			height: 4em;
-			opacity: 1;
-		}
 
 		.apply-cookie-preferences {
 			grid-column-start: -1;
