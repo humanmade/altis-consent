@@ -32,13 +32,16 @@
 		grid-gap: 10px;
 		align-items: center;
 
-		button {
-			opacity: 1;
-			transition: opacity .2s ease-in-out;
+	}
 
-			&.view-preferences {
-				z-index: 1;
-			}
+	.consent-updated-message p {
+		display: grid;
+		grid-template-columns: 1fr 10px;
+		grid-gap: 10px;
+
+		button {
+			grid-column-start: -1;
+			margin-bottom: 21px;
 		}
 	}
 }
