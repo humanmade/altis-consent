@@ -12,6 +12,7 @@
 
 namespace Altis\Consent;
 
+require_once __DIR__ . '/inc/functions.php';
 require_once __DIR__ . '/inc/namespace.php';
 require_once __DIR__ . '/inc/settings.php';
 
