@@ -6,16 +6,16 @@ jQuery( document ).ready( function ( $ ) {
 		cookiePrefsButton = $( '.view-preferences' ),
 		applyCookiePrefs = $( '.apply-cookie-preferences' );
 
-	function updateConsent( category = '' ) {
+	/**
+	 * Toggle cookie consent.
+	 *
+	 * @param {string} category A specific category to update consent for.
+	 */
+	function updateConsent( category = '', value = 'allow' ) {
 		// If no category is passed, default to the category defined in the banner wrap.
 		category = ( category ) ? category : consentCategory;
 
-		// Toggle consent. TODO: this should be dealt with -- we don't want to toggle when Allow All is clicked.
-		if ( wp_has_consent( category ) ) {
-			wp_set_consent( category, 'deny' );
-		} else {
-			wp_set_consent( category, 'allow' );
-		}
+		wp_set_consent( category, value );
 	}
 
 	function updateConsentCategories() {
@@ -33,12 +33,12 @@ jQuery( document ).ready( function ( $ ) {
 
 		// Set the allowed categories.
 		for ( const selectedCategory of selected ) {
-			wp_set_consent( selectedCategory, 'allow' );
+			updateConsent( selectedCategory );
 		}
 
 		// Set the disallowed categories.
 		for ( const unselectedCategory of unselected ) {
-			wp_set_consent( unselectedCategory, 'deny' );
+			updateConsent( unselectedCategory, 'deny' );
 		}
 	}
 
