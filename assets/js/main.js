@@ -1,4 +1,10 @@
-/* global jQuery wp_has_consent wp_set_consent */
+/* global jQuery wp_set_consent */
+/**
+ * Handle toggling cookie consent.
+ *
+ * @package Altis-Consent
+ */
+
 jQuery( document ).ready( function ( $ ) {
 	const consentCategory = $( '#cookie-consent-banner' ).data( 'consentcategory' ),
 		giveConsentButton = $( '.give-consent' ),
@@ -18,6 +24,9 @@ jQuery( document ).ready( function ( $ ) {
 		wp_set_consent( category, value );
 	}
 
+	/**
+	 * Update consent for individual categories.
+	 */
 	function updateConsentCategories() {
 		const categories = document.getElementsByClassName( 'category-input' );
 		let selected = [],
@@ -42,6 +51,11 @@ jQuery( document ).ready( function ( $ ) {
 		}
 	}
 
+	/**
+	 * Show or hide the cookie preferences.
+	 *
+	 * @todo Change this functionality to add/remove classes instead of affecting the actual CSS.
+	 */
 	function toggleCookiePrefs() {
 		const cookiePrefs = $( '.cookie-preferences' );
 		cookiePrefs.toggleClass( 'show' );
