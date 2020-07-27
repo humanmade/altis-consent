@@ -10,7 +10,9 @@ jQuery( document ).ready( function ( $ ) {
 		giveConsentButton = $( '.give-consent' ),
 		revokeConsentButton = $( '.revoke-consent' ),
 		cookiePrefsButton = $( '.view-preferences' ),
-		applyCookiePrefs = $( '.apply-cookie-preferences' );
+		applyCookiePrefs = $( '.apply-cookie-preferences' ),
+		cookieUpdatedMessage = $( '.consent-updated-message' ),
+		closeUpdatedMessage = $( '.consent-updated-message .close-message' );
 
 	/**
 	 * Toggle cookie consent.
@@ -50,45 +52,45 @@ jQuery( document ).ready( function ( $ ) {
 		for ( const unselectedCategory of unselected ) {
 			updateConsent( unselectedCategory, 'deny' );
 		}
+
+		// Toggle the cookie preferences if we've passed specific categories.
+		if ( $( '.cookie-preferences' ).hasClass( 'show' ) ) {
+			$( '.cookie-preferences' ).removeClass( 'show' );
+
+			// Show the buttons if they are hidden.
+			giveConsentButton.removeClass( 'hide' );
+			revokeConsentButton.removeClass( 'hide' );
+		}
+
+		$( '#cookie-consent-banner' ).addClass( 'hide' );
+
+		preferencesUpdatedMessage();
 	}
 
 	/**
 	 * Show or hide the cookie preferences.
-	 *
-	 * @todo Change this functionality to add/remove classes instead of affecting the actual CSS.
 	 */
 	function toggleCookiePrefs() {
 		const cookiePrefs = $( '.cookie-preferences' );
 		cookiePrefs.toggleClass( 'show' );
 
 		// Toggle the other buttons when we show the cookie prefs.
-		if ( cookiePrefs.hasClass( 'show' ) ) {
-			giveConsentButton.css( {
-				'opacity': 0,
-				'z-index': -1,
-			} );
-			revokeConsentButton.css( {
-				'opacity': 0,
-				'z-index': -1,
-			} );
-		} else {
-			giveConsentButton.css( {
-				'opacity': 1,
-				'z-index': 1,
-			} );
-			revokeConsentButton.css( {
-				'opacity': 1,
-				'z-index': 1,
-			} );
-		}
+		giveConsentButton.toggleClass( 'hide' );
+		revokeConsentButton.toggleClass( 'hide' );
 	}
 
-	giveConsentButton.on( 'click', updateConsent );
-	revokeConsentButton.on( 'click', updateConsent );
+	function preferencesUpdatedMessage() {
+		$( '.consent-updated-message' ).toggleClass( 'show' );
+	}
+
+	giveConsentButton.on( 'click', updateConsentCategories );
+	revokeConsentButton.on( 'click', updateConsentCategories );
 
 	// Make sure the preverences button exists before triggering an on-click action.
 	if ( cookiePrefsButton ) {
 		cookiePrefsButton.on( 'click', toggleCookiePrefs );
 		applyCookiePrefs.on( 'click', updateConsentCategories );
 	}
+
+	closeUpdatedMessage.on( 'click', () => cookieUpdatedMessage.toggleClass( 'show' ) );
 } );
