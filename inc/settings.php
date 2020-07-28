@@ -71,6 +71,11 @@ function add_altis_privacy_page() {
 function get_cookie_consent_settings_fields() {
 	$fields = [
 		[
+			'id'       => 'display_banner',
+			'title'    => __( 'Display Cookie Consent Banner', 'altis-consent' ),
+			'callback' => __NAMESPACE__ . '\\render_display_banner',
+		],
+		[
 			'id'       => 'cookie_expiration',
 			'title'    => __( 'Cookie Expiration', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\cookie_expiration',
@@ -252,6 +257,8 @@ function validate_privacy_options( $dirty ) {
 	$page_exists = (bool) get_post( absint( $dirty['policy_page'] ) );
 	$validated['policy_page'] = $page_exists ? $dirty['policy_page'] : '';
 
+	$validated['display_banner'] = is_numeric( $dirty['display_banner'] ) ? (int) $dirty['display_banner'] : 1;
+
 	/**
 	 * Allow the validated data to be filtered.
 	 * This is useful if additional settings are added to the page that need to be validated.
@@ -317,6 +324,25 @@ function get_consent_option( $option = '', $default = '' ) {
 
 	return $options[ $option ];
 }
+
+/**
+ * Render the display cookie consent banner setting.
+ */
+function render_display_banner() {
+	$display_banner = get_consent_option( 'display_banner', 1 );
+
+	?>
+	<select name="cookie_consent_options[display_banner]" id="display_banner" value="<?php echo absint( $display_banner ); ?>">
+		<option value="0" <?php selected( $display_banner, 0 ); ?>>
+			<?php esc_html_e( 'Do not display banner', 'altis-consent' ); ?>
+		</option>
+		<option value="1" <?php selected( $display_banner, 1 ); ?>>
+			<?php esc_html_e( 'Display consent banner', 'altis-consent' ); ?>
+		</option>
+	</select>
+	<?php
+}
+
 /**
  * Render the cookie expiration setting.
  */
