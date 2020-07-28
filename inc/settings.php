@@ -245,7 +245,7 @@ function validate_privacy_options( $dirty ) {
 	$validated = [];
 
 	// Make sure cookie_expiration is a number.
-	$validated['cookie_expiration'] = is_numeric( $dirty['cookie_expiration'] ) ? $dirty['cookie_expiration'] : '14';
+	$validated['cookie_expiration'] = is_numeric( $dirty['cookie_expiration'] ) ? $dirty['cookie_expiration'] : '30';
 
 	// Make sure the banner_options is in the array of options we expect.
 	$validated['banner_options'] = in_array( $dirty['banner_options'], wp_list_pluck( get_cookie_banner_options(), 'value' ) ) ? $dirty['banner_options'] : '';
