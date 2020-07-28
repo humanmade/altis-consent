@@ -297,6 +297,27 @@ function altis_privacy_section() {
 }
 
 /**
+ * Get a specific consent option, if one exists. If no option value is passed, all saved cookie_consent_options will be returned.
+ *
+ * @param mixed $option  The option value to get from the options table.
+ * @param mixed $default The default value for the given option.
+ *
+ * @return mixed         The value for the requested option, or all cookie_consent_options if nothing was passed.
+ */
+function get_consent_option( $option = '', $default = '' ) {
+	$options = get_option( 'cookie_consent_options' );
+
+	if ( empty( $option ) ) {
+		return $options;
+	}
+
+	if ( ! isset( $options[ $option ] ) ) {
+		return $default;
+	}
+
+	return $options[ $option ];
+}
+/**
  * Render the cookie expiration setting.
  */
 function cookie_expiration() {
