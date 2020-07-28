@@ -321,8 +321,7 @@ function get_consent_option( $option = '', $default = '' ) {
  * Render the cookie expiration setting.
  */
 function cookie_expiration() {
-	$options    = get_option( 'cookie_consent_options' );
-	$expiration = ! empty( $options['cookie_expiration'] ) ? $options['cookie_expiration'] : 14;
+	$expiration = get_consent_option( 'cookie_expiration', 30 );
 	?>
 	<input id="cookie_consent_expiration" name="cookie_consent_options[cookie_expiration]" type="number" value="<?php echo absint( $expiration ); ?>" class="small-text" step="1" />
 	<p class="description">
@@ -335,8 +334,7 @@ function cookie_expiration() {
  * Render the consent banner options setting.
  */
 function render_banner_options() {
-	$options        = get_option( 'cookie_consent_options' );
-	$selected       = $options['banner_options'] ?: '';
+	$selected       = get_consent_option( 'banner_options' );
 	$banner_options = get_cookie_banner_options();
 	?>
 	<select name="cookie_consent_options[banner_options]" id="banner_options" value="<?php echo esc_attr( $selected ); ?>">
@@ -358,15 +356,13 @@ function render_banner_options() {
  * Render the banner message setting.
  */
 function render_banner_message() {
-	$options = get_option( 'cookie_consent_options' );
-
 	/**
 	 * Allow the default cookie banner message to be filtered.
 	 *
 	 * @var string $default_message The default cookie consent banner message.
 	 */
 	$default_message = apply_filters( 'altis.consent.default_banner_message', esc_html__( 'This site uses cookies to provide a better user experience.', 'altis-consent' ) );
-	$message         = $options['banner_message'] ?: $default_message;
+	$message         = get_consent_option( 'banner_message', $default_message );
 
 	// Render a TinyMCE editor for the banner message.
 	wp_editor( wp_kses_post( $message ), 'banner_message', [
@@ -380,7 +376,7 @@ function render_banner_message() {
  * Render the cookie policy page setting.
  */
 function render_cookie_policy_page() {
-	$options = get_option( 'cookie_consent_options' );
+	$page_id = get_consent_option( 'policy_page', 0 );
 	$page_id = sanitize_text_field( $options['policy_page'] ) ?: 0;
 
 	// If there are pages, display the page dropdown mehu. Otherwise, display a message stating that there are no pages.
