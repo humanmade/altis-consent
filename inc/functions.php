@@ -37,3 +37,33 @@ function consent_saved() : bool {
 
 	return false;
 }
+
+/**
+ * Return an array of all the categories that a user has consented to.
+ *
+ * @return array An array of allowed cookie categories.
+ */
+function get_consented_categories() : array {
+	$has_consent = [];
+	$categories  = WP_CONSENT_API::$config->consent_categories();
+
+	/**
+	 * Cookie categories that are always allowed.
+	 *
+	 * @var array Array of always-allowed cookie categories.
+	 */
+	$allowlist = apply_filters( 'altis.consent.allowlisted_categories', [ 'functional', 'statistics-anonymous' ] );
+
+	foreach ( $categories as $category ) {
+		if ( in_array( $category, $allowlist, true ) ) {
+			$has_consent[] = $category;
+			continue;
+		}
+
+		if ( wp_has_consent( $category ) ) {
+			$has_consent[] = $category;
+		}
+	}
+
+	return $has_consent;
+}
