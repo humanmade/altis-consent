@@ -30,7 +30,7 @@ function consent_saved() : bool {
 		}
 
 		// If we have any consent cookies at all, consent has been saved, so just wait until these expire to ask again.
-		if ( isset( $_COOKIE["wp_consent_$category"] ) ) {
+		if ( isset( $_COOKIE[ "wp_consent_$category" ] ) ) {
 			return true;
 		}
 	}
