@@ -403,15 +403,15 @@ function render_banner_message() {
  */
 function render_cookie_policy_page() {
 	$page_id = get_consent_option( 'policy_page', 0 );
-	$page_id = sanitize_text_field( $options['policy_page'] ) ?: 0;
 
 	// If there are pages, display the page dropdown mehu. Otherwise, display a message stating that there are no pages.
 	if ( pages_exist() ) {
 		wp_dropdown_pages( [
+			'id'                => 'policy_page',
 			'name'              => 'cookie_consent_options[policy_page]',
 			'show_option_none'  => '&mdash; ' . esc_html__( 'Select an option', 'altis-consent' ) . ' &mdash;',
 			'option_none_value' => '0',
-			'selected'          => $page_id, // phpcs:ignore
+			'selected'          => esc_attr( $page_id ),
 			'post_status'       => [ 'draft', 'publish' ],
 		] );
 	} else {
