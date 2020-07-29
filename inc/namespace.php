@@ -3,9 +3,7 @@
 namespace Altis\Consent;
 
 function bootstrap() {
-	/**
-	 * Tell the consent API we're following the api
-	 */
+	// Register this plugin with the consent API.
 	add_filter( 'wp_consent_api_registered_' . plugin_basename( __FILE__ ), '__return_true' );
 
 	// Default Altis consent type to "opt-in".
