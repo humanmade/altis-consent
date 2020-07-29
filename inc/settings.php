@@ -12,6 +12,7 @@ function bootstrap() {
 	add_action( 'admin_init', __NAMESPACE__ . '\\update_privacy_policy_page' );
 	add_action( 'admin_menu', __NAMESPACE__ . '\\add_altis_privacy_page' );
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_core_privacy_page' );
+	add_filter( 'wp_consent_api_cookie_expiration', __NAMESPACE__ . '\\register_cookie_expiration' );
 }
 
 /**
@@ -21,6 +22,13 @@ function remove_core_privacy_page() {
 	global $submenu;
 
 	unset( $submenu['options-general.php'][45] );
+}
+
+/**
+ * Filter the consent API cookie expiration to what was saved in the settings.
+ */
+function register_cookie_expiration() {
+	return get_consent_option( 'cookie_expiration', 30 );
 }
 
 /**
