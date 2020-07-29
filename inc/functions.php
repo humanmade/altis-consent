@@ -10,7 +10,16 @@ use WP_CONSENT_API;
 function load_consent_banner() {
 	// Check if we need to load the banner.
 	if ( ! consent_saved() ) {
-		load_template( plugin_dir_path( __DIR__ ) . 'tmpl/consent-banner.php' );
+		load_template(
+			/**
+			 * Allow other plugins or themes to update the path for the consent banner.
+			 *
+			 * If this path is changed, all the subsequent template parts that are used can be customized.
+			 *
+			 * @var string The path to the consent banner template.
+			 */
+			apply_filters( 'altis.consent.consent_banner_path', plugin_dir_path( __DIR__ ) . 'tmpl/consent-banner.php' )
+		);
 	}
 }
 
