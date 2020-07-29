@@ -31,7 +31,7 @@ function load_consent_banner() {
 function consent_saved() : bool {
 	$categories = WP_CONSENT_API::$config->consent_categories();
 
-	// If any of the
+	// Loop through all of the categories.
 	foreach ( $categories as $category ) {
 		// Skip functional cookies preference.
 		if ( $category === 'functional' ) {
