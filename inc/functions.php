@@ -95,6 +95,8 @@ function get_consented_categories() : array {
  *  $args['administrator_cookie'] (bool)      Whether the cookie is relevant for administrators only.
  *  $args['type'] (string)                    One of 'HTTP', 'LOCALSTORAGE', or 'API'.
  *  $args['domain'] (string|bool)             Optional. Domain on which the cookie is set. Defaults to the current site URL.
+ *
+ * @return void|WP_Error                      Either no return or a WP_Error if a parameter was not passed to the function.
  */
 function register_cookie( $args = [] ) {
 	$cookie_expiration = Settings\get_consent_option( 'cookie_expiration', 30 );
