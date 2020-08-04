@@ -22,11 +22,14 @@ jQuery( document ).ready( function ( $ ) {
 		let selected = [],
 			unselected = [];
 
-		for ( const category of categories ) {
-			if ( category.checked ) {
-				selected.push( category.value );
-			} else {
-				unselected.push( category.value );
+		// If we're selecting categories from inputs, add the selected categories to an array and the unselected categories to a different array.
+		if ( cookiePreferences.hasClass( 'show' ) ) {
+			for ( const category of categories ) {
+				if ( category.checked ) {
+					selected.push( category.value );
+				} else {
+					unselected.push( category.value );
+				}
 			}
 		}
 
