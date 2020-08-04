@@ -3,6 +3,7 @@
 namespace Altis\Consent;
 
 use Altis;
+use WP_CONSENT_API;
 
 function bootstrap() {
 	// Register this plugin with the consent API.
@@ -30,6 +31,10 @@ function enqueue_assets() {
 
 	wp_enqueue_script( 'altis-consent', $js, [ 'jquery' ], '0.0.1', true );
 	wp_enqueue_style( 'altis-consent', plugin_dir_url( __DIR__ ) . 'dist/css/styles.css', [], '0.0.1-' . time(), 'screen' );
+
+	wp_localize_script( 'altis-consent', 'altisConsent', [
+		'categories' => WP_CONSENT_API::$config->consent_categories(),
+	] );
 }
 
 function render_consent_banner() : string {
