@@ -33,6 +33,28 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		}
 
+		// If we're consenting to all cookies, add all categories to the selected array.
+		if ( this.className === 'give-consent' ) {
+			// Accept all categories.
+			for ( const category of altisConsent.categories ) {
+				selected.push( category );
+			}
+
+			unselected = [];
+		} else if ( this.className === 'revoke-consent' ) {
+			// If we're only consenting to functional cookies, only add that category to selected and all others to unselected.
+			for ( const category of altisConsent.categories ) {
+				if ( ! altisConsent.alwaysAllowCategories.includes( category ) ) {
+					unselected.push( category );
+				}
+			}
+
+			selected.push( ...altisConsent.alwaysAllowCategories );
+		}
+
+		Array.from( new Set( selected ) );
+		Array.from( new Set( unselected ) );
+
 		// Set the allowed categories.
 		for ( const selectedCategory of selected ) {
 			wp_set_consent( selectedCategory, 'allow' );
