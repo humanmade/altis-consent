@@ -34,6 +34,12 @@ function enqueue_assets() {
 
 	wp_localize_script( 'altis-consent', 'altisConsent', [
 		'categories' => WP_CONSENT_API::$config->consent_categories(),
+		/**
+		 * Allow the array of categories that are always consented to be filtered.
+		 *
+		 * @var array An array of default categories to consent to automatically.
+		 */
+		'alwaysAllowCategories' => apply_filters( 'altis.consent.always_allow_categories', [ 'functional', 'statistics-anonymous' ] ),
 	] );
 }
 
