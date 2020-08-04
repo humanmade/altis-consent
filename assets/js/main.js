@@ -15,19 +15,6 @@ jQuery( document ).ready( function ( $ ) {
 		closeUpdatedMessage = $( '.consent-updated-message .close-message' );
 
 	/**
-	 * Toggle cookie consent.
-	 *
-	 * @param {string} category A specific category to update consent for.
-	 * @param {string} value    The consent value to set. Should be either 'allow', 'deny' or another value that has been defined through the consent API.
-	 */
-	function updateConsent( category = '', value = 'allow' ) {
-		// If no category is passed, default to the category defined in the banner wrap.
-		category = ( category ) ? category : consentCategory;
-
-		wp_set_consent( category, value );
-	}
-
-	/**
 	 * Update consent for individual categories.
 	 */
 	function updateConsentCategories() {
