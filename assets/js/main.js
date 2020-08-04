@@ -31,12 +31,12 @@ jQuery( document ).ready( function ( $ ) {
 
 		// Set the allowed categories.
 		for ( const selectedCategory of selected ) {
-			updateConsent( selectedCategory );
+			wp_set_consent( selectedCategory, 'allow' );
 		}
 
 		// Set the disallowed categories.
 		for ( const unselectedCategory of unselected ) {
-			updateConsent( unselectedCategory, 'deny' );
+			wp_set_consent( unselectedCategory, 'deny' );
 		}
 
 		// Toggle the cookie preferences if we've passed specific categories.
