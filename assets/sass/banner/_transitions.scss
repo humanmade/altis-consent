@@ -1,18 +1,19 @@
 .consent-banner {
 	opacity: 1;
-	transition: all 1.5s ease-in-out;
+	// transition: opacity 1s, height 1s ease-in-out;
 
 	&.hide {
 		z-index: -1;
 		height: 0px;
 		opacity: 0;
 		bottom: -200px;
+		padding: 0;
 	}
 
 	.cookie-preferences {
 		height: 0px;
 		opacity: 0;
-		transition: opacity 1s, height 1s ease-in-out;
+		// transition: opacity 1s, height 1s ease-in-out;
 
 		&.show {
 			height: 4em;
@@ -22,7 +23,7 @@
 
 	button {
 		opacity: 1;
-		transition: opacity .2s ease-in-out;
+		// transition: opacity .2s ease-in-out;
 
 		&.view-preferences {
 			z-index: 1;
@@ -38,17 +39,18 @@
 			}
 		}
 	}
+}
 
-	.consent-updated-message {
-		opacity: 0;
-		z-index: -1;
-		height: 0px;
-		transition: opacity 1s, height 1s ease-in-out;
+.consent-updated-message {
+	opacity: 0;
+	z-index: -1;
+	height: 0px;
+	// transition: opacity 1.3s, height 1s ease-in-out;
 
-		&.show {
-			opacity: 1;
-			z-index: 1;
-			height: 2em;
-		}
+	&.show {
+		padding: 10px 20px 0;
+		opacity: 1;
+		z-index: 1;
+		height: 3em;
 	}
 }
