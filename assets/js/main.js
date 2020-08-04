@@ -74,7 +74,7 @@ jQuery( document ).ready( function ( $ ) {
 			revokeConsentButton.removeClass( 'hide' );
 		}
 
-		$( '#cookie-consent-banner' ).addClass( 'hide' );
+		$( '.consent-banner' ).addClass( 'hide' );
 
 		preferencesUpdatedMessage();
 	}
