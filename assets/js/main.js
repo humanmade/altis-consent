@@ -6,8 +6,7 @@
  */
 
 jQuery( document ).ready( function ( $ ) {
-	const consentCategory = $( '#cookie-consent-banner' ).data( 'consentcategory' ),
-		giveConsentButton = $( '.give-consent' ),
+	const giveConsentButton = $( '.give-consent' ),
 		revokeConsentButton = $( '.revoke-consent' ),
 		cookiePrefsButton = $( '.view-preferences' ),
 		applyCookiePrefs = $( '.apply-cookie-preferences' ),
