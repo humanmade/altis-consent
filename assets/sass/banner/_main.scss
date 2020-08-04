@@ -1,10 +1,7 @@
 .consent-banner {
 	display: grid;
-	min-height: 100px;
 	width: 100%;
-	position: fixed;
-	bottom: 0;
-	z-index: 99;
+	padding: 10px 20px 40px;
 
 	.cookie-preferences {
 		display: grid;
@@ -36,15 +33,16 @@
 			grid-column: 3 / span 1;
 		}
 	}
+}
 
-	.consent-updated-message p {
-		display: grid;
-		grid-template-columns: 1fr 10px;
-		grid-gap: 10px;
+.consent-updated-message p {
+	display: grid;
+	grid-template-columns: 1fr 10px;
+	grid-gap: 10px;
+	align-items: center;
 
-		button {
-			grid-column-start: -1;
-			margin-bottom: 21px;
-		}
+	button {
+		grid-column-start: -1;
+		margin-bottom: 21px;
 	}
 }
