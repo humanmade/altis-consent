@@ -66,8 +66,8 @@ jQuery( document ).ready( function ( $ ) {
 		}
 
 		// Toggle the cookie preferences if we've passed specific categories.
-		if ( $( '.cookie-preferences' ).hasClass( 'show' ) ) {
-			$( '.cookie-preferences' ).removeClass( 'show' );
+		if ( cookiePreferences.hasClass( 'show' ) ) {
+			cookiePreferences.removeClass( 'show' );
 
 			// Show the buttons if they are hidden.
 			giveConsentButton.removeClass( 'hide' );
@@ -83,8 +83,7 @@ jQuery( document ).ready( function ( $ ) {
 	 * Show or hide the cookie preferences.
 	 */
 	function toggleCookiePrefs() {
-		const cookiePrefs = $( '.cookie-preferences' );
-		cookiePrefs.toggleClass( 'show' );
+		cookiePreferences.toggleClass( 'show' );
 
 		// Toggle the other buttons when we show the cookie prefs.
 		giveConsentButton.toggleClass( 'hide' );
