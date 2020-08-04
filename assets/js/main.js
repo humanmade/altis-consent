@@ -8,6 +8,7 @@
 jQuery( document ).ready( function ( $ ) {
 	const giveConsentButton = $( '.give-consent' ),
 		revokeConsentButton = $( '.revoke-consent' ),
+		cookiePreferences = $( '.cookie-preferences' ),
 		cookiePrefsButton = $( '.view-preferences' ),
 		applyCookiePrefs = $( '.apply-cookie-preferences' ),
 		cookieUpdatedMessage = $( '.consent-updated-message' ),
