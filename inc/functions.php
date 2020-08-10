@@ -11,7 +11,7 @@ use WP_Error;
  */
 function load_consent_banner() {
 	// Check if we need to load the banner.
-	if ( ! consent_saved() ) {
+	if ( ! consent_cookie_saved() && should_display_banner() ) {
 		load_template(
 			/**
 			 * Allow other plugins or themes to update the path for the consent banner.
