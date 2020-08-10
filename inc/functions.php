@@ -26,11 +26,11 @@ function load_consent_banner() {
 }
 
 /**
- * Check if consent has already been saved on the client machine.
+ * Check if a consent cookie has already been saved on the client machine.
  *
  * @return bool Return true if consent has been given previously.
  */
-function consent_saved() : bool {
+function consent_cookie_saved() : bool {
 	$categories = WP_CONSENT_API::$config->consent_categories();
 
 	// Loop through all of the categories.
