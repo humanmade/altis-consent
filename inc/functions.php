@@ -140,5 +140,5 @@ function should_display_banner() : bool {
 	 *
 	 * @var bool Defaults to the option on the options page, but can be overridden externally based on other logic.
 	 */
-	return (bool) apply_filters( 'altis.consent.should_display_banner', Settings\get_consent_option( 'display_banner', 0 ) );
+	return (bool) apply_filters( 'altis.consent.should_display_banner', Settings\get_consent_option( 'display_banner', false ) );
 }
