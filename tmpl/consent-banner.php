@@ -1,6 +1,9 @@
 <?php
+
+use Altis\Consent\Settings;
+
 $categories              = WP_CONSENT_API::$config->consent_categories();
-$options                 = get_option( 'cookie_consent_options' );
+$banner_option           = Settings\get_consent_option( 'banner_options' );
 $no_option_saved_message = sprintf(
 	// Translators: %s is the link to the admin Privacy setting page.
 	__( 'No consent option has been set. Please visit the <a href="%s">Privacy Settings page</a> and set the consent banner option.', 'altis-consent.' ),
@@ -19,7 +22,7 @@ $no_option_saved_message = sprintf(
 	?>
 	<div class="consent-banner">
 		<?php
-		if ( '' === $options['banner_options'] ) {
+		if ( '' === $banner_option ) {
 			echo wp_kses_post(
 				/**
 				 * Allow the no option saved message to be filtered.
