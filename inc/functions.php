@@ -11,7 +11,7 @@ use WP_Error;
  */
 function load_consent_banner() {
 	// Check if we need to load the banner.
-	if ( ! consent_saved() ) {
+	if ( ! consent_cookie_saved() && should_display_banner() ) {
 		load_template(
 			/**
 			 * Allow other plugins or themes to update the path for the consent banner.
@@ -26,11 +26,11 @@ function load_consent_banner() {
 }
 
 /**
- * Check if consent has already been saved on the client machine.
+ * Check if a consent cookie has already been saved on the client machine.
  *
  * @return bool Return true if consent has been given previously.
  */
-function consent_saved() : bool {
+function consent_cookie_saved() : bool {
 	$categories = WP_CONSENT_API::$config->consent_categories();
 
 	// Loop through all of the categories.
@@ -125,4 +125,20 @@ function register_cookie( $args = [] ) {
 
 	// Register the cookie with the consent API.
 	wp_add_cookie_info( $cookie_info['name'], $cookie_info['plugin_or_service'], $cookie_info['category'], $cookie_info['expires'], $cookie_info['function'], $cookie_info['collected_personal_data'], $cookie_info['member_cookie'], $cookie_info['administrator_cookie'], $cookie_info['type'], $cookie_info['domain'] );
+}
+
+/**
+ * Determine whether we should display the banner.
+ *
+ * Checks the `display_banner` setting, but also allows that to be hijacked.
+ *
+ * @return bool Whether the banner should be displayed.
+ */
+function should_display_banner() : bool {
+	/**
+	 * Allow the check whether to display the banner at all to be hijacked externally.
+	 *
+	 * @var bool Defaults to the option on the options page, but can be overridden externally based on other logic.
+	 */
+	return (bool) apply_filters( 'altis.consent.should_display_banner', Settings\get_consent_option( 'display_banner', false ) );
 }
