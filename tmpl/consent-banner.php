@@ -18,7 +18,9 @@ $no_option_saved_message = sprintf(
 	 *
 	 * @var string The path to the consent updated template.
 	 */
-	apply_filters( 'altis.consent.consent_updated_template_path', load_template( __DIR__ . '/consent-updated.php' ) );
+	$consent_updated_template_path = apply_filters( 'altis.consent.consent_updated_template_path', __DIR__ . '/consent-updated.php' );
+
+	load_template( $consent_updated_template_path );
 	?>
 	<div class="consent-banner">
 		<?php
@@ -38,7 +40,9 @@ $no_option_saved_message = sprintf(
 				 *
 				 * @var string The path to the cookie preferences template.
 				 */
-				apply_filters( 'altis.consent.cookie_preferences_template_path', load_template( __DIR__ . '/cookie-preferences.php' ) );
+				$cookie_preferences_template_path( 'altis.consent.cookie_preferences_template_path', __DIR__ . '/cookie-preferences.php' );
+
+				load_template( $cookie_preferences_template_path );
 			}
 
 			/**
@@ -46,7 +50,9 @@ $no_option_saved_message = sprintf(
 			 *
 			 * @var string The path to the button row template.
 			 */
-			apply_filters( 'altis.consent.button_row_template_path', load_template( __DIR__ . '/button-row.php' ) );
+			$button_row_template_path = apply_filters( 'altis.consent.button_row_template_path', __DIR__ . '/button-row.php' );
+
+			load_template( $button_row_template_path );
 		}
 		?>
 	</div>
