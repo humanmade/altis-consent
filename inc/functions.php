@@ -63,7 +63,7 @@ function get_consented_categories() : array {
 	 *
 	 * @var array Array of always-allowed cookie categories.
 	 */
-	$allowlist = apply_filters( 'altis.consent.allowlisted_categories', [ 'functional', 'statistics-anonymous' ] );
+	$allowlist = apply_filters( 'altis.consent.always_allow_categories', [ 'functional', 'statistics-anonymous' ] );
 
 	foreach ( $categories as $category ) {
 		if ( in_array( $category, $allowlist, true ) ) {
