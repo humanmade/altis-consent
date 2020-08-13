@@ -387,16 +387,24 @@ function render_banner_options() {
 }
 
 /**
- * Render the banner message setting.
+ * Return the default banner message.
+ *
+ * @return string The default banner message.
  */
-function render_banner_message() {
+function get_default_banner_message() : string {
 	/**
 	 * Allow the default cookie banner message to be filtered.
 	 *
 	 * @var string $default_message The default cookie consent banner message.
 	 */
-	$default_message = apply_filters( 'altis.consent.default_banner_message', esc_html__( 'This site uses cookies to provide a better user experience.', 'altis-consent' ) );
-	$message         = get_consent_option( 'banner_message', $default_message );
+	return apply_filters( 'altis.consent.default_banner_message', esc_html__( 'This site uses cookies to provide a better user experience.', 'altis-consent' ) );
+}
+
+/**
+ * Render the banner message setting.
+ */
+function render_banner_message() {
+	$message = get_consent_option( 'banner_message', get_default_banner_message() );
 
 	// Render a TinyMCE editor for the banner message.
 	wp_editor( wp_kses_post( $message ), 'banner_message', [
