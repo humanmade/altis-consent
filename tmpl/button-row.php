@@ -20,7 +20,9 @@ $all_categories = 'all-categories' === $options['banner_options'];
 				 *
 				 * @var string The path to the cookie consent policy template.
 				 */
-				apply_filters( 'altis.consent.cookie_consent_policy_template_path', load_template( __DIR__ . '/cookie-consent-policy.php' ) );
+				$cookie_consent_policy_path = apply_filters( 'altis.consent.cookie_consent_policy_template_path', __DIR__ . '/cookie-consent-policy.php' );
+
+				load_template( $cookie_consent_policy_path );
 			?>
 		<?php endif; ?>
 	</div>
