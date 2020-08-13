@@ -11,11 +11,7 @@ use Altis\Consent\Settings;
  * Get the consent options and set some specific default values.
  */
 $options        = get_option( 'cookie_consent_options', [] );
-$options = wp_parse_args( $options, [
-      'banner_message' => Settings\get_default_banner_message(),
-	'policy_page'    => false,
-	'banner-options' => 'none',
-] );
+$options        = wp_parse_args( $options, [
 	'banner_message' => Settings\get_default_banner_message(),
 	'policy_page'    => false,
 	'banner-options' => 'none',
