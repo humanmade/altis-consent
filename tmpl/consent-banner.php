@@ -40,7 +40,7 @@ $no_option_saved_message = sprintf(
 				 *
 				 * @var string The path to the cookie preferences template.
 				 */
-				$cookie_preferences_template_path( 'altis.consent.cookie_preferences_template_path', __DIR__ . '/cookie-preferences.php' );
+				$cookie_preferences_template_path = apply_filters( 'altis.consent.cookie_preferences_template_path', __DIR__ . '/cookie-preferences.php' );
 
 				load_template( $cookie_preferences_template_path );
 			}
