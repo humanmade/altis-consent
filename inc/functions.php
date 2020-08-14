@@ -149,7 +149,7 @@ function should_display_banner() : bool {
  * @return string The cookie policy page url.
  */
 function get_cookie_policy_url() : string {
-	$cookie_policy_page_id  = Settings\get_consent_option( 'policy_page', 0 );
+	$cookie_policy_page_id = Settings\get_consent_option( 'policy_page', 0 );
 
 	if ( 'page' !== get_post_type( $cookie_policy_page_id ) ) {
 		$cookie_policy_page_url = get_permalink( $cookie_policy_page_id );
