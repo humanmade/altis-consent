@@ -142,3 +142,27 @@ function should_display_banner() : bool {
 	 */
 	return (bool) apply_filters( 'altis.consent.should_display_banner', Settings\get_consent_option( 'display_banner', false ) );
 }
+
+/**
+ * Return the cookie policy page url.
+ *
+ * @return string The cookie policy page url.
+ */
+function get_cookie_policy_url() : string {
+	$cookie_policy_page_id  = Settings\get_consent_option( 'policy_page', 0 );
+
+	if ( 'page' !== get_post_type( $cookie_policy_page_id ) ) {
+		$cookie_policy_page_url = get_permalink( $cookie_policy_page_id );
+	} elseif ( ! $cookie_policy_page_id ) {
+		$cookie_policy_page_url = '';
+	} else {
+		$cookie_policy_page_url = get_page_uri( $cookie_policy_page_id );
+	}
+
+	/**
+	 * Allow the cookie policy page url to be filtered.
+	 *
+	 * @var string The cookie policy page url.
+	 */
+	return apply_filters( 'altis.consent.cookie_policy_url', $cookie_policy_page_url );
+}
