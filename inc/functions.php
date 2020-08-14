@@ -151,12 +151,11 @@ function should_display_banner() : bool {
 function get_cookie_policy_url() : string {
 	$cookie_policy_page_id = Settings\get_consent_option( 'policy_page', 0 );
 
-	if ( 'page' !== get_post_type( $cookie_policy_page_id ) ) {
-		$cookie_policy_page_url = get_permalink( $cookie_policy_page_id );
-	} elseif ( ! $cookie_policy_page_id ) {
-		$cookie_policy_page_url = '';
-	} else {
+	// Make sure the cookie policy page ID is an actual page.
+	if ( 'page' === get_post_type( $cookie_policy_page_id ) ) {
 		$cookie_policy_page_url = get_page_uri( $cookie_policy_page_id );
+	} else {
+		$cookie_policy_page_url = '';
 	}
 
 	/**
