@@ -25,7 +25,16 @@ $all_categories = 'all-categories' === $options['banner_options'];
 	<div class="cookie-consent-message">
 		<?php echo wp_kses_post( $banner_message ); ?>
 		<?php if ( $policy_page ) : ?>
-			<?php load_template( __DIR__ . '/cookie-consent-policy.php' ); ?>
+			<?php
+				/**
+				 * Allow the cookie consent policy template path to be overridden so it can be customized individually. This template displays the link to the cookie policy page, but only if a cookie policy page has been set.
+				 *
+				 * @var string The path to the cookie consent policy template.
+				 */
+				$cookie_consent_policy_path = apply_filters( 'altis.consent.cookie_consent_policy_template_path', __DIR__ . '/cookie-consent-policy.php' );
+
+				load_template( $cookie_consent_policy_path );
+			?>
 		<?php endif; ?>
 	</div>
 
