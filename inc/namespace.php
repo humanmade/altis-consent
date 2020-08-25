@@ -5,6 +5,9 @@ namespace Altis\Consent;
 use Altis;
 use WP_CONSENT_API;
 
+/**
+ * Kick everything off.
+ */
 function bootstrap() {
 	// Register this plugin with the consent API.
 	add_filter( 'wp_consent_api_registered_' . plugin_basename( __FILE__ ), '__return_true' );
@@ -21,6 +24,9 @@ function bootstrap() {
 	add_shortcode( 'cookie-consent-banner', __NAMESPACE__ . '\\render_consent_banner' );
 }
 
+/**
+ * Enqueue css and js.
+ */
 function enqueue_assets() {
 	$js = plugin_dir_url( __DIR__ ) . 'dist/js/main.js';
 
@@ -43,6 +49,13 @@ function enqueue_assets() {
 	] );
 }
 
+/**
+ * Output the consent banner.
+ *
+ * Output here is returned rather than explicitly loaded in case it needs to be loaded into a variable.
+ *
+ * @return string The consent banner html.
+ */
 function render_consent_banner() : string {
 	ob_start();
 	load_consent_banner();
