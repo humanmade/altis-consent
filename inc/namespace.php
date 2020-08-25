@@ -28,15 +28,17 @@ function bootstrap() {
  * Enqueue css and js.
  */
 function enqueue_assets() {
-	$js = plugin_dir_url( __DIR__ ) . 'dist/js/main.js';
+	$js  = plugin_dir_url( __DIR__ ) . 'dist/js/main.js';
+	$ver = '1.0.0';
 
 	// If working locally, load the unminified version of the js file.
 	if ( Altis\get_environment_type() === 'local' ) {
-		$js = plugin_dir_url( __DIR__ ) . 'assets/js/main.js';
+		$js   = plugin_dir_url( __DIR__ ) . 'assets/js/main.js';
+		$ver .= '-' . time();
 	}
 
-	wp_enqueue_script( 'altis-consent', $js, [ 'jquery' ], '0.0.1', true );
-	wp_enqueue_style( 'altis-consent', plugin_dir_url( __DIR__ ) . 'dist/css/styles.css', [], '0.0.1-' . time(), 'screen' );
+	wp_enqueue_script( 'altis-consent', $js, [ 'jquery' ], $ver, true );
+	wp_enqueue_style( 'altis-consent', plugin_dir_url( __DIR__ ) . 'dist/css/styles.css', [], $ver, 'screen' );
 
 	wp_localize_script( 'altis-consent', 'altisConsent', [
 		'categories' => WP_CONSENT_API::$config->consent_categories(),
