@@ -90,10 +90,14 @@ jQuery( document ).ready( function ( $ ) {
 		revokeConsentButton.toggleClass( 'hide' );
 	}
 
+	/**
+	 * Display the "preferences updated" message.
+	 */
 	function preferencesUpdatedMessage() {
 		$( '.consent-updated-message' ).toggleClass( 'show' );
 	}
 
+	// Update consent when buttons are clicked.
 	giveConsentButton.on( 'click', updateConsentCategories );
 	revokeConsentButton.on( 'click', updateConsentCategories );
 
@@ -103,5 +107,6 @@ jQuery( document ).ready( function ( $ ) {
 		applyCookiePrefs.on( 'click', updateConsentCategories );
 	}
 
+	// Close the updated message when the [x] is clicked.
 	closeUpdatedMessage.on( 'click', () => cookieUpdatedMessage.toggleClass( 'show' ) );
 } );
