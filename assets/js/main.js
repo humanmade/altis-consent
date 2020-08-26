@@ -69,10 +69,10 @@ function updateConsentCategories() {
 	if ( classes.includes( 'show' ) ) {
 		cookiePreferences.classList.remove( 'show' );
 
-			// Show the buttons if they are hidden.
-			giveConsentButton.removeClass( 'hide' );
-			revokeConsentButton.removeClass( 'hide' );
-		}
+		// Show the buttons if they are hidden.
+		giveConsentButton.classList.remove( 'hide' );
+		revokeConsentButton.classList.remove( 'hide' );
+	}
 
 	document.querrySelector( 'consent-banner' ).classList.add( 'hide' );
 
