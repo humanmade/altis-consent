@@ -1,11 +1,11 @@
-/* global jQuery wp_set_consent altisConsent */
+/* global wp_set_consent altisConsent */
 /**
  * Handle toggling cookie consent.
  *
  * @package Altis-Consent
  */
 
-jQuery( document ).ready( function ( $ ) {
+const giveConsentButton = document.querySelector( '.give-consent' ),
 	const giveConsentButton = $( '.give-consent' ),
 		revokeConsentButton = $( '.revoke-consent' ),
 		cookiePreferences = $( '.cookie-preferences' ),
@@ -104,4 +104,3 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	closeUpdatedMessage.on( 'click', () => cookieUpdatedMessage.toggleClass( 'show' ) );
-} );
