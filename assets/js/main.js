@@ -97,13 +97,13 @@ function preferencesUpdatedMessage() {
 	document.querySelector( '.consent-updated-message' ).toggle( 'show' );
 }
 
-	giveConsentButton.on( 'click', updateConsentCategories );
-	revokeConsentButton.on( 'click', updateConsentCategories );
+giveConsentButton.addEventListener( 'click', updateConsentCategories );
+revokeConsentButton.addEventListener( 'click', updateConsentCategories );
 
-	// Make sure the preverences button exists before triggering an on-click action.
-	if ( cookiePrefsButton ) {
-		cookiePrefsButton.on( 'click', toggleCookiePrefs );
-		applyCookiePrefs.on( 'click', updateConsentCategories );
-	}
+// Make sure the preverences button exists before triggering an on-click action.
+if ( cookiePrefsButton ) {
+	cookiePrefsButton.addEventListener( 'click', toggleCookiePrefs );
+	applyCookiePrefs.addEventListener( 'click', updateConsentCategories );
+}
 
-	closeUpdatedMessage.on( 'click', () => cookieUpdatedMessage.toggleClass( 'show' ) );
+closeUpdatedMessage.addEventListener( 'click', () => cookieUpdatedMessage.toggle( 'show' ) );
