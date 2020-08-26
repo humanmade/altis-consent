@@ -79,16 +79,16 @@ function updateConsentCategories() {
 	preferencesUpdatedMessage();
 }
 
-	/**
-	 * Show or hide the cookie preferences.
-	 */
-	function toggleCookiePrefs() {
-		cookiePreferences.toggleClass( 'show' );
+/**
+ * Show or hide the cookie preferences.
+ */
+function toggleCookiePrefs() {
+	cookiePreferences.toggle( 'show' );
 
-		// Toggle the other buttons when we show the cookie prefs.
-		giveConsentButton.toggleClass( 'hide' );
-		revokeConsentButton.toggleClass( 'hide' );
-	}
+	// Toggle the other buttons when we show the cookie prefs.
+	giveConsentButton.toggle( 'hide' );
+	revokeConsentButton.toggle( 'hide' );
+}
 
 /**
  * Show the preferences updated message.
