@@ -35,7 +35,9 @@ function enqueue_assets() {
 	if ( Altis\get_environment_type() === 'local' ) {
 		// If working locally, load the unminified version of the js file.
 		$js   = plugin_dir_url( __DIR__ ) . 'assets/js/main.js';
-		$ver .= '-' . time();
+
+		// Break the cached CSS on local.
+		$ver .= '-' . filemtime( $css );
 	}
 
 	wp_enqueue_script( 'altis-consent', $js, [ 'jquery' ], $ver, true );
