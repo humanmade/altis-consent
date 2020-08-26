@@ -83,18 +83,22 @@ function updateConsentCategories() {
  * Show or hide the cookie preferences.
  */
 function toggleCookiePrefs() {
+	const allowAllClasses = giveConsentButton.classList,
+		allowFunctionalClasses = revokeConsentButton.classList;
+
 	cookiePreferences.toggle( 'show' );
 
 	// Toggle the other buttons when we show the cookie prefs.
-	giveConsentButton.toggle( 'hide' );
-	revokeConsentButton.toggle( 'hide' );
+	allowAllClasses.toggle( 'hide' );
+	allowFunctionalClasses.toggle( 'hide' );
 }
 
 /**
  * Show the preferences updated message.
  */
 function preferencesUpdatedMessage() {
-	document.querySelector( '.consent-updated-message' ).toggle( 'show' );
+	const consentUpdated = document.querySelector( '.consent-updated-message' ).classList;
+	consentUpdated.toggle( 'show' );
 }
 
 giveConsentButton.addEventListener( 'click', updateConsentCategories );
