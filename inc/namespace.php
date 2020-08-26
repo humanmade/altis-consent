@@ -29,6 +29,7 @@ function bootstrap() {
  */
 function enqueue_assets() {
 	$js  = plugin_dir_url( __DIR__ ) . 'dist/js/main.js';
+	$css = plugin_dir_url( __DIR__ ) . 'dist/css/styles.css';
 	$ver = '1.0.0';
 
 	// If working locally, load the unminified version of the js file.
