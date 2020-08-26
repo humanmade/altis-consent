@@ -7,7 +7,7 @@
 
 const giveConsentButton = document.querySelector( '.give-consent' ),
 	revokeConsentButton = document.querySelector( '.revoke-consent' ),
-	cookiePreferences = document.querySelector( '.cookie-preferences' ),
+	cookiePreferences = document.querySelector( '.cookie-preferences' ).classList,
 	cookiePrefsButton = document.querySelector( '.view-preferences' ),
 	applyCookiePrefs = document.querySelector( '.apply-cookie-preferences' ),
 	cookieUpdatedMessage = document.querySelector( '.consent-updated-message' ),
@@ -17,13 +17,12 @@ const giveConsentButton = document.querySelector( '.give-consent' ),
  * Update consent for individual categories.
  */
 function updateConsentCategories() {
-	const categories = document.getElementsByClassName( 'category-input' ),
-		classes = cookiePreferences.classList;
+	const categories = document.getElementsByClassName( 'category-input' );
 	let selected = [],
 		unselected = [];
 
 	// If we're selecting categories from inputs, add the selected categories to an array and the unselected categories to a different array.
-	if ( classes.includes( 'show' ) ) {
+	if ( cookiePreferences && cookiePreferences.contains( 'show' ) ) {
 		for ( const category of categories ) {
 			if ( category.checked ) {
 				selected.push( category.value );
@@ -66,8 +65,8 @@ function updateConsentCategories() {
 	}
 
 	// Toggle the cookie preferences if we've passed specific categories.
-	if ( classes.includes( 'show' ) ) {
-		cookiePreferences.classList.remove( 'show' );
+	if ( cookiePreferences && cookiePreferences.contains( 'show' ) ) {
+		cookiePreferences.remove( 'show' );
 
 		// Show the buttons if they are hidden.
 		giveConsentButton.classList.remove( 'hide' );
