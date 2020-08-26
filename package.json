@@ -1,7 +1,7 @@
 {
   "name": "altis-consent",
-  "version": "1.0.0",
   "description": "Hooks into the Consent API to provide basic settings and a cookie consent banner for Altis.",
+  "private": true,
   "main": "plugin.php",
   "repository": {
     "type": "git",
@@ -36,19 +36,19 @@
     "@humanmade/stylelint-config": "^0.8.0",
     "babel-eslint": "^10.1.0",
     "del": "^5.1.0",
-    "eslint": "^7.7.0",
+    "eslint": "^7.5.0",
     "eslint-config-humanmade": "^0.8.0",
     "eslint-config-react-app": "^5.2.0",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.0",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.0",
+    "eslint-plugin-react": "^7.20.5",
+    "eslint-plugin-react-hooks": "^4.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.0",
     "gulp-csso": "^4.0.0",
     "gulp-sass": "^4.1.0",
-    "gulp-terser": "^1.4.0",
+    "gulp-terser": "^1.2.0",
     "node-sass": "^4.14.0",
     "stylelint": "^13.6.0"
   }
