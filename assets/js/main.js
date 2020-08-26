@@ -47,9 +47,10 @@ function updateConsentCategories() {
 				unselected.push( category );
 			}
 		}
-
-		selected.push( ...altisConsent.alwaysAllowCategories );
 	}
+
+	// Add the categories that we're always allowing.
+	selected.push( ...altisConsent.alwaysAllowCategories );
 
 	Array.from( new Set( selected ) );
 	Array.from( new Set( unselected ) );
