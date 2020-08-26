@@ -22,11 +22,11 @@ function bootstrap() {
 }
 
 function enqueue_assets() {
-	$js  = plugin_dir_url( __DIR__ ) . 'dist/js/main.js';
+	$js = plugin_dir_url( __DIR__ ) . 'dist/js/main.js';
 
 	// If working locally, load the unminified version of the js file.
 	if ( Altis\get_environment_type() === 'local' ) {
-		$js   = plugin_dir_url( __DIR__ ) . 'assets/js/main.js';
+		$js = plugin_dir_url( __DIR__ ) . 'assets/js/main.js';
 	}
 
 	wp_enqueue_script( 'altis-consent', $js, [], '0.0.1', true );
