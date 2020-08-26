@@ -32,8 +32,8 @@ function enqueue_assets() {
 	$css = plugin_dir_url( __DIR__ ) . 'dist/css/styles.css';
 	$ver = '1.0.0';
 
-	// If working locally, load the unminified version of the js file.
 	if ( Altis\get_environment_type() === 'local' ) {
+		// If working locally, load the unminified version of the js file.
 		$js   = plugin_dir_url( __DIR__ ) . 'assets/js/main.js';
 		$ver .= '-' . time();
 	}
