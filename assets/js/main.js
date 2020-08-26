@@ -13,24 +13,25 @@ const giveConsentButton = document.querySelector( '.give-consent' ),
 	cookieUpdatedMessage = document.querySelector( '.consent-updated-message' ),
 	closeUpdatedMessage = document.getElementById( 'consent-close-updated-message' );
 
-	/**
-	 * Update consent for individual categories.
-	 */
-	function updateConsentCategories() {
-		const categories = document.getElementsByClassName( 'category-input' );
-		let selected = [],
-			unselected = [];
+/**
+ * Update consent for individual categories.
+ */
+function updateConsentCategories() {
+	const categories = document.getElementsByClassName( 'category-input' ),
+		classes = cookiePreferences.classList;
+	let selected = [],
+		unselected = [];
 
-		// If we're selecting categories from inputs, add the selected categories to an array and the unselected categories to a different array.
-		if ( cookiePreferences.hasClass( 'show' ) ) {
-			for ( const category of categories ) {
-				if ( category.checked ) {
-					selected.push( category.value );
-				} else {
-					unselected.push( category.value );
-				}
+	// If we're selecting categories from inputs, add the selected categories to an array and the unselected categories to a different array.
+	if ( classes.includes( 'show' ) ) {
+		for ( const category of categories ) {
+			if ( category.checked ) {
+				selected.push( category.value );
+			} else {
+				unselected.push( category.value );
 			}
 		}
+	}
 
 		// If we're consenting to all cookies, add all categories to the selected array.
 		if ( this.className === 'give-consent' ) {
@@ -64,9 +65,9 @@ const giveConsentButton = document.querySelector( '.give-consent' ),
 			wp_set_consent( unselectedCategory, 'deny' );
 		}
 
-		// Toggle the cookie preferences if we've passed specific categories.
-		if ( cookiePreferences.hasClass( 'show' ) ) {
-			cookiePreferences.removeClass( 'show' );
+	// Toggle the cookie preferences if we've passed specific categories.
+	if ( classes.includes( 'show' ) ) {
+		cookiePreferences.classList.remove( 'show' );
 
 			// Show the buttons if they are hidden.
 			giveConsentButton.removeClass( 'hide' );
