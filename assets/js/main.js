@@ -6,13 +6,12 @@
  */
 
 const giveConsentButton = document.querySelector( '.give-consent' ),
-	const giveConsentButton = $( '.give-consent' ),
-		revokeConsentButton = $( '.revoke-consent' ),
-		cookiePreferences = $( '.cookie-preferences' ),
-		cookiePrefsButton = $( '.view-preferences' ),
-		applyCookiePrefs = $( '.apply-cookie-preferences' ),
-		cookieUpdatedMessage = $( '.consent-updated-message' ),
-		closeUpdatedMessage = $( '.consent-updated-message .close-message' );
+	revokeConsentButton = document.querySelector( '.revoke-consent' ),
+	cookiePreferences = document.querySelector( '.cookie-preferences' ),
+	cookiePrefsButton = document.querySelector( '.view-preferences' ),
+	applyCookiePrefs = document.querySelector( '.apply-cookie-preferences' ),
+	cookieUpdatedMessage = document.querySelector( '.consent-updated-message' ),
+	closeUpdatedMessage = document.getElementById( 'consent-close-updated-message' );
 
 	/**
 	 * Update consent for individual categories.
@@ -74,10 +73,10 @@ const giveConsentButton = document.querySelector( '.give-consent' ),
 			revokeConsentButton.removeClass( 'hide' );
 		}
 
-		$( '.consent-banner' ).addClass( 'hide' );
+	document.querrySelector( 'consent-banner' ).classList.add( 'hide' );
 
-		preferencesUpdatedMessage();
-	}
+	preferencesUpdatedMessage();
+}
 
 	/**
 	 * Show or hide the cookie preferences.
@@ -90,9 +89,12 @@ const giveConsentButton = document.querySelector( '.give-consent' ),
 		revokeConsentButton.toggleClass( 'hide' );
 	}
 
-	function preferencesUpdatedMessage() {
-		$( '.consent-updated-message' ).toggleClass( 'show' );
-	}
+/**
+ * Show the preferences updated message.
+ */
+function preferencesUpdatedMessage() {
+	document.querySelector( '.consent-updated-message' ).toggle( 'show' );
+}
 
 	giveConsentButton.on( 'click', updateConsentCategories );
 	revokeConsentButton.on( 'click', updateConsentCategories );
