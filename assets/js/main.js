@@ -33,37 +33,37 @@ function updateConsentCategories() {
 		}
 	}
 
-		// If we're consenting to all cookies, add all categories to the selected array.
-		if ( this.className === 'give-consent' ) {
-			// Accept all categories.
-			for ( const category of altisConsent.categories ) {
-				selected.push( category );
+	// If we're consenting to all cookies, add all categories to the selected array.
+	if ( this.className === 'give-consent' ) {
+		// Accept all categories.
+		for ( const category of altisConsent.categories ) {
+			selected.push( category );
+		}
+
+		unselected = [];
+	} else if ( this.className === 'revoke-consent' ) {
+		// If we're only consenting to functional cookies, only add that category to selected and all others to unselected.
+		for ( const category of altisConsent.categories ) {
+			if ( ! altisConsent.alwaysAllowCategories.includes( category ) ) {
+				unselected.push( category );
 			}
-
-			unselected = [];
-		} else if ( this.className === 'revoke-consent' ) {
-			// If we're only consenting to functional cookies, only add that category to selected and all others to unselected.
-			for ( const category of altisConsent.categories ) {
-				if ( ! altisConsent.alwaysAllowCategories.includes( category ) ) {
-					unselected.push( category );
-				}
-			}
-
-			selected.push( ...altisConsent.alwaysAllowCategories );
 		}
 
-		Array.from( new Set( selected ) );
-		Array.from( new Set( unselected ) );
+		selected.push( ...altisConsent.alwaysAllowCategories );
+	}
 
-		// Set the allowed categories.
-		for ( const selectedCategory of selected ) {
-			wp_set_consent( selectedCategory, 'allow' );
-		}
+	Array.from( new Set( selected ) );
+	Array.from( new Set( unselected ) );
 
-		// Set the disallowed categories.
-		for ( const unselectedCategory of unselected ) {
-			wp_set_consent( unselectedCategory, 'deny' );
-		}
+	// Set the allowed categories.
+	for ( const selectedCategory of selected ) {
+		wp_set_consent( selectedCategory, 'allow' );
+	}
+
+	// Set the disallowed categories.
+	for ( const unselectedCategory of unselected ) {
+		wp_set_consent( unselectedCategory, 'deny' );
+	}
 
 	// Toggle the cookie preferences if we've passed specific categories.
 	if ( classes.includes( 'show' ) ) {
