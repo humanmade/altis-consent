@@ -10,7 +10,7 @@ const giveConsentButton = document.querySelector( '.give-consent' ),
 	cookiePreferences = document.querySelector( '.cookie-preferences' ).classList,
 	cookiePrefsButton = document.querySelector( '.view-preferences' ),
 	applyCookiePrefs = document.querySelector( '.apply-cookie-preferences' ),
-	cookieUpdatedMessage = document.querySelector( '.consent-updated-message' ),
+	cookieUpdatedMessage = document.querySelector( '.consent-updated-message' ).classList,
 	closeUpdatedMessage = document.getElementById( 'consent-close-updated-message' );
 
 /**
