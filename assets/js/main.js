@@ -74,7 +74,7 @@ function updateConsentCategories() {
 		revokeConsentButton.classList.remove( 'hide' );
 	}
 
-	document.querrySelector( 'consent-banner' ).classList.add( 'hide' );
+	document.querySelector( '.consent-banner' ).classList.add( 'hide' );
 
 	preferencesUpdatedMessage();
 }
