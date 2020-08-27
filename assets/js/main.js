@@ -5,20 +5,20 @@
  * @package Altis-Consent
  */
 
-const giveConsentButton = document.querySelector( '.give-consent' ),
-	revokeConsentButton = document.querySelector( '.revoke-consent' ),
-	cookiePreferences = document.querySelector( '.cookie-preferences' ).classList,
-	cookiePrefsButton = document.querySelector( '.view-preferences' ),
-	applyCookiePrefs = document.querySelector( '.apply-cookie-preferences' ),
+const giveConsentButton  = document.querySelector( '.give-consent' ),
+	revokeConsentButton  = document.querySelector( '.revoke-consent' ),
+	cookiePreferences    = document.querySelector( '.cookie-preferences' ).classList,
+	cookiePrefsButton    = document.querySelector( '.view-preferences' ),
+	applyCookiePrefs     = document.querySelector( '.apply-cookie-preferences' ),
 	cookieUpdatedMessage = document.querySelector( '.consent-updated-message' ).classList,
-	closeUpdatedMessage = document.getElementById( 'consent-close-updated-message' );
+	closeUpdatedMessage  = document.getElementById( 'consent-close-updated-message' );
 
 /**
  * Update consent for individual categories.
  */
 function updateConsentCategories() {
 	const categories = document.getElementsByClassName( 'category-input' );
-	let selected = [],
+	let selected   = [],
 		unselected = [];
 
 	// If we're selecting categories from inputs, add the selected categories to an array and the unselected categories to a different array.
@@ -83,7 +83,7 @@ function updateConsentCategories() {
  * Show or hide the cookie preferences.
  */
 function toggleCookiePrefs() {
-	const allowAllClasses = giveConsentButton.classList,
+	const allowAllClasses      = giveConsentButton.classList,
 		allowFunctionalClasses = revokeConsentButton.classList;
 
 	cookiePreferences.toggle( 'show' );
