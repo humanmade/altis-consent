@@ -3,7 +3,7 @@
  * Plugin Name: Altis Consent
  * Plugin URI: https://github.com/humanmade/altis-consent
  * Description: Hooks into the Consent API to provide basic settings and a cookie consent banner for Altis.
- * Version: 0.0.1
+ * Version: 1.0.0
  * Text Domain: altis-consent
  * Domain Path: /languages
  * Author: Human Made

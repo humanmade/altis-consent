@@ -1,7 +1,7 @@
 {
   "name": "altis-consent",
-  "version": "0.0.1",
   "description": "Hooks into the Consent API to provide basic settings and a cookie consent banner for Altis.",
+  "private": true,
   "main": "plugin.php",
   "repository": {
     "type": "git",
