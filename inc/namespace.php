@@ -40,7 +40,7 @@ function enqueue_assets() {
 		$ver .= '-' . filemtime( $css );
 	}
 
-	wp_enqueue_script( 'altis-consent', $js, [ 'jquery' ], $ver, true );
+	wp_enqueue_script( 'altis-consent', $js, [], $ver, true );
 	wp_enqueue_style( 'altis-consent', $css, [], $ver, 'screen' );
 
 	wp_localize_script( 'altis-consent', 'altisConsent', [

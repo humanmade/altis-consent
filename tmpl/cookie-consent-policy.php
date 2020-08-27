@@ -5,12 +5,11 @@
  * @package Altis-Consent
  */
 
-$options     = get_option( 'cookie_consent_options' );
-$policy_page = $options['policy_page'];
+use Altis\Consent;
 ?>
 
 <div class="cookie-consent-policy">
-	<a href="<?php echo esc_url( get_permalink( (int) $policy_page ) ); ?>">
+	<a href="<?php echo esc_url( Consent\get_cookie_policy_url() ); ?>">
 		<?php
 		echo wp_kses_post(
 			/**
