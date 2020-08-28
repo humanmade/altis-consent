@@ -18,8 +18,8 @@ function get_default_content( bool $blocks = true ) : string {
 	$content   = '';
 	$strings   = [];
 	$site      = get_current_site();
-	$site_name = $site['site_name'];
-	$domain    = $site['domain'];
+	$site_name = $site->site_name;
+	$domain    = $site->domain;
 
 	$strings[] = '<h2>' . __( 'Introduction', 'altis-consent' ) . '</h2>';
 	// Translators: %s is the current site name.
