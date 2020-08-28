@@ -34,7 +34,7 @@ function enqueue_assets() {
 
 	if ( Altis\get_environment_type() === 'local' ) {
 		// If working locally, load the unminified version of the js file.
-		$js   = plugin_dir_url( __DIR__ ) . 'assets/js/main.js';
+		$js = plugin_dir_url( __DIR__ ) . 'assets/js/main.js';
 
 		// Break the cache on local.
 		$ver .= '-' . filemtime( $css );
