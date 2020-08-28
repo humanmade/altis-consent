@@ -98,7 +98,7 @@ function create_policy_page() {
 
 		$option_name         = 'wp_page_for_privacy_policy';
 		$policy_page_title   = __( 'Privacy Policy', 'altis-consent' );
-		$policy_page_content = WP_Privacy_Policy_Content::get_default_content();
+		$policy_page_content = WP_Privacy_Policy_Content::get_default_content( $block_editor );
 	} elseif ( $policy_page === 'cookie_policy' ) {
 		$option_name         = 'cookie_consent_options';
 		$policy_page_title   = __( 'Cookie Policy', 'altis-consent' );
