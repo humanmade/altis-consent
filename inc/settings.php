@@ -415,6 +415,21 @@ function render_banner_message() {
 }
 
 /**
+ * Get the filterable array of policy page values that can be created.
+ *
+ * @return array An array of policy page types.
+ */
+function get_allowed_policy_page_values() : array {
+	/**
+	 * Filter the array of allowed policy pages we can create.
+	 *
+	 * This is used by the render_secondary_button function. The default pages that can be created are privacy_policy and cookie_policy.
+	 *
+	 * @var array An array of allowed policy page values.
+	 */
+	return apply_filters( 'altis.consent.allowed_policy_page_values', [ 'cookie_policy', 'privacy_policy' ] );
+}
+/**
  * Render the cookie policy page setting.
  */
 function render_cookie_policy_page() {
