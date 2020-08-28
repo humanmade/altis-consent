@@ -7,6 +7,7 @@
 
 namespace Altis\Consent\Settings;
 
+use Altis\Consent\CookiePolicy;
 use WP_Post;
 use WP_Privacy_Policy_Content;
 
@@ -102,7 +103,7 @@ function create_policy_page() {
 	} elseif ( $policy_page === 'cookie_policy' ) {
 		$option_name         = 'cookie_consent_options';
 		$policy_page_title   = __( 'Cookie Policy', 'altis-consent' );
-		$policy_page_content = '';
+		$policy_page_content = CookiePolicy\get_default_content( $block_editor );
 	}
 
 	$policy_page_id = wp_insert_post( [
