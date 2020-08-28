@@ -33,9 +33,9 @@ function get_default_content( bool $blocks = true ) : string {
 	$strings[] = '<h3>' . __( 'Technical or functional cookies', 'altis-consent' ) . '</h3>';
 	$strings[] = '<p>' . __( 'Some cookies ensure that certain parts of the website work properly and that your user preferences remain known. By placing functional cookies, we make it easier for you to visit our website. This way, you do not need to repeatedly enter the same information when visiting our website and, for example, the items remain in your shopping cart until you have paid. We may place these cookies without your consent.',  'altis-consent' ) . '</p>';
 	$strings[] = '<h3>' . __( 'Analytical cookies', 'altis-consent' ) . '</h3>';
-	$strings[] = '<p>' . __( 'We use analytical cookies to optimize the website experience for our users. With these analytical cookies we get insights in the usage of our website.', 'altis-consent' );
-	$strings[] = '&nbsp;' . __( 'Some of these statistics are tracked anonymously. No permission is asked to place these analytical cookies.', 'altis-consent' );
-	$strings[] = '&nbsp;' . __( 'For all others, we ask your permission to place analytical cookies.', 'altis-consent' ) . '</p>';
+	$strings[] = '<p>' . __( 'We use analytical cookies to optimize the website experience for our users. With these analytical cookies we get insights in the usage of our website.', 'altis-consent' ) .
+		'&nbsp;' . __( 'Some of these statistics are tracked anonymously. No permission is asked to place these analytical cookies.', 'altis-consent' ) .
+		'&nbsp;' . __( 'For all others, we ask your permission to place analytical cookies.', 'altis-consent' ) . '</p>';
 	$strings[] = '<h3>' . __( 'Advertising cookies', 'altis-consent' ) . '</h3>';
 	// Translators: %s is the current site name.
 	$string[] = '<p>' . sprintf( __( 'On this website we may use tracking cookies, enabling us to gain insights into the campaign results. This happens based on a profile we create based on your behavior on %s. With these cookies you, as website visitor are linked to a unique ID, but will not profile your behavior and interests to serve personalized ads.', 'altis-consent' ), $site_name ) . '</p>';
