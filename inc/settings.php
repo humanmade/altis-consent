@@ -3,6 +3,7 @@
 namespace Altis\Consent\Settings;
 
 use WP_Post;
+use WP_Privacy_Policy_Content;
 
 /**
  * Kick off all the things.
@@ -10,6 +11,7 @@ use WP_Post;
 function bootstrap() {
 	add_action( 'admin_init', __NAMESPACE__ . '\\register_consent_settings' );
 	add_action( 'admin_init', __NAMESPACE__ . '\\update_privacy_policy_page' );
+	add_action( 'admin_init', __NAMESPACE__ . '\\create_policy_page', 9 );
 	add_action( 'admin_menu', __NAMESPACE__ . '\\add_altis_privacy_page' );
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_core_privacy_page' );
 	add_filter( 'wp_consent_api_cookie_expiration', __NAMESPACE__ . '\\register_cookie_expiration' );
@@ -58,6 +60,66 @@ function update_privacy_policy_page() {
 	}
 
 	update_option( $privacy_option, $updated_id );
+}
+
+/**
+ * Auto-create the policy page based on the button that was clicked.
+ *
+ * @return void
+ */
+function create_policy_page() {
+	if (
+		! isset( $_POST['create_policy_page'] ) ||
+		! in_array( esc_attr( $_POST['create_policy_page'] ), get_allowed_policy_page_values(), true )
+	) {
+		return;
+	}
+
+	$policy_page = esc_attr( $_POST['create_policy_page'] );
+
+	if ( $policy_page === 'privacy_policy' ) {
+		if ( ! class_exists( 'WP_Privacy_Policy_Content' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/class-wp-privacy-policy-content.php';
+		}
+
+		$option_name         = 'wp_page_for_privacy_policy';
+		$policy_page_title   = __( 'Privacy Policy', 'altis-consent' );
+		$policy_page_content = WP_Privacy_Policy_Content::get_default_content();
+	} elseif ( $policy_page === 'cookie_policy' ) {
+		$option_name         = 'cookie_consent_options';
+		$policy_page_title   = __( 'Cookie Policy', 'altis-consent' );
+		$policy_page_content = '';
+	}
+
+	$policy_page_id = wp_insert_post( [
+		'post_title'   => $policy_page_title,
+		'post_status'  => 'publish',
+		'post_type'    => 'page',
+		'post_content' => $policy_page_content,
+	], true );
+
+	if ( $policy_page === 'privacy_policy' ) {
+		$option_value = $policy_page_id;
+	} elseif ( $policy_page === 'cookie_policy' ) {
+		$option_value = get_consent_option();
+
+		$option_value['policy_page'] = $policy_page_id;
+	}
+
+	if ( is_wp_error( $policy_page_id ) ) {
+		add_settings_error(
+			"page_for_$policy_page",
+			"page_for_$policy_page",
+			// Translators: %s is the name of the page we're trying to create.
+			sprintf( __( 'Unable to create a %s page', 'altis-consent' ), $policy_page_title ),
+			'error'
+		);
+	} else {
+		update_option( $option_name, $option_value );
+	}
+
+	wp_redirect( admin_url( "post.php?post=$policy_page_id&action=edit" ) );
+	exit;
 }
 
 /**
