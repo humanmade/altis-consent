@@ -82,6 +82,15 @@ function create_policy_page() {
 
 	$policy_page = esc_attr( $_POST['create_policy_page'] );
 
+	/**
+	 * Whether we are using the block editor.
+	 *
+	 * This defaults to true, but if false, we omit the gutenberg block support in the policy content.
+	 *
+	 * @var bool True/false whether the site is using the block editor.
+	 */
+	$block_editor = apply_filters( 'altis.consent.use_block_editor', '__return_true' );
+
 	if ( $policy_page === 'privacy_policy' ) {
 		if ( ! class_exists( 'WP_Privacy_Policy_Content' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/class-wp-privacy-policy-content.php';
