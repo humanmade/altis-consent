@@ -1,4 +1,9 @@
 <?php
+/**
+ * Helper functions for the Altis Consent module.
+ *
+ * @package altis/consent
+ */
 
 namespace Altis\Consent;
 

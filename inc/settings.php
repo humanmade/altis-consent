@@ -1,4 +1,9 @@
 <?php
+/**
+ * Altis Consent Settings
+ *
+ * @package altis/consent
+ */
 
 namespace Altis\Consent\Settings;
 

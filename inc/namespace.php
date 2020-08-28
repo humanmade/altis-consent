@@ -1,4 +1,11 @@
 <?php
+/**
+ * Altis Consent
+ *
+ * The main namespace for the Altis Consent module.
+ *
+ * @package altis/consent
+ */
 
 namespace Altis\Consent;
 
