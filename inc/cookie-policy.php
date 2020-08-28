@@ -69,23 +69,28 @@ function get_default_content( bool $blocks = true ) : string {
 	if ( $blocks ) {
 		foreach ( $strings as $key => $string ) {
 			if ( 0 === strpos( $string, '<p>' ) ) {
-				$strings[ $key ] = "<!-- wp:paragraph -->$string<!-- /wp:paragraph -->";
-			}
-
-			if ( 0 === strpos( $string, '<ul>' ) ) {
-				$strings[ $key ] = "<!-- wp:list -->$string<!-- /wp:list -->";
-			}
-
-			if ( 0 === strpos( $string, '<address>' ) ) {
-				$strings[ $key ] = "<!-- wp:html -->$string<!-- /wp:html -->";
+				$strings[ $key ] = '<!-- wp:paragraph -->' . $string . '<!-- /wp:paragraph -->';
+				$strings[ $key ] .= "\n";
 			}
 
 			if ( 0 === strpos( $string, '<h2>' ) ) {
-				$strings[ $key ] = "<!-- wp:heading -->$string<!-- /wp:heading-->";
+				$strings[ $key ] = '<!-- wp:heading -->' . $string . '<!-- /wp:heading -->';
+				$strings[ $key ] .= "\n";
 			}
 
 			if ( 0 === strpos( $string, '<h3>' ) ) {
-				$strings[ $key ] = "<!-- wp:heading {\"level\":3} -->$string<!-- /wp:heading -->";
+				$strings[ $key ] = '<!-- wp:heading {"level":3} -->' . $string . '<!-- /wp:heading -->';
+				$strings[ $key ] .= "\n";
+			}
+
+			if ( 0 === strpos( $string, '<ul>' ) ) {
+				$strings[ $key ] = '<!-- wp:list -->' . $string . '<!-- /wp:list -->';
+				$strings[ $key ] .= "\n";
+			}
+
+			if ( 0 === strpos( $string, '<address>' ) ) {
+				$strings[ $key ] = '<!-- wp:html -->' . $string . '<!-- /wp:html -->';
+				$strings[ $key ] .= "\n";
 			}
 		}
 	}
