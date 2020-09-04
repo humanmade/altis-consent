@@ -530,7 +530,7 @@ function render_secondary_button( string $button_text, string $value = 'privacy_
 	$value = in_array( $value, get_allowed_policy_page_values() ) ? $value : 'privacy_policy';
 
 	?>
-	<button name="<?php echo esc_attr( $name ); ?>" type="<?php echo esc_attr( $type ); ?>" value="<?php echo esc_attr( $value ); ?>" class="button"><?php echo esc_html( $button_text ); ?></button>
+	<button name="<?php echo esc_attr( $name ); ?>" type="<?php echo esc_attr( $type ); ?>" value="<?php echo esc_attr( $value ); ?>" class="button button-secondary"><?php echo esc_html( $button_text ); ?></button>
 	<?php
 }
 
