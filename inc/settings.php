@@ -109,7 +109,7 @@ function create_policy_page() {
 
 	$policy_page_id = wp_insert_post( [
 		'post_title'   => $policy_page_title,
-		'post_status'  => 'publish',
+		'post_status'  => 'draft',
 		'post_type'    => 'page',
 		'post_content' => $policy_page_content,
 	], true );
