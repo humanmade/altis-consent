@@ -75,8 +75,12 @@ function update_privacy_policy_page() {
  */
 function create_policy_page() {
 	if (
-		! check_admin_referer() ||
+		// Validate the nonce.
+		! isset( $_POST['_altis_privacy_policy_page_nonce'] ) ||
+		! wp_verify_nonce( sanitize_text_field( $_POST['_altis_privacy_policy_page_nonce'] ), 'altis.privacy_policy_page' ) ||
+		// Make sure we've requested a new policy page.
 		! isset( $_POST['create_policy_page'] ) ||
+		// Make sure that the request was valid.
 		! in_array( esc_attr( $_POST['create_policy_page'] ), get_allowed_policy_page_values(), true )
 	) {
 		return;
