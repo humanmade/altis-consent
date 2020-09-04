@@ -160,27 +160,27 @@ function add_altis_privacy_page() {
  */
 function get_cookie_consent_settings_fields() {
 	$fields = [
-		[
+		'display_banner' => [
 			'id'       => 'display_banner',
 			'title'    => __( 'Display Cookie Consent Banner', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\render_display_banner',
 		],
-		[
+		'cookie_expiration' => [
 			'id'       => 'cookie_expiration',
 			'title'    => __( 'Cookie Expiration', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\cookie_expiration',
 		],
-		[
+		'banner_options' => [
 			'id'       => 'banner_options',
 			'title'    => __( 'Consent Banner Options', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\render_banner_options',
 		],
-		[
+		'banner_text' => [
 			'id'       => 'banner_text',
 			'title'    => __( 'Banner Message', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\render_banner_message',
 		],
-		[
+		'cookie_policy_page' => [
 			'id'       => 'cookie_policy_page',
 			'title'    => __( 'Cookie Policy Page', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\render_cookie_policy_page',
