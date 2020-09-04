@@ -515,23 +515,16 @@ function get_allowed_policy_page_values() : array {
  *
  * @param string $button_text The text to display in the button.
  * @param string $value       The button value. On the settings page, this is used to determine the type of policy page the buttons create.
+ * @param string $name        The html name of the button we're creating. Defaults to 'create_policy_page'.
  * @param string $type        The html button type. The default value is 'submit', and valid values are 'submit', 'reset', and 'button'. Invalid values revert to 'submit'.
  */
-function render_secondary_button( string $button_text, string $value = 'privacy_policy', string $type = 'submit' ) {
+function render_secondary_button( string $button_text, string $value = 'privacy_policy', string $name = 'create_policy_page', string $type = 'submit' ) {
 	// Make sure the button type is valid. Invalid types are reset to 'submit'.
 	$type = in_array( $type, [ 'submit', 'reset', 'button' ], true ) ? $type : 'submit';
 
-	/**
-	 * The html name of the button we're creating.
-	 *
-	 * The default here is 'create_policy_page' because that's what we're using it for here. However, this function could be used to create other types of buttons with unique names by using this filter.
-	 *
-	 * @var string The button element name value.
-	 */
-	$name = apply_filters( 'altis.consent.admin_secondary_button_name', 'create_policy_page' );
-
 	// Make sure the value passed is valid. Invalid values default to "privacy_policy".
 	$value = in_array( $value, get_allowed_policy_page_values() ) ? $value : 'privacy_policy';
+
 	?>
 	<button name="<?php echo esc_attr( $name ); ?>" type="<?php echo esc_attr( $type ); ?>" value="<?php echo esc_attr( $value ); ?>" class="button"><?php echo esc_html( $button_text ); ?></button>
 	<?php
