@@ -75,6 +75,7 @@ function update_privacy_policy_page() {
  */
 function create_policy_page() {
 	if (
+		! check_admin_referer() ||
 		! isset( $_POST['create_policy_page'] ) ||
 		! in_array( esc_attr( $_POST['create_policy_page'] ), get_allowed_policy_page_values(), true )
 	) {
