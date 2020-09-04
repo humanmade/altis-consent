@@ -66,7 +66,15 @@ function get_default_content( bool $blocks = true ) : string {
 		__( '[Company Address]', 'altis-consent' ) . '<br />' .
 		__( '[Company Country]', 'altis-consent' ) . '<br />' .
 		sprintf( __( 'Website: %s', 'altis-consent' ), $domain ) . '<br />' .
-		sprintf( __( 'Email: %s', 'altis-consent' ), get_option( 'admin_email' ) ) . '<br />' .
+		// Translators: %s is the default text to display for company email address.
+		sprintf( __( 'Email: %s', 'altis-consent' ),
+			/**
+			 * Filter the company email address that appears in the default cookie policy content.
+			 *
+			 * @param string $email The email address (or default text) to use in the cookie policy content.
+			 */
+			apply_filters( 'altis.consent.default_cookie_policy_email', '[Company Email]' )
+		) . '<br />' .
 		__( '[Company Telephone]', 'altis-consent' ) .
 	'</address>';
 
