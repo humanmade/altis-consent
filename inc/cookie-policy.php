@@ -101,5 +101,12 @@ function get_default_content( bool $blocks = true ) : string {
 
 	$content = implode( '', $strings );
 
+	/**
+	 * Filter the default cookie consent policy content.
+	 *
+	 * @param string $content The full markup (including block editor markup, if applicable) of the cookie consent page.
+	 * @param array  $strings An array of cookie policy content strings.
+	 * @param bool   $blocks  Whether the content should be formatted for the block editor.
+	 */
 	return apply_filters( 'altis.consent.default_cookie_policy_content', $content, $strings, $blocks );
 }
