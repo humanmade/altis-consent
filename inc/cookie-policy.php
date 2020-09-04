@@ -72,27 +72,27 @@ function get_default_content( bool $blocks = true ) : string {
 
 	if ( $blocks ) {
 		foreach ( $strings as $key => $string ) {
-			if ( 0 === strpos( $string, '<p>' ) ) {
+			if ( strpos( $string, '<p>' ) === 0 ) {
 				$strings[ $key ] = '<!-- wp:paragraph -->' . $string . '<!-- /wp:paragraph -->';
 				$strings[ $key ] .= "\n";
 			}
 
-			if ( 0 === strpos( $string, '<h2>' ) ) {
+			if ( strpos( $string, '<h2>' ) === 0 ) {
 				$strings[ $key ] = '<!-- wp:heading -->' . $string . '<!-- /wp:heading -->';
 				$strings[ $key ] .= "\n";
 			}
 
-			if ( 0 === strpos( $string, '<h3>' ) ) {
+			if ( strpos( $string, '<h3>' ) === 0 ) {
 				$strings[ $key ] = '<!-- wp:heading {"level":3} -->' . $string . '<!-- /wp:heading -->';
 				$strings[ $key ] .= "\n";
 			}
 
-			if ( 0 === strpos( $string, '<ul>' ) ) {
+			if ( strpos( $string, '<ul>' ) === 0 ) {
 				$strings[ $key ] = '<!-- wp:list -->' . $string . '<!-- /wp:list -->';
 				$strings[ $key ] .= "\n";
 			}
 
-			if ( 0 === strpos( $string, '<address>' ) ) {
+			if ( strpos( $string, '<address>' ) === 0 ) {
 				$strings[ $key ] = '<!-- wp:html -->' . $string . '<!-- /wp:html -->';
 				$strings[ $key ] .= "\n";
 			}
