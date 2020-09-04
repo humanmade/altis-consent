@@ -8,9 +8,13 @@
 namespace Altis\Consent\CookiePolicy;
 
 /**
- * Return the default cookie policy content
+ * Return the default cookie policy content.
+ *
+ * This default cookie policy consent text is based on the EU cookie policy consent text in the Complianz plugin and released under the GPLv2 license.
  *
  * @param bool $blocks Whether the site is using the block editor.
+ * @link               https://github.com/Really-Simple-Plugins/complianz-gdpr
+ * @link               https://github.com/Really-Simple-Plugins/complianz-gdpr/blob/master/config/documents/cookie-policy-eu.php
  *
  * @return string      The cookie policy content.
  */
