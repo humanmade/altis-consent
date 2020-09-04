@@ -65,6 +65,7 @@ function get_default_content( bool $blocks = true ) : string {
 	$strings[] = '<address>' . __( '[Organization Name]', 'altis-consent' ) . '<br />' .
 		__( '[Company Address]', 'altis-consent' ) . '<br />' .
 		__( '[Company Country]', 'altis-consent' ) . '<br />' .
+		// Translators: %s is the current website domain.
 		sprintf( __( 'Website: %s', 'altis-consent' ), $domain ) . '<br />' .
 		// Translators: %s is the default text to display for company email address.
 		sprintf( __( 'Email: %s', 'altis-consent' ),
