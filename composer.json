@@ -3,7 +3,8 @@
     "description": "Privacy and consent module for Altis",
     "type": "package",
     "require": {
-        "php": ">=7.1"
+        "php": ">=7.1",
+		"altis/consent-api": "^0.9"
     },
     "require-dev": {
         "humanmade/coding-standards": "^0.8.0"
