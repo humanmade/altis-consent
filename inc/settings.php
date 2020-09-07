@@ -1,8 +1,15 @@
 <?php
+/**
+ * Altis Consent Settings
+ *
+ * @package altis/consent
+ */
 
 namespace Altis\Consent\Settings;
 
+use Altis\Consent\CookiePolicy;
 use WP_Post;
+use WP_Privacy_Policy_Content;
 
 /**
  * Kick off all the things.
@@ -10,6 +17,7 @@ use WP_Post;
 function bootstrap() {
 	add_action( 'admin_init', __NAMESPACE__ . '\\register_consent_settings' );
 	add_action( 'admin_init', __NAMESPACE__ . '\\update_privacy_policy_page' );
+	add_action( 'admin_init', __NAMESPACE__ . '\\create_policy_page', 9 );
 	add_action( 'admin_menu', __NAMESPACE__ . '\\add_altis_privacy_page' );
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_core_privacy_page' );
 	add_filter( 'wp_consent_api_cookie_expiration', __NAMESPACE__ . '\\register_cookie_expiration' );
@@ -61,6 +69,80 @@ function update_privacy_policy_page() {
 }
 
 /**
+ * Auto-create the policy page based on the button that was clicked.
+ *
+ * @return void
+ */
+function create_policy_page() {
+	if (
+		// Validate the nonce.
+		! isset( $_POST['_altis_privacy_policy_page_nonce'] ) ||
+		! wp_verify_nonce( sanitize_text_field( $_POST['_altis_privacy_policy_page_nonce'] ), 'altis.privacy_policy_page' ) ||
+		// Make sure we've requested a new policy page.
+		! isset( $_POST['create_policy_page'] ) ||
+		// Make sure that the request was valid.
+		! in_array( esc_attr( $_POST['create_policy_page'] ), get_allowed_policy_page_values(), true )
+	) {
+		return;
+	}
+
+	$policy_page = esc_attr( $_POST['create_policy_page'] );
+
+	/**
+	 * Whether we are using the block editor.
+	 *
+	 * This defaults to true, but if false, we omit the gutenberg block support in the policy content.
+	 *
+	 * @var bool True/false whether the site is using the block editor.
+	 */
+	$block_editor = apply_filters( 'altis.consent.use_block_editor', '__return_true' );
+
+	if ( $policy_page === 'privacy_policy' ) {
+		if ( ! class_exists( 'WP_Privacy_Policy_Content' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/class-wp-privacy-policy-content.php';
+		}
+
+		$option_name         = 'wp_page_for_privacy_policy';
+		$policy_page_title   = __( 'Privacy Policy', 'altis-consent' );
+		$policy_page_content = WP_Privacy_Policy_Content::get_default_content( $block_editor );
+	} elseif ( $policy_page === 'cookie_policy' ) {
+		$option_name         = 'cookie_consent_options';
+		$policy_page_title   = __( 'Cookie Policy', 'altis-consent' );
+		$policy_page_content = CookiePolicy\get_default_content( $block_editor );
+	}
+
+	$policy_page_id = wp_insert_post( [
+		'post_title'   => $policy_page_title,
+		'post_status'  => 'draft',
+		'post_type'    => 'page',
+		'post_content' => $policy_page_content,
+	], true );
+
+	if ( $policy_page === 'privacy_policy' ) {
+		$option_value = $policy_page_id;
+	} elseif ( $policy_page === 'cookie_policy' ) {
+		$option_value = get_consent_option();
+
+		$option_value['policy_page'] = $policy_page_id;
+	}
+
+	if ( is_wp_error( $policy_page_id ) ) {
+		add_settings_error(
+			"page_for_$policy_page",
+			"page_for_$policy_page",
+			// Translators: %s is the name of the page we're trying to create.
+			sprintf( __( 'Unable to create a %s page', 'altis-consent' ), $policy_page_title ),
+			'error'
+		);
+	} else {
+		update_option( $option_name, $option_value );
+	}
+
+	wp_redirect( admin_url( "post.php?post=$policy_page_id&action=edit" ) );
+	exit;
+}
+
+/**
  * Register the Altis Privacy submenu page.
  */
 function add_altis_privacy_page() {
@@ -78,27 +160,27 @@ function add_altis_privacy_page() {
  */
 function get_cookie_consent_settings_fields() {
 	$fields = [
-		[
+		'display_banner' => [
 			'id'       => 'display_banner',
 			'title'    => __( 'Display Cookie Consent Banner', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\render_display_banner',
 		],
-		[
+		'cookie_expiration' => [
 			'id'       => 'cookie_expiration',
 			'title'    => __( 'Cookie Expiration', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\cookie_expiration',
 		],
-		[
+		'banner_options' => [
 			'id'       => 'banner_options',
 			'title'    => __( 'Consent Banner Options', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\render_banner_options',
 		],
-		[
+		'banner_text' => [
 			'id'       => 'banner_text',
 			'title'    => __( 'Banner Message', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\render_banner_message',
 		],
-		[
+		'cookie_policy_page' => [
 			'id'       => 'cookie_policy_page',
 			'title'    => __( 'Cookie Policy Page', 'altis-consent' ),
 			'callback' => __NAMESPACE__ . '\\render_cookie_policy_page',
@@ -415,6 +497,44 @@ function render_banner_message() {
 }
 
 /**
+ * Get the filterable array of policy page values that can be created.
+ *
+ * @return array An array of policy page types.
+ */
+function get_allowed_policy_page_values() : array {
+	/**
+	 * Filter the array of allowed policy pages we can create.
+	 *
+	 * This is used by the render_secondary_button function. The default pages that can be created are privacy_policy and cookie_policy.
+	 *
+	 * @var array An array of allowed policy page values.
+	 */
+	return apply_filters( 'altis.consent.allowed_policy_page_values', [ 'cookie_policy', 'privacy_policy' ] );
+}
+
+/**
+ * Display a secondary button.
+ *
+ * Used to create the Create Policy Page buttons, but can be filtered and used for other things.
+ *
+ * @param string $button_text The text to display in the button.
+ * @param string $value       The button value. On the settings page, this is used to determine the type of policy page the buttons create.
+ * @param string $name        The html name of the button we're creating. Defaults to 'create_policy_page'.
+ * @param string $type        The html button type. The default value is 'submit', and valid values are 'submit', 'reset', and 'button'. Invalid values revert to 'submit'.
+ */
+function render_secondary_button( string $button_text, string $value = 'privacy_policy', string $name = 'create_policy_page', string $type = 'submit' ) {
+	// Make sure the button type is valid. Invalid types are reset to 'submit'.
+	$type = in_array( $type, [ 'submit', 'reset', 'button' ], true ) ? $type : 'submit';
+
+	// Make sure the value passed is valid. Invalid values default to "privacy_policy".
+	$value = in_array( $value, get_allowed_policy_page_values() ) ? $value : 'privacy_policy';
+
+	?>
+	<button name="<?php echo esc_attr( $name ); ?>" type="<?php echo esc_attr( $type ); ?>" value="<?php echo esc_attr( $value ); ?>" class="button button-secondary"><?php echo esc_html( $button_text ); ?></button>
+	<?php
+}
+
+/**
  * Render the cookie policy page setting.
  */
 function render_cookie_policy_page() {
@@ -433,6 +553,8 @@ function render_cookie_policy_page() {
 	} else {
 		esc_html_e( 'There are no pages.', 'altis-consent' );
 	}
+
+	render_secondary_button( __( 'Create Cookie Policy Page', 'altis-consent' ), 'cookie_policy' );
 }
 
 /**
@@ -452,6 +574,8 @@ function render_privacy_policy_page_setting() {
 	} else {
 		esc_html_e( 'There are no pages.', 'altis-consent' );
 	}
+
+	render_secondary_button( __( 'Create Privacy Policy Page', 'altis-consent' ) );
 }
 
 /**

@@ -4,3 +4,4 @@ vendor/*
 
 # Ignore build files
 .babelrc
+dist/*
