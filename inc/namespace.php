@@ -16,8 +16,9 @@ use WP_CONSENT_API;
  * Kick everything off.
  */
 function bootstrap() {
+	// If the consent api doesn't exist, load the local composer autoload file which should include it.
 	if ( ! class_exists( 'WP_CONSENT_API' ) ) {
-		require_once plugin_dir_path( __DIR__ ) . 'vendor/altis/consent-api/wp-consent-api.php';
+		require_once plugin_dir_path( __DIR__ ) . 'vendor/autoload.php';
 	}
 
 	// Register this plugin with the consent API.
