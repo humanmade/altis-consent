@@ -16,6 +16,10 @@ use WP_CONSENT_API;
  * Kick everything off.
  */
 function bootstrap() {
+	if ( ! class_exists( 'WP_CONSENT_API' ) ) {
+		require_once plugin_dir_path( __DIR__ ) . 'vendor/altis/consent-api/wp-consent-api.php';
+	}
+
 	// Register this plugin with the consent API.
 	add_filter( 'wp_consent_api_registered_' . plugin_basename( __FILE__ ), '__return_true' );
 
