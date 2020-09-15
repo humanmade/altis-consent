@@ -49,7 +49,7 @@ function enqueue_assets() {
 		$js = plugin_dir_url( __DIR__ ) . 'assets/js/main.js';
 
 		// Break the cache on local.
-		$ver .= '-' . filemtime( $css );
+		$ver .= '-' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/styles.css' );
 	}
 
 	wp_enqueue_script( 'altis-consent', $js, [], $ver, true );
