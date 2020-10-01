@@ -4,7 +4,7 @@
     "type": "package",
     "require": {
         "php": ">=7.1",
-        "rlankhorst/wp-consent-level-api ": "dev-master"
+        "rlankhorst/wp-consent-level-api": "dev-master"
     },
     "require-dev": {
         "humanmade/coding-standards": "^0.8.0"
