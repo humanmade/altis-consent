@@ -17,7 +17,7 @@ use WP_CONSENT_API;
  */
 function bootstrap() {
 	// If the consent api doesn't exist, load the local composer autoload file which should include it.
-	if ( ! class_exists( 'WP_CONSENT_API' ) ) {
+	if ( ! defined( 'WP_CONSENT_API_URL' ) ) {
 		trigger_error( 'The WP Consent Level API plugin must be installed and activated', E_USER_WARNING );
 		return;
 	}
