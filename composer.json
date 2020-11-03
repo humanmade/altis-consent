@@ -3,10 +3,11 @@
     "description": "Privacy and consent module for Altis",
     "type": "package",
     "require": {
-        "php": ">=7.1"
+        "php": ">=7.1",
+        "altis/consent-api": "^1.0.0"
     },
     "require-dev": {
-        "humanmade/coding-standards": "^0.8.0"
+        "humanmade/coding-standards": "^1.1.0"
     },
     "license": "GPL-3.0",
     "authors": [
