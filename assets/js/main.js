@@ -117,6 +117,7 @@ function preferencesUpdatedMessage() {
 	consentUpdated.toggle( 'show' );
 }
 
+// Toggle consent when grant/revoke consent button is clicked.
 giveConsentButton.addEventListener( 'click', updateConsentCategories );
 revokeConsentButton.addEventListener( 'click', updateConsentCategories );
 
@@ -126,4 +127,5 @@ if ( cookiePrefsButton ) {
 	applyCookiePrefs.addEventListener( 'click', updateConsentCategories );
 }
 
+// Close the banner if the close button is clicked.
 closeUpdatedMessage.addEventListener( 'click', () => cookieUpdatedMessage.toggle( 'show' ) );
