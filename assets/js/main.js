@@ -1,4 +1,4 @@
-/* global wp_set_consent altisConsent */
+/* global wp_set_consent wp_has_consent consent_api_set_cookie altisConsent */
 /**
  * Handle toggling cookie consent.
  *
@@ -12,6 +12,22 @@ const giveConsentButton  = document.querySelector( '.give-consent' ),
 	applyCookiePrefs     = document.querySelector( '.apply-cookie-preferences' ),
 	cookieUpdatedMessage = document.querySelector( '.consent-updated-message' ).classList,
 	closeUpdatedMessage  = document.getElementById( 'consent-close-updated-message' );
+
+function hasConsent( category ) {
+	return wp_has_consent( category );
+}
+
+function setConsent( category, value ) {
+	wp_set_consent( category, value );
+}
+
+function setCookie( name, value ) {
+	consent_api_set_cookie( name, value );
+}
+
+function getCookie( name ) {
+	return consent_api_get_cookie( name );
+}
 
 /**
  * Update consent for individual categories.
