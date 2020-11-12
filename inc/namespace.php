@@ -53,7 +53,7 @@ function enqueue_assets() {
 		$ver .= '-' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/styles.css' );
 	}
 
-	wp_enqueue_script( 'altis-consent', $js, [], $ver, true );
+	wp_enqueue_script( 'altis-consent', $js, [ 'altis-consent-api' ], $ver, true );
 	wp_enqueue_style( 'altis-consent', $css, [], $ver, 'screen' );
 
 	wp_localize_script( 'altis-consent', 'altisConsent', [
