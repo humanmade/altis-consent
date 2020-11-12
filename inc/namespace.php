@@ -67,6 +67,7 @@ function enqueue_assets() {
 		'cookiePrefix' => cookie_prefix(),
 		'types' => consent_types(),
 		'categories' => consent_categories(),
+		'values' => consent_values(),
 	] );
 }
 
