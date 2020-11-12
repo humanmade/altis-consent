@@ -122,6 +122,23 @@ function consent_categories() : array {
 		'marketing',
 	] );
 }
+
+/**
+ * Returns the active consent values.
+ *
+ * @return array The available consent values.
+ */
+function consent_values() : array {
+	/**
+	 * Filterable list of possible consent values.
+	 *
+	 * @param array $values The possible consent values.
+	 */
+	return apply_filters( 'altis.consent.values', [
+		'allow',
+		'deny',
+	] );
+}
 /**
  * Output the consent banner.
  *
