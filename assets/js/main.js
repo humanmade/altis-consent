@@ -13,18 +13,48 @@ const giveConsentButton  = document.querySelector( '.give-consent' ),
 	cookieUpdatedMessage = document.querySelector( '.consent-updated-message' ).classList,
 	closeUpdatedMessage  = document.getElementById( 'consent-close-updated-message' );
 
+/**
+ * Check if a user has given consent for a specific category.
+ *
+ * Wrapper function for wp_has_consent.
+ *
+ * @param {string} category The category to check consent against.
+ */
 function hasConsent( category ) {
 	return wp_has_consent( category );
 }
 
+/**
+ * Set a new consent category value.
+ *
+ * Wrapper function for wp_set_consent.
+ *
+ * @param {string} category The consent category to update.
+ * @param {string} value The value to update the consent category to.
+ */
 function setConsent( category, value ) {
 	wp_set_consent( category, value );
 }
 
+/**
+ * Set cookie by consent type.
+ *
+ * Wrapper function for consent_api_set_cookie.
+ *
+ * @param {string} name The cookie name to set.
+ * @param {string} value The cookie value to set.
+ */
 function setCookie( name, value ) {
 	consent_api_set_cookie( name, value );
 }
 
+/**
+ * Retrieve a cookie by name.
+ *
+ * Wrapper function for consent_api_get_cookie.
+ *
+ * @param {string} name The name of the cookie to get data from.
+ */
 function getCookie( name ) {
 	return consent_api_get_cookie( name );
 }
