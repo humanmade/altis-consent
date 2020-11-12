@@ -101,6 +101,26 @@ function consent_types() : array {
 		]
 	);
 }
+
+/**
+ * Returns the active consent categories.
+ *
+ * @return array The consent categories.
+ */
+function consent_categories() : array {
+	/**
+	 * Filterable list of active consent categories.
+	 *
+	 * @param array $categories The allowed consent categories.
+	 */
+	return apply_filters( 'altis.consent.categories', [
+		'functional',
+		'preferences',
+		'statistics',
+		'statistics-anonymous',
+		'marketing',
+	] );
+}
 /**
  * Output the consent banner.
  *
