@@ -66,6 +66,7 @@ function enqueue_assets() {
 		'alwaysAllowCategories' => apply_filters( 'altis.consent.always_allow_categories', [ 'functional', 'statistics-anonymous' ] ),
 		'cookiePrefix' => cookie_prefix(),
 		'types' => consent_types(),
+		'categories' => consent_categories(),
 	] );
 }
 
