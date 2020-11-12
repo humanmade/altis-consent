@@ -81,6 +81,25 @@ function cookie_prefix() : string {
 	 */
 	return apply_filters( 'altis.consent.cookie_prefix', 'altis_consent' );
 }
+
+/**
+ * Returns the active consent types.
+ *
+ * @return array An array of consent types.
+ */
+function consent_types() : array {
+	/**
+	 * Filterable list of active consent types.
+	 *
+	 * @param array $consent_types The array of allowed consent types.
+	 */
+	return apply_filters(
+		'altis.consent.types', [
+			'optin',
+			'optout',
+		]
+	);
+}
 /**
  * Output the consent banner.
  *
