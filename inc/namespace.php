@@ -68,6 +68,19 @@ function enqueue_assets() {
 }
 
 /**
+ * Returns the default consent cookie prefix.
+ *
+ * @return string The consent cookie prefix.
+ */
+function cookie_prefix() : string {
+	/**
+	 * Filterable consent cookie prefix.
+	 *
+	 * @param string $prefix The consent cookie prefix.
+	 */
+	return apply_filters( 'altis.consent.cookie_prefix', 'altis_consent' );
+}
+/**
  * Output the consent banner.
  *
  * Output here is returned rather than explicitly loaded in case it needs to be loaded into a variable.
