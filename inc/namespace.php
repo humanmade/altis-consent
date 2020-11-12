@@ -140,6 +140,28 @@ function consent_values() : array {
 		'deny',
 	] );
 }
+
+/**
+ * Validates a consent item (either a consent type, category or value).
+ *
+ * @param string $item The value to validate.
+ * @param string $item_type The type of value to validate. Possible options are 'types' (consent types), 'categories' (consent categories) or 'values' (consent values).
+ * @return string|bool The validated string or false.
+ */
+function validate_consent_item( string $item, string $item_type ) {
+	if ( ! in_array( $item_type, [ 'types', 'categories', 'values' ], true ) ) {
+		return false; // actually trigger an error here.
+	}
+
+	// Use a variable function name to check the matching item type.
+	$haystack = 'consent_' . $item_type;
+	if ( in_array( $item, $haystack(), true ) ) {
+		return $item;
+	}
+
+	return false;
+}
+
 /**
  * Output the consent banner.
  *
