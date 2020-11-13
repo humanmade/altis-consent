@@ -8,8 +8,6 @@
 namespace Altis\Consent;
 
 use Altis\Consent\Settings;
-use WP_CONSENT_API;
-use WP_Error;
 
 /**
  * Load the cookie consent banner if consent hasn't been saved previously.
