@@ -77,6 +77,24 @@ function consentCookieSaved() {
 }
 
 /**
+ * Return an array of all the categories that a user has consented to.
+ *
+ * @return {array} An array of allowed cookie categories.
+ */
+function getConsentedCategories() {
+	// Start off with the allowlisted categories.
+	let hasConsent = altisConsent.alwaysAllowCategories;
+
+	altisConsent.categories.forEach( category => {
+		if ( hasConsent( category ) ) {
+			hasConsent.push( category );
+		}
+	} );
+
+	return hasConsent;
+}
+
+/**
  * Update consent for individual categories.
  */
 function updateConsentCategories() {
