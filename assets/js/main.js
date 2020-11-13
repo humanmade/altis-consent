@@ -60,6 +60,23 @@ function getCookie( name ) {
 }
 
 /**
+ * Check if a consent cookie has already been saved on the client machine.
+ *
+ * @return {bool} Return true if consent has been given previously.
+ */
+function consentCookieSaved() {
+	altisConsent.categories
+		// Skip the functional cookies preference.
+		.filter( category => category === 'functional' )
+		// Loop through the rest of the categories.
+		.forEach( category => {
+			return hasConsent( category );
+		} );
+
+	return false;
+}
+
+/**
  * Update consent for individual categories.
  */
 function updateConsentCategories() {

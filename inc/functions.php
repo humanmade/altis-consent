@@ -28,30 +28,6 @@ function load_consent_banner() {
 }
 
 /**
- * Check if a consent cookie has already been saved on the client machine.
- *
- * @return bool Return true if consent has been given previously.
- */
-function consent_cookie_saved() : bool {
-	$categories = WP_CONSENT_API::$config->consent_categories();
-
-	// Loop through all of the categories.
-	foreach ( $categories as $category ) {
-		// Skip functional cookies preference.
-		if ( $category === 'functional' ) {
-			continue;
-		}
-
-		// If we have any consent cookies at all, consent has been saved, so just wait until these expire to ask again.
-		if ( isset( $_COOKIE[ "wp_consent_$category" ] ) ) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-/**
  * Return an array of all the categories that a user has consented to.
  *
  * @return array An array of allowed cookie categories.
