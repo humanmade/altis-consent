@@ -68,6 +68,7 @@ function enqueue_assets() {
 		'types' => consent_types(),
 		'categories' => consent_categories(),
 		'values' => consent_values(),
+		'shouldDisplayBanner' => should_display_banner(),
 	] );
 }
 
