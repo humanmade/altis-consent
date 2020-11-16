@@ -65,15 +65,20 @@ function getCookie( name ) {
  * @return {bool} Return true if consent has been given previously.
  */
 function consentCookieSaved() {
+	let consentExists = false;
 	altisConsent.categories
 		// Skip the functional cookies preference.
 		.filter( category => category === 'functional' )
 		// Loop through the rest of the categories.
 		.forEach( category => {
-			return hasConsent( category );
+			if ( hasConsent( category ) ) {
+				consentExists = true;
+			}
+
+			return;
 		} );
 
-	return false;
+	return consentExists;
 }
 
 /**
