@@ -11,7 +11,8 @@ const giveConsentButton  = document.querySelector( '.give-consent' ),
 	cookiePrefsButton    = document.querySelector( '.view-preferences' ),
 	applyCookiePrefs     = document.querySelector( '.apply-cookie-preferences' ),
 	cookieUpdatedMessage = document.querySelector( '.consent-updated-message' ).classList,
-	closeUpdatedMessage  = document.getElementById( 'consent-close-updated-message' );
+	closeUpdatedMessage  = document.getElementById( 'consent-close-updated-message' ),
+	consentBanner        = document.getElementById( 'cookie-consent-banner' );
 
 /**
  * Check if a user has given consent for a specific category.
@@ -180,12 +181,24 @@ function toggleCookiePrefs() {
 }
 
 /**
+ * Check if consent has been given already. If not, toggle display of the banner.
+ */
+function maybeDisplayBanner() {
+	if ( ! consentCookieSaved() && altisConsent.shouldDisplayBanner ) {
+		consentBanner.style.display = 'block';
+	}
+}
+
+/**
  * Show the preferences updated message.
  */
 function preferencesUpdatedMessage() {
 	const consentUpdated = document.querySelector( '.consent-updated-message' ).classList;
 	consentUpdated.toggle( 'show' );
 }
+
+// Display the banner. Or not.
+maybeDisplayBanner();
 
 // Toggle consent when grant/revoke consent button is clicked.
 giveConsentButton.addEventListener( 'click', updateConsentCategories );
