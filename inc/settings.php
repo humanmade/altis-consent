@@ -237,9 +237,9 @@ function register_consent_settings() {
 	privacy_policy_page_settings();
 
 	add_settings_section(
-		$section,                                  // New settings section
-		__( 'Cookie Consent', 'altis-consent' ),   // Section title
-		__NAMESPACE__ . '\\altis_consent_section', // Callback function
+		$section,                                  // New settings section.
+		__( 'Cookie Consent', 'altis-consent' ),   // Section title.
+		__NAMESPACE__ . '\\altis_consent_section', // Callback function.
 		$page                                      // Settings Page.
 	);
 
