@@ -1,4 +1,4 @@
-/* global wp_set_consent wp_has_consent consent_api_set_cookie altisConsent */
+/* global wp_set_consent wp_has_consent consent_api_set_cookie consent_api_get_cookie altisConsent */
 /**
  * Handle toggling cookie consent.
  *
