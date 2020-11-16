@@ -5,14 +5,16 @@
  * @package Altis-Consent
  */
 
-$categories = WP_CONSENT_API::$config->consent_categories();
+use Altis\Consent;
+
+$categories = Consent\consent_categories();
 ?>
 
 <div class="cookie-preferences">
 	<?php
 	foreach ( $categories as $category ) {
 		// Validate the consent category.
-		if ( ! wp_validate_consent_category( $category ) ) {
+		if ( ! Consent\validate_consent_item( $category, 'category' ) ) {
 			continue;
 		}
 
