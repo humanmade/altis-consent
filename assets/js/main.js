@@ -33,7 +33,7 @@ function hasConsent( category ) {
  * @param {string} category The consent category to update.
  * @param {string} value The value to update the consent category to.
  */
-function setConsent( category, value ) {
+function setConsent( category, value ) { // eslint-disable-line no-unused-vars
 	wp_set_consent( category, value );
 }
 
@@ -45,7 +45,7 @@ function setConsent( category, value ) {
  * @param {string} name The cookie name to set.
  * @param {string} value The cookie value to set.
  */
-function setCookie( name, value ) {
+function setCookie( name, value ) { // eslint-disable-line no-unused-vars
 	consent_api_set_cookie( name, value );
 }
 
@@ -56,7 +56,7 @@ function setCookie( name, value ) {
  *
  * @param {string} name The name of the cookie to get data from.
  */
-function getCookie( name ) {
+function getCookie( name ) { // eslint-disable-line no-unused-vars
 	return consent_api_get_cookie( name );
 }
 
@@ -87,7 +87,7 @@ function consentCookieSaved() {
  *
  * @return {array} An array of allowed cookie categories.
  */
-function getConsentedCategories() {
+function getConsentedCategories() { // eslint-disable-line no-unused-vars
 	// Start off with the allowlisted categories.
 	let hasConsent = altisConsent.alwaysAllowCategories;
 
