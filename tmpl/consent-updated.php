@@ -1,3 +1,11 @@
+<?php
+/**
+ * Consent updated message
+ *
+ * @package Altis-Consent
+ */
+
+?>
 <div class="consent-updated-message">
 	<p class="message">
 		<span class="preferences-updated-message">
