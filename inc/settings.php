@@ -49,17 +49,17 @@ function update_privacy_policy_page() {
 	if (
 		// Validate the nonce.
 		! isset( $_POST['_altis_privacy_policy_page_nonce'] ) ||
-		! wp_verify_nonce( sanitize_text_field( $_POST['_altis_privacy_policy_page_nonce'] ), 'altis.privacy_policy_page' ) ||
+		! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_altis_privacy_policy_page_nonce'] ) ), 'altis.privacy_policy_page' ) ||
 		// Bail early if we're not on the consent page.
 		! isset( $_POST['option_page'] ) ||
-		'cookie_consent_options' !== esc_attr( $_POST['option_page'] )
+		'cookie_consent_options' !== sanitize_text_field( wp_unslash( $_POST['option_page'] ) )
 	) {
 		return;
 	}
 
 	$privacy_option         = 'wp_page_for_privacy_policy';
 	$privacy_policy_page_id = (int) get_option( $privacy_option );
-	$updated_id             = esc_attr( $_POST[ $privacy_option ] );
+	$updated_id             = ! empty( $_POST[ $privacy_option ] ) ?? sanitize_text_field( wp_unslash( $_POST[ $privacy_option ] ) );
 
 	if ( absint( $updated_id ) == $privacy_policy_page_id ) {
 		return;
