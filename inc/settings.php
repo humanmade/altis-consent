@@ -338,7 +338,7 @@ function validate_privacy_options( $dirty ) {
 	$validated['cookie_expiration'] = is_numeric( $dirty['cookie_expiration'] ) ? $dirty['cookie_expiration'] : '30';
 
 	// Make sure the banner_options is in the array of options we expect.
-	$validated['banner_options'] = in_array( $dirty['banner_options'], wp_list_pluck( get_cookie_banner_options(), 'value' ) ) ? $dirty['banner_options'] : '';
+	$validated['banner_options'] = in_array( $dirty['banner_options'], wp_list_pluck( get_cookie_banner_options(), 'value' ), true ) ? $dirty['banner_options'] : '';
 
 	// Strip evil scripts from the message.
 	$validated['banner_message'] = wp_kses_post( $dirty['banner_message'] );
@@ -527,7 +527,7 @@ function render_secondary_button( string $button_text, string $value = 'privacy_
 	$type = in_array( $type, [ 'submit', 'reset', 'button' ], true ) ? $type : 'submit';
 
 	// Make sure the value passed is valid. Invalid values default to "privacy_policy".
-	$value = in_array( $value, get_allowed_policy_page_values() ) ? $value : 'privacy_policy';
+	$value = in_array( $value, get_allowed_policy_page_values(), true ) ? $value : 'privacy_policy';
 
 	?>
 	<button name="<?php echo esc_attr( $name ); ?>" type="<?php echo esc_attr( $type ); ?>" value="<?php echo esc_attr( $value ); ?>" class="button button-secondary"><?php echo esc_html( $button_text ); ?></button>
