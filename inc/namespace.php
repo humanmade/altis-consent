@@ -10,7 +10,6 @@
 namespace Altis\Consent;
 
 use Altis;
-use WP_CONSENT_API;
 
 /**
  * Kick everything off.
