@@ -1,4 +1,9 @@
 <?php
+/**
+ * Consent banner
+ *
+ * @package Altis-Consent
+ */
 
 use Altis\Consent;
 use Altis\Consent\Settings;
