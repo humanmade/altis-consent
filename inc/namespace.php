@@ -29,6 +29,9 @@ function bootstrap() {
 		return 'optin';
 	} );
 
+	// Set the cookie prefix to the one we define.
+	add_filter( 'wp_consent_cookie_prefix', cookie_prefix() );
+
 	// Enqueue the javascript handler.
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 
