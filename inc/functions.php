@@ -120,7 +120,9 @@ function consent_values() : array {
  */
 function validate_consent_item( string $item, string $item_type ) {
 	if ( ! in_array( $item_type, [ 'types', 'categories', 'values' ], true ) ) {
-		return false; // actually trigger an error here.
+		// Trigger an error if an invalid item type was passed.
+		trigger_error( sprintf( 'The item type, %s, is not a valid item type to send to validate_consent_item. The item type must be \'types\', \'categories\' or \'values\'.', $item_type ), E_USER_WARNING );
+		return false;
 	}
 
 	// Use a variable function name to check the matching item type.
