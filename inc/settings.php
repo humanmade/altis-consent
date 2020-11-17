@@ -49,19 +49,19 @@ function update_privacy_policy_page() {
 	if (
 		// Validate the nonce.
 		! isset( $_POST['_altis_privacy_policy_page_nonce'] ) ||
-		! wp_verify_nonce( sanitize_text_field( $_POST['_altis_privacy_policy_page_nonce'] ), 'altis.privacy_policy_page' ) ||
+		! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_altis_privacy_policy_page_nonce'] ) ), 'altis.privacy_policy_page' ) ||
 		// Bail early if we're not on the consent page.
 		! isset( $_POST['option_page'] ) ||
-		'cookie_consent_options' !== esc_attr( $_POST['option_page'] )
+		'cookie_consent_options' !== sanitize_text_field( wp_unslash( $_POST['option_page'] ) )
 	) {
 		return;
 	}
 
 	$privacy_option         = 'wp_page_for_privacy_policy';
 	$privacy_policy_page_id = (int) get_option( $privacy_option );
-	$updated_id             = esc_attr( $_POST[ $privacy_option ] );
+	$updated_id             = ! empty( $_POST[ $privacy_option ] ) ?: sanitize_text_field( wp_unslash( $_POST[ $privacy_option ] ) );
 
-	if ( absint( $updated_id ) == $privacy_policy_page_id ) {
+	if ( absint( $updated_id ) === $privacy_policy_page_id ) {
 		return;
 	}
 
@@ -77,16 +77,16 @@ function create_policy_page() {
 	if (
 		// Validate the nonce.
 		! isset( $_POST['_altis_privacy_policy_page_nonce'] ) ||
-		! wp_verify_nonce( sanitize_text_field( $_POST['_altis_privacy_policy_page_nonce'] ), 'altis.privacy_policy_page' ) ||
+		! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_altis_privacy_policy_page_nonce'] ) ), 'altis.privacy_policy_page' ) ||
 		// Make sure we've requested a new policy page.
 		! isset( $_POST['create_policy_page'] ) ||
 		// Make sure that the request was valid.
-		! in_array( esc_attr( $_POST['create_policy_page'] ), get_allowed_policy_page_values(), true )
+		! in_array( sanitize_text_field( wp_unslash( $_POST['create_policy_page'] ) ), get_allowed_policy_page_values(), true )
 	) {
 		return;
 	}
 
-	$policy_page = esc_attr( $_POST['create_policy_page'] );
+	$policy_page = sanitize_text_field( wp_unslash( $_POST['create_policy_page'] ) );
 
 	/**
 	 * Whether we are using the block editor.
@@ -237,9 +237,9 @@ function register_consent_settings() {
 	privacy_policy_page_settings();
 
 	add_settings_section(
-		$section,                                  // New settings section
-		__( 'Cookie Consent', 'altis-consent' ),   // Section title
-		__NAMESPACE__ . '\\altis_consent_section', // Callback function
+		$section,                                  // New settings section.
+		__( 'Cookie Consent', 'altis-consent' ),   // Section title.
+		__NAMESPACE__ . '\\altis_consent_section', // Callback function.
 		$page                                      // Settings Page.
 	);
 
@@ -338,7 +338,7 @@ function validate_privacy_options( $dirty ) {
 	$validated['cookie_expiration'] = is_numeric( $dirty['cookie_expiration'] ) ? $dirty['cookie_expiration'] : '30';
 
 	// Make sure the banner_options is in the array of options we expect.
-	$validated['banner_options'] = in_array( $dirty['banner_options'], wp_list_pluck( get_cookie_banner_options(), 'value' ) ) ? $dirty['banner_options'] : '';
+	$validated['banner_options'] = in_array( $dirty['banner_options'], wp_list_pluck( get_cookie_banner_options(), 'value' ), true ) ? $dirty['banner_options'] : '';
 
 	// Strip evil scripts from the message.
 	$validated['banner_message'] = wp_kses_post( $dirty['banner_message'] );
@@ -527,7 +527,7 @@ function render_secondary_button( string $button_text, string $value = 'privacy_
 	$type = in_array( $type, [ 'submit', 'reset', 'button' ], true ) ? $type : 'submit';
 
 	// Make sure the value passed is valid. Invalid values default to "privacy_policy".
-	$value = in_array( $value, get_allowed_policy_page_values() ) ? $value : 'privacy_policy';
+	$value = in_array( $value, get_allowed_policy_page_values(), true ) ? $value : 'privacy_policy';
 
 	?>
 	<button name="<?php echo esc_attr( $name ); ?>" type="<?php echo esc_attr( $type ); ?>" value="<?php echo esc_attr( $value ); ?>" class="button button-secondary"><?php echo esc_html( $button_text ); ?></button>
