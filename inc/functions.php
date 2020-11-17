@@ -121,7 +121,7 @@ function consent_values() : array {
 function validate_consent_item( string $item, string $item_type ) {
 	if ( ! in_array( $item_type, [ 'types', 'categories', 'values' ], true ) ) {
 		// Trigger an error if an invalid item type was passed.
-		trigger_error( sprintf( 'The item type, %s, is not a valid item type to send to validate_consent_item. The item type must be \'types\', \'categories\' or \'values\'.', $item_type ), E_USER_WARNING );
+		trigger_error( esc_html( sprintf( 'The item type, %s, is not a valid item type to send to validate_consent_item. The item type must be \'types\', \'categories\' or \'values\'.', $item_type ) ), E_USER_WARNING );
 		return false;
 	}
 
@@ -132,7 +132,7 @@ function validate_consent_item( string $item, string $item_type ) {
 	}
 
 	// Trigger an error if the item doesn't validate.
-	trigger_error( sprintf( 'The item %1$s was not a valid item of type %2$s.', $item, $item_type ), E_USER_WARNING );
+	trigger_error( esc_html( sprintf( 'The item %1$s was not a valid item of type %2$s.', $item, $item_type ) ), E_USER_WARNING );
 	return false;
 }
 
