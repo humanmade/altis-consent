@@ -30,10 +30,10 @@ function bootstrap() {
 	} );
 
 	// Define the consent types. This is filterable using altis.consent.types.
-	add_filter( 'wp_consent_types', consent_types() );
+	add_filter( 'wp_consent_types', __NAMESPACE__ . '\\consent_types' );
 
 	// Set the cookie prefix to the one we define. This is filterable using altis.consent.cookie_prefix.
-	add_filter( 'wp_consent_cookie_prefix', cookie_prefix() );
+	add_filter( 'wp_consent_cookie_prefix', __NAMESPACE__ . '\\cookie_prefix' );
 
 	// Enqueue the javascript handler.
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
