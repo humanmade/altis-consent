@@ -29,7 +29,10 @@ function bootstrap() {
 		return 'optin';
 	} );
 
-	// Set the cookie prefix to the one we define.
+	// Define the consent types. This is filterable using altis.consent.types.
+	add_filter( 'wp_consent_types', consent_types() );
+
+	// Set the cookie prefix to the one we define. This is filterable using altis.consent.cookie_prefix.
 	add_filter( 'wp_consent_cookie_prefix', cookie_prefix() );
 
 	// Enqueue the javascript handler.
