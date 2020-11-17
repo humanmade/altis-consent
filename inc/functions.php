@@ -131,6 +131,8 @@ function validate_consent_item( string $item, string $item_type ) {
 		return $item;
 	}
 
+	// Trigger an error if the item doesn't validate.
+	trigger_error( sprintf( 'The item %1$s was not a valid item of type %2$s.', $item, $item_type ), E_USER_WARNING );
 	return false;
 }
 
