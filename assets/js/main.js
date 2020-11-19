@@ -5,6 +5,9 @@
  * @package Altis-Consent
  */
 
+let Altis = window.Altis || {};
+Altis.Consent = {};
+
 const giveConsentButton  = document.querySelector( '.give-consent' ),
 	revokeConsentButton  = document.querySelector( '.revoke-consent' ),
 	cookiePreferences    = document.querySelector( '.cookie-preferences' ).classList,
@@ -103,7 +106,7 @@ function getConsentedCategories() { // eslint-disable-line no-unused-vars
 /**
  * Update consent for individual categories.
  */
-function updateConsentCategories() {
+Altis.Consent.updateCategories = function () {
 	const categories = document.getElementsByClassName( 'category-input' );
 	let selected   = [],
 		unselected = [];
@@ -164,12 +167,12 @@ function updateConsentCategories() {
 	document.querySelector( '.consent-banner' ).classList.add( 'hide' );
 
 	preferencesUpdatedMessage();
-}
+};
 
 /**
  * Show or hide the cookie preferences.
  */
-function toggleCookiePrefs() {
+Altis.Consent.toggleCookiePrefs = function () {
 	const allowAllClasses      = giveConsentButton.classList,
 		allowFunctionalClasses = revokeConsentButton.classList;
 
@@ -178,7 +181,7 @@ function toggleCookiePrefs() {
 	// Toggle the other buttons when we show the cookie prefs.
 	allowAllClasses.toggle( 'hide' );
 	allowFunctionalClasses.toggle( 'hide' );
-}
+};
 
 /**
  * Check if consent has been given already. If not, toggle display of the banner.
@@ -201,13 +204,13 @@ function preferencesUpdatedMessage() {
 maybeDisplayBanner();
 
 // Toggle consent when grant/revoke consent button is clicked.
-giveConsentButton.addEventListener( 'click', updateConsentCategories );
-revokeConsentButton.addEventListener( 'click', updateConsentCategories );
+giveConsentButton.addEventListener( 'click', Altis.Consent.updateCategories );
+revokeConsentButton.addEventListener( 'click', Altis.Consent.updateCategories );
 
 // Make sure the preverences button exists before triggering an on-click action.
 if ( cookiePrefsButton ) {
-	cookiePrefsButton.addEventListener( 'click', toggleCookiePrefs );
-	applyCookiePrefs.addEventListener( 'click', updateConsentCategories );
+	cookiePrefsButton.addEventListener( 'click', Altis.Consent.toggleCookiePrefs );
+	applyCookiePrefs.addEventListener( 'click', Altis.Consent.updateCategories );
 }
 
 // Close the banner if the close button is clicked.
