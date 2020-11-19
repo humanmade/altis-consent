@@ -52,7 +52,7 @@ function cookie_prefix() : string {
 	 *
 	 * @param string $prefix The consent cookie prefix.
 	 */
-	return apply_filters( 'altis.consent.cookie_prefix', 'altis_consent' );
+	return apply_filters( 'altis.consent.cookie_prefix', '_altis_consent' );
 }
 
 /**
