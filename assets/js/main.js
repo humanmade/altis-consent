@@ -7,6 +7,9 @@
 
 let Altis = window.Altis || {};
 
+/**
+ * Set up the Altis.Consent namespace and preload with some variables we'll use in the baner display.
+ */
 Altis.Consent = {
 	giveConsentButton: document.querySelector( '.give-consent' ),
 	revokeConsentButton: document.querySelector( '.revoke-consent' ),
