@@ -5,7 +5,8 @@
  * @package Altis-Consent
  */
 
-let Altis = window.Altis || {};
+// Use the Altis namespace. Since it's declared as a var, we can't redeclare as a let or const.
+var Altis = window.Altis || {}; // eslint-disable-line no-var
 
 /**
  * Set up the Altis.Consent namespace and preload with some variables we'll use in the baner display.
