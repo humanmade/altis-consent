@@ -191,7 +191,15 @@ Altis.Consent.toggleCookiePrefs = function () {
  * Check if consent has been given already. If not, toggle display of the banner.
  */
 Altis.Consent.maybeDisplayBanner = function () {
-	if ( ! Altis.Consent.consentCookieSaved() && altisConsent.shouldDisplayBanner ) {
+	if (
+		// A consent cookie has not been saved...
+		! Altis.Consent.consentCookieSaved() &&
+		// We're not hiding the banner in the settings...
+		altisConsent.shouldDisplayBanner &&
+		// & the banner markup exists.
+		Altis.Consent.consentBanner
+	) {
+		// Display the consent banner.
 		Altis.Consent.consentBanner.style.display = 'block';
 	}
 };
