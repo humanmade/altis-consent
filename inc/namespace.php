@@ -38,9 +38,9 @@ function bootstrap() {
 	// Enqueue the javascript handler.
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 
-	// Maybe load the banner.
+	// Check the admin setting to determine if we need to load the banner html.
 	if ( should_display_banner() ) {
-		add_action( 'wp_footer', __NAMESPACE__ . '\\render_consent_banner' );
+		add_action( 'wp_footer', __NAMESPACE__ . '\\load_consent_banner' );
 	}
 }
 
@@ -76,17 +76,4 @@ function enqueue_assets() {
 		'values' => consent_values(),
 		'shouldDisplayBanner' => should_display_banner(),
 	] );
-}
-
-/**
- * Output the consent banner.
- *
- * Output here is returned rather than explicitly loaded in case it needs to be loaded into a variable.
- *
- * @return string The consent banner html.
- */
-function render_consent_banner() : string {
-	ob_start();
-	load_consent_banner();
-	return ob_get_clean();
 }
