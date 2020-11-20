@@ -77,7 +77,7 @@ Altis.Consent.cookieSaved = function () {
 	let consentExists = false;
 	altisConsent.categories
 		// Skip the functional cookies preference.
-		.filter( category => category === 'functional' )
+		.filter( category => category !== 'functional' )
 		// Loop through the rest of the categories.
 		.forEach( category => {
 			if ( Altis.Consent.has( category ) ) {
