@@ -38,8 +38,10 @@ function bootstrap() {
 	// Enqueue the javascript handler.
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 
-	// Shortcode. Not recommended but here in case it's needed.
-	add_shortcode( 'cookie-consent-banner', __NAMESPACE__ . '\\render_consent_banner' );
+	// Maybe load the banner.
+	if ( should_display_banner() ) {
+		add_action( 'wp_footer', __NAMESPACE__ . '\\render_consent_banner' );
+	}
 }
 
 /**
