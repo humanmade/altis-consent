@@ -80,7 +80,7 @@ Altis.Consent.cookieSaved = function () {
 		.filter( category => category === 'functional' )
 		// Loop through the rest of the categories.
 		.forEach( category => {
-			if ( Altis.Consent.get( category ) ) {
+			if ( Altis.Consent.has( category ) ) {
 				consentExists = true;
 			}
 
@@ -194,7 +194,7 @@ Altis.Consent.toggleCookiePrefs = function () {
 Altis.Consent.maybeDisplayBanner = function () {
 	if (
 		// A consent cookie has not been saved...
-		! Altis.Consent.consentCookieSaved() &&
+		! Altis.Consent.cookieSaved() &&
 		// We're not hiding the banner in the settings...
 		altisConsent.shouldDisplayBanner &&
 		// & the banner markup exists.
