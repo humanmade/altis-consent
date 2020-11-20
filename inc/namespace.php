@@ -35,11 +35,9 @@ function bootstrap() {
 	// Set the cookie prefix to the one we define. This is filterable using altis.consent.cookie_prefix.
 	add_filter( 'wp_consent_cookie_prefix', __NAMESPACE__ . '\\cookie_prefix' );
 
-	// Enqueue the javascript handler.
-	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
-
-	// Check the admin setting to determine if we need to load the banner html.
+	// Check the admin setting to determine if we need to load the banner html and js.
 	if ( should_display_banner() ) {
+		add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 		add_action( 'wp_footer', __NAMESPACE__ . '\\load_consent_banner' );
 	}
 }
