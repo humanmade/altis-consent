@@ -126,7 +126,7 @@ function validate_consent_item( string $item, string $item_type ) {
 	}
 
 	// Use a variable function name to check the matching item type.
-	$haystack = 'consent_' . $item_type;
+	$haystack = __NAMESPACE__ . '\\consent_' . $item_type;
 	if ( in_array( $item, $haystack(), true ) ) {
 		return $item;
 	}
