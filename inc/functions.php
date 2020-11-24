@@ -8,128 +8,21 @@
 namespace Altis\Consent;
 
 use Altis\Consent\Settings;
-use WP_CONSENT_API;
-use WP_Error;
 
 /**
  * Load the cookie consent banner if consent hasn't been saved previously.
  */
 function load_consent_banner() {
-	// Check if we need to load the banner.
-	if ( ! consent_cookie_saved() && should_display_banner() ) {
-		load_template(
-			/**
-			 * Allow other plugins or themes to update the path for the consent banner.
-			 *
-			 * If this path is changed, all the subsequent template parts that are used can be customized.
-			 *
-			 * @var string The path to the consent banner template.
-			 */
-			apply_filters( 'altis.consent.consent_banner_path', plugin_dir_path( __DIR__ ) . 'tmpl/consent-banner.php' )
-		);
-	}
-}
-
-/**
- * Check if a consent cookie has already been saved on the client machine.
- *
- * @return bool Return true if consent has been given previously.
- */
-function consent_cookie_saved() : bool {
-	$categories = WP_CONSENT_API::$config->consent_categories();
-
-	// Loop through all of the categories.
-	foreach ( $categories as $category ) {
-		// Skip functional cookies preference.
-		if ( $category === 'functional' ) {
-			continue;
-		}
-
-		// If we have any consent cookies at all, consent has been saved, so just wait until these expire to ask again.
-		if ( isset( $_COOKIE[ "wp_consent_$category" ] ) ) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-/**
- * Return an array of all the categories that a user has consented to.
- *
- * @return array An array of allowed cookie categories.
- */
-function get_consented_categories() : array {
-	$has_consent = [];
-	$categories  = WP_CONSENT_API::$config->consent_categories();
-
-	/**
-	 * Cookie categories that are always allowed.
-	 *
-	 * @var array Array of always-allowed cookie categories.
-	 */
-	$allowlist = apply_filters( 'altis.consent.always_allow_categories', [ 'functional', 'statistics-anonymous' ] );
-
-	foreach ( $categories as $category ) {
-		if ( in_array( $category, $allowlist, true ) ) {
-			$has_consent[] = $category;
-			continue;
-		}
-
-		if ( wp_has_consent( $category ) ) {
-			$has_consent[] = $category;
-		}
-	}
-
-	return $has_consent;
-}
-
-/**
- * Register a cookie with the consent API. If required arguments are not passed, this function will return a WP_Error.
- *
- * Registering a cookie through this function, as opposed to directly through wp_add_cookie_info, ensures that all cookies expire at the same time, and consent is requested when those cookies expire.
- *
- * @param array $args An array of arguments to pass to wp_add_cookie_info.
- *  $args['name'] (string)                    (required) The name of the cookie.
- *  $args['plugin_or_service'] (string)       (required) Plugin or service that sets cookie (e.g. Google Maps).
- *  $args['category'] (string)                (required) One of 'functional', 'preferences', 'statistics-anonymous', 'statistics', or 'marketing'.
- *  $args['expires'] (string)                 (required) Time until the cookie expires.
- *  $args['function'] (string)                (required) What the cookie is meant to do (e.g. 'Store a unique User ID').
- *  $args['collected_personal_data'] (string) Type of personal data that is collected. Only needs to be filled in if `$is_personal_data` is `true`.
- *  $args['member_cookie'] (bool)             Whether the cookie is relevant for members of the site only.
- *  $args['administrator_cookie'] (bool)      Whether the cookie is relevant for administrators only.
- *  $args['type'] (string)                    One of 'HTTP', 'LOCALSTORAGE', or 'API'.
- *  $args['domain'] (string|bool)             Optional. Domain on which the cookie is set. Defaults to the current site URL.
- *
- * @return void|WP_Error                      Either no return or a WP_Error if a parameter was not passed to the function.
- */
-function register_cookie( $args = [] ) {
-	$cookie_expiration = Settings\get_consent_option( 'cookie_expiration', 30 );
-	$required_args     = [ 'name', 'plugin_or_service', 'category', 'function' ];
-
-	$cookie_info = wp_parse_args( $args, [
-		'name'                    => false,
-		'plugin_or_service'       => false,
-		'category'                => false,
-		'expires'                 => $cookie_expiration,
-		'function'                => false,
-		'collected_personal_data' => '',
-		'member_cookie'           => false,
-		'administrator_cookie'    => false,
-		'type'                    => 'HTTP',
-		'domain'                  => false,
-	] );
-
-	// Make sure we have all the required args.
-	foreach ( $required_args as $required_arg ) {
-		if ( ! $cookie_info[ $required_arg ] ) {
-			// Translators: %s is the register_cookie parameter that was not passed.
-			return new WP_Error( 'cookie_not_registered', esc_html( sprintf( __( 'Cookie not registered. The %s argument is required.', 'altis-consent' ), $required_arg ) ) );
-		}
-	}
-
-	// Register the cookie with the consent API.
-	wp_add_cookie_info( $cookie_info['name'], $cookie_info['plugin_or_service'], $cookie_info['category'], $cookie_info['expires'], $cookie_info['function'], $cookie_info['collected_personal_data'], $cookie_info['member_cookie'], $cookie_info['administrator_cookie'], $cookie_info['type'], $cookie_info['domain'] );
+	load_template(
+		/**
+		 * Allow other plugins or themes to update the path for the consent banner.
+		 *
+		 * If this path is changed, all the subsequent template parts that are used can be customized.
+		 *
+		 * @var string The path to the consent banner template.
+		 */
+		apply_filters( 'altis.consent.consent_banner_path', plugin_dir_path( __DIR__ ) . 'tmpl/consent-banner.php' )
+	);
 }
 
 /**
@@ -146,6 +39,101 @@ function should_display_banner() : bool {
 	 * @var bool Defaults to the option on the options page, but can be overridden externally based on other logic.
 	 */
 	return (bool) apply_filters( 'altis.consent.should_display_banner', Settings\get_consent_option( 'display_banner', false ) );
+}
+
+/**
+ * Returns the default consent cookie prefix.
+ *
+ * @return string The consent cookie prefix.
+ */
+function cookie_prefix() : string {
+	/**
+	 * Filterable consent cookie prefix.
+	 *
+	 * @param string $prefix The consent cookie prefix.
+	 */
+	return apply_filters( 'altis.consent.cookie_prefix', '_altis_consent' );
+}
+
+/**
+ * Returns the active consent types.
+ *
+ * @return array An array of consent types.
+ */
+function consent_types() : array {
+	/**
+	 * Filterable list of active consent types.
+	 *
+	 * @param array $consent_types The array of allowed consent types.
+	 */
+	return apply_filters(
+		'altis.consent.types', [
+			'optin',
+			'optout',
+		]
+	);
+}
+
+/**
+ * Returns the active consent categories.
+ *
+ * @return array The consent categories.
+ */
+function consent_categories() : array {
+	/**
+	 * Filterable list of active consent categories.
+	 *
+	 * @param array $categories The allowed consent categories.
+	 */
+	return apply_filters( 'altis.consent.categories', [
+		'functional',
+		'preferences',
+		'statistics',
+		'statistics-anonymous',
+		'marketing',
+	] );
+}
+
+/**
+ * Returns the active consent values.
+ *
+ * @return array The available consent values.
+ */
+function consent_values() : array {
+	/**
+	 * Filterable list of possible consent values.
+	 *
+	 * @param array $values The possible consent values.
+	 */
+	return apply_filters( 'altis.consent.values', [
+		'allow',
+		'deny',
+	] );
+}
+
+/**
+ * Validates a consent item (either a consent type, category or value).
+ *
+ * @param string $item The value to validate.
+ * @param string $item_type The type of value to validate. Possible options are 'types' (consent types), 'categories' (consent categories) or 'values' (consent values).
+ * @return string|bool The validated string or false.
+ */
+function validate_consent_item( string $item, string $item_type ) {
+	if ( ! in_array( $item_type, [ 'types', 'categories', 'values' ], true ) ) {
+		// Trigger an error if an invalid item type was passed.
+		trigger_error( esc_html( sprintf( 'The item type, %s, is not a valid item type to send to validate_consent_item. The item type must be \'types\', \'categories\' or \'values\'.', $item_type ) ), E_USER_WARNING );
+		return false;
+	}
+
+	// Use a variable function name to check the matching item type.
+	$haystack = __NAMESPACE__ . '\\consent_' . $item_type;
+	if ( in_array( $item, $haystack(), true ) ) {
+		return $item;
+	}
+
+	// Trigger an error if the item doesn't validate.
+	trigger_error( esc_html( sprintf( 'The item %1$s was not a valid item of type %2$s.', $item, $item_type ) ), E_USER_WARNING );
+	return false;
 }
 
 /**

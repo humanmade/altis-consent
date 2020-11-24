@@ -5,9 +5,10 @@
  * @package Altis-Consent
  */
 
+use Altis\Consent;
 use Altis\Consent\Settings;
 
-$categories              = WP_CONSENT_API::$config->consent_categories();
+$categories              = Consent\consent_categories();
 $banner_option           = Settings\get_consent_option( 'banner_options' );
 $no_option_saved_message = sprintf(
 	// Translators: %s is the link to the admin Privacy setting page.

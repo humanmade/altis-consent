@@ -10,7 +10,6 @@
 namespace Altis\Consent;
 
 use Altis;
-use WP_CONSENT_API;
 
 /**
  * Kick everything off.
@@ -30,11 +29,17 @@ function bootstrap() {
 		return 'optin';
 	} );
 
-	// Enqueue the javascript handler.
-	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
+	// Define the consent types. This is filterable using altis.consent.types.
+	add_filter( 'wp_consent_types', __NAMESPACE__ . '\\consent_types' );
 
-	// Shortcode. Not recommended but here in case it's needed.
-	add_shortcode( 'cookie-consent-banner', __NAMESPACE__ . '\\render_consent_banner' );
+	// Set the cookie prefix to the one we define. This is filterable using altis.consent.cookie_prefix.
+	add_filter( 'wp_consent_cookie_prefix', __NAMESPACE__ . '\\cookie_prefix' );
+
+	// Check the admin setting to determine if we need to load the banner html and js.
+	if ( should_display_banner() ) {
+		add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
+		add_action( 'wp_footer', __NAMESPACE__ . '\\load_consent_banner' );
+	}
 }
 
 /**
@@ -53,29 +58,20 @@ function enqueue_assets() {
 		$ver .= '-' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/styles.css' );
 	}
 
-	wp_enqueue_script( 'altis-consent', $js, [], $ver, true );
+	wp_enqueue_script( 'altis-consent', $js, [ 'altis-consent-api' ], $ver, true );
 	wp_enqueue_style( 'altis-consent', $css, [], $ver, 'screen' );
 
 	wp_localize_script( 'altis-consent', 'altisConsent', [
-		'categories' => WP_CONSENT_API::$config->consent_categories(),
 		/**
 		 * Allow the array of categories that are always consented to be filtered.
 		 *
 		 * @var array An array of default categories to consent to automatically.
 		 */
 		'alwaysAllowCategories' => apply_filters( 'altis.consent.always_allow_categories', [ 'functional', 'statistics-anonymous' ] ),
+		'cookiePrefix' => cookie_prefix(),
+		'types' => consent_types(),
+		'categories' => consent_categories(),
+		'values' => consent_values(),
+		'shouldDisplayBanner' => should_display_banner(),
 	] );
-}
-
-/**
- * Output the consent banner.
- *
- * Output here is returned rather than explicitly loaded in case it needs to be loaded into a variable.
- *
- * @return string The consent banner html.
- */
-function render_consent_banner() : string {
-	ob_start();
-	load_consent_banner();
-	return ob_get_clean();
 }
