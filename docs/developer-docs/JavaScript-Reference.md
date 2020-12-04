@@ -8,7 +8,7 @@ Event to listen for consent changes.
 document.addEventListener( 'wp_listen_for_consent_change', function ( e ) {
   var changedConsentCategory = e.detail;
   for ( var key in changedConsentCategory ) {
-    if ( changedConsentCategory.hasOwnProperty( key ) ) {
+    if ( e.detail.marketing && e.detail.marketing === 'allow' ) {
       if ( key === 'marketing' && changedConsentCategory[key] === 'allow' ) {
         console.log( 'just given consent, track user data' )
       }
