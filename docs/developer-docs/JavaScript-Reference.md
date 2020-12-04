@@ -1,6 +1,6 @@
 **Note:** All Altis Consent JavaScript functions are in the `Altis.Consent` namespace.
 
-## `Altis.Consent.has`
+## `Altis.Consent.has( category )`
 
 Check if a user has given consent for a specific category.
 
@@ -12,7 +12,7 @@ Check if a user has given consent for a specific category.
 
 _(bool)_ Whether the user has given consent for the selected category.
 
-## `Altis.Consent.set`
+## `Altis.Consent.set( category, value )`
 
 Set a new consent category value.
 
@@ -22,7 +22,7 @@ Set a new consent category value.
 
 **`value`** _(string)_ The value to update the consent category to. Must be a valid value.
 
-## `Altis.Consent.setCookie`
+## `Altis.Consent.setCookie( name, value )`
 
 Set a cookie by consent type.
 
@@ -32,7 +32,7 @@ Set a cookie by consent type.
 
 **`value`** The cookie value to set.
 
-## `Altis.Consent.getCookie`
+## `Altis.Consent.getCookie( name )`
 
 Retrieve a cookie by name.
 
