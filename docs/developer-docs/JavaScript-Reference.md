@@ -5,9 +5,11 @@ Event to listen for consent changes.
 ### Example
 
 ```js
+// Listen for changes in consent statuses.
 document.addEventListener( 'wp_listen_for_consent_change', function ( e ) {
   var changedConsentCategory = e.detail;
   for ( var key in changedConsentCategory ) {
+    // Check if marketing cookies are allowed.
     if ( e.detail.marketing && e.detail.marketing === 'allow' ) {
       console.log( 'just given consent, track user data' )
     }
