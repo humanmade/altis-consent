@@ -7,4 +7,4 @@
 
 # Privacy and Consent
 
-Improved data consent management for Altis. Builds on top of the [WP Consent API](https://github.com/rlankhorst/wp-consent-level-api).
+Improved data consent management for Altis. Builds on top of the [Consent API](https://github.com/humanmade/consent-api-js).
