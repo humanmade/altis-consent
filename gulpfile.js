@@ -1,6 +1,6 @@
-const csso = require( 'gulp-csso' ),
-	  del = require( 'del' ),
+const del = require( 'del' ),
 	  gulp = require( 'gulp' ),
+	  csso = require( 'gulp-csso' ),
 	  sass = require( 'gulp-sass' ),
 	  terser = require( 'gulp-terser' );
 

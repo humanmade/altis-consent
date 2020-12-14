@@ -1,8 +1,6 @@
 /* global wp_set_consent wp_has_consent consent_api_set_cookie consent_api_get_cookie altisConsent */
 /**
  * Handle toggling cookie consent.
- *
- * @package Altis-Consent
  */
 
 // Use the Altis namespace. Since it's declared as a var, we can't redeclare as a let or const.
@@ -28,6 +26,7 @@ Altis.Consent = {
  * Wrapper function for wp_has_consent.
  *
  * @param {string} category The category to check consent against.
+ * @returns {boolean}           Whether the user has given consent for the given category.
  */
 Altis.Consent.has = function ( category ) {
 	return wp_has_consent( category );
@@ -63,6 +62,7 @@ Altis.Consent.setCookie = function ( name, value ) { // eslint-disable-line no-u
  * Wrapper function for consent_api_get_cookie.
  *
  * @param {string} name The name of the cookie to get data from.
+ * @returns {boolean}       Cookie data for the given cookie, if it exists.
  */
 Altis.Consent.getCookie = function ( name ) { // eslint-disable-line no-unused-vars
 	return consent_api_get_cookie( name );
@@ -71,7 +71,7 @@ Altis.Consent.getCookie = function ( name ) { // eslint-disable-line no-unused-v
 /**
  * Check if a consent cookie has already been saved on the client machine.
  *
- * @return {bool} Return true if consent has been given previously.
+ * @returns {boolean} Return true if consent has been given previously.
  */
 Altis.Consent.cookieSaved = function () {
 	let consentExists = false;
@@ -93,7 +93,7 @@ Altis.Consent.cookieSaved = function () {
 /**
  * Return an array of all the categories that a user has consented to.
  *
- * @return {array} An array of allowed cookie categories.
+ * @returns {Array} An array of allowed cookie categories.
  */
 Altis.Consent.getCategories = function () { // eslint-disable-line no-unused-vars
 	// Start off with the allowlisted categories.
