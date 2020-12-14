@@ -93,7 +93,7 @@ Altis.Consent.cookieSaved = function () {
 /**
  * Return an array of all the categories that a user has consented to.
  *
- * @returns {array} An array of allowed cookie categories.
+ * @returns {Array} An array of allowed cookie categories.
  */
 Altis.Consent.getCategories = function () { // eslint-disable-line no-unused-vars
 	// Start off with the allowlisted categories.
