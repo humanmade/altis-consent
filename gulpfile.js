@@ -1,8 +1,8 @@
-const csso = require( 'gulp-csso' ),
-	  del = require( 'del' ),
-	  gulp = require( 'gulp' ),
+const gulp = require( 'gulp' ),
+	  csso = require( 'gulp-csso' ),
 	  sass = require( 'gulp-sass' ),
-	  terser = require( 'gulp-terser' );
+	  terser = require( 'gulp-terser' ),
+	  del = require( 'del' );
 
 gulp.task( 'styles', () => {
 	return gulp.src( 'assets/sass/**/*.scss' )
