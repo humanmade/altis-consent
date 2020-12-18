@@ -12,7 +12,7 @@ var Altis = window.Altis || {}; // eslint-disable-line no-var
 Altis.Consent = {
 	giveConsentButton: document.querySelector( '.give-consent' ),
 	revokeConsentButton: document.querySelector( '.revoke-consent' ),
-	cookiePreferences: document.querySelector( '.cookie-preferences' ).classList,
+	cookiePreferences: document.querySelector( '.cookie-preferences' )?.classList || false,
 	cookiePrefsButton: document.querySelector( '.view-preferences' ),
 	applyCookiePrefs: document.querySelector( '.apply-cookie-preferences' ),
 	cookieUpdatedMessage: document.querySelector( '.consent-updated-message' ).classList,
