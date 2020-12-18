@@ -59,7 +59,7 @@ function update_privacy_policy_page() {
 
 	$privacy_option         = 'wp_page_for_privacy_policy';
 	$privacy_policy_page_id = (int) get_option( $privacy_option );
-	$updated_id             = sanitize_text_field( wp_unslash( $_POST[ $privacy_option ] ) ) ?? false; // phpcs:ignore HM.Security.ValidatedSanitizedInput.InputNotValidated I actually am validating that it exists first.
+	$updated_id             = ! empty( $_POST[ $privacy_option ] ) ? sanitize_text_field( wp_unslash( $_POST[ $privacy_option ] ) ) : false;
 
 	if ( absint( $updated_id ) === $privacy_policy_page_id ) {
 		return;
