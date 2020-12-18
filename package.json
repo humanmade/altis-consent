@@ -33,6 +33,7 @@
     "lint": "npm run lint:js && npm run lint:css && npm run lint:php"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-optional-chaining": "^7.8.3",
     "@humanmade/stylelint-config": "^0.8.0",
     "babel-eslint": "^10.1.0",
     "del": "^5.1.0",
