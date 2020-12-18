@@ -147,7 +147,7 @@ function get_cookie_policy_url() : string {
 
 	// Make sure the cookie policy page ID is an actual page and it's public.
 	if ( get_post_type( $cookie_policy_page_id ) === 'page' && get_post_status( $cookie_policy_page_id ) === 'publish' ) {
-		$cookie_policy_page_url = get_page_uri( $cookie_policy_page_id );
+		$cookie_policy_page_url = get_page_link( $cookie_policy_page_id );
 	}
 
 	/**
