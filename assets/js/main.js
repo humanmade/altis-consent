@@ -100,7 +100,7 @@ Altis.Consent.getCategories = function () { // eslint-disable-line no-unused-var
 	let hasConsent = altisConsent.alwaysAllowCategories;
 
 	altisConsent.categories.forEach( category => {
-		if ( hasConsent( category ) ) {
+		if ( Altis.Consent.has( category ) ) {
 			hasConsent.push( category );
 		}
 	} );
