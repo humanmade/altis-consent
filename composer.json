@@ -4,7 +4,7 @@
     "type": "package",
     "require": {
         "php": ">=7.1",
-        "altis/consent-api": "^1.0.2"
+        "altis/consent-api": "^1.0.4"
     },
     "require-dev": {
         "humanmade/coding-standards": "^1.1.0"
