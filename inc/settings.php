@@ -201,16 +201,12 @@ function get_cookie_consent_settings_fields() {
 function get_cookie_banner_options() {
 	$options = [
 		[
-			'value' => '',
-			'label' => '&mdash; ' . __( 'Please select an option', 'altis-consent' ) . ' &mdash;',
+			'value' => 'none',
+			'label' => __( 'Allow/Deny All Cookies', 'altis-consent' ),
 		],
 		[
 			'value' => 'all-categories',
 			'label' => __( 'All Cookie Categories', 'altis-consent' ),
-		],
-		[
-			'value' => 'none',
-			'label' => __( 'Allow/Deny All Cookies', 'altis-consent' ),
 		],
 	];
 
@@ -338,7 +334,7 @@ function validate_privacy_options( $dirty ) {
 	$validated['cookie_expiration'] = is_numeric( $dirty['cookie_expiration'] ) ? $dirty['cookie_expiration'] : '30';
 
 	// Make sure the banner_options is in the array of options we expect.
-	$validated['banner_options'] = in_array( $dirty['banner_options'], wp_list_pluck( get_cookie_banner_options(), 'value' ), true ) ? $dirty['banner_options'] : '';
+	$validated['banner_options'] = in_array( $dirty['banner_options'], wp_list_pluck( get_cookie_banner_options(), 'value' ), true ) ? $dirty['banner_options'] : 'none';
 
 	// Strip evil scripts from the message.
 	$validated['banner_message'] = wp_kses_post( $dirty['banner_message'] );
@@ -450,7 +446,7 @@ function cookie_expiration() {
  * Render the consent banner options setting.
  */
 function render_banner_options() {
-	$selected       = get_consent_option( 'banner_options' );
+	$selected       = get_consent_option( 'banner_options', 'none' );
 	$banner_options = get_cookie_banner_options();
 	?>
 	<select name="cookie_consent_options[banner_options]" id="banner_options" value="<?php echo esc_attr( $selected ); ?>">

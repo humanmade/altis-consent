@@ -14,11 +14,11 @@ $options        = get_option( 'cookie_consent_options', [] );
 $options        = wp_parse_args( $options, [
 	'banner_message' => Settings\get_default_banner_message(),
 	'policy_page'    => false,
-	'banner-options' => 'none',
+	'banner_options' => 'none',
 ] );
 $banner_message = $options['banner_message'];
 $policy_page    = $options['policy_page'];
-$all_categories = 'all-categories' === $options['banner_options'];
+$all_categories = $options['banner_options'] === 'all-categories';
 ?>
 
 <div class="button-row">
