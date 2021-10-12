@@ -36,7 +36,7 @@ function bootstrap() {
 	add_filter( 'wp_consent_cookie_prefix', __NAMESPACE__ . '\\cookie_prefix' );
 
 	// Check the admin setting to determine if we need to load the banner html and js.
-	if ( should_display_banner() ) {
+	if ( ! is_admin() && should_display_banner() ) {
 		add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 		add_action( 'wp_footer', __NAMESPACE__ . '\\load_consent_banner' );
 	}
