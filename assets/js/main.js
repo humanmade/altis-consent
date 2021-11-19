@@ -97,10 +97,10 @@ Altis.Consent.cookieSaved = function () {
  */
 Altis.Consent.getCategories = function () { // eslint-disable-line no-unused-vars
 	// Start off with the allowlisted categories.
-	let hasConsent = altisConsent.alwaysAllowCategories;
+	let hasConsent = altisConsent.alwaysAllowCategories.slice();
 
 	altisConsent.categories.forEach( category => {
-		if ( Altis.Consent.has( category ) ) {
+		if ( hasConsent.indexOf( category ) < 0 && Altis.Consent.has( category ) ) {
 			hasConsent.push( category );
 		}
 	} );
