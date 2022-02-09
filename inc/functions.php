@@ -95,6 +95,26 @@ function consent_categories() : array {
 }
 
 /**
+ * Returns the active consent categories with labels.
+ *
+ * @return array The consent categories.
+ */
+function consent_category_labels() : array {
+	/**
+	 * Filterable list of active consent categories with labels.
+	 *
+	 * @param array $categories The consent categories with labels.
+	 */
+	return apply_filters( 'altis.consent.category_labels', [
+		'functional' => __( 'Functional', 'altis-consent' ),
+		'preferences' => __( 'Preferences', 'altis-consent' ),
+		'statistics' => __( 'Statistics', 'altis-consent' ),
+		'statistics-anonymous' => __( 'Anonymous statistics', 'altis-consent' ),
+		'marketing' => __( 'Marketing', 'altis-consent' ),
+	] );
+}
+
+/**
  * Returns the active consent values.
  *
  * @return array The available consent values.
@@ -156,4 +176,14 @@ function get_cookie_policy_url() : string {
 	 * @var string The cookie policy page url.
 	 */
 	return apply_filters( 'altis.consent.cookie_policy_url', $cookie_policy_page_url );
+}
+
+/**
+ * Retrieve a user facing label for the consent category.
+ *
+ * @param string $category The category name to get the label for.
+ * @return string
+ */
+function get_category_label( string $category ) : string {
+	return consent_category_labels()[ $category ] ?? '';
 }
