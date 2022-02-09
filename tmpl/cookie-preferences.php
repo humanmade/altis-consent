@@ -31,7 +31,7 @@ $categories = Consent\consent_categories();
 				<?php endif; ?>
 				data-consentcategory="<?php echo esc_attr( $category ); ?>"
 			/>
-			<?php echo esc_attr( ucfirst( $category ) ); ?>
+			<?php echo esc_html( Consent\get_category_label( $category ) ); ?>
 		</label>
 	<?php } ?>
 
