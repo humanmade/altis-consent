@@ -50,7 +50,7 @@
     "gulp-csso": "^4.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-terser": "^1.4.1",
-    "node-sass": "^4.14.0",
+    "node-sass": "^7.0.0",
     "stylelint": "^13.8.0"
   }
 }
