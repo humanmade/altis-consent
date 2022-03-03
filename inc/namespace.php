@@ -48,7 +48,13 @@ function bootstrap() {
 function enqueue_assets() {
 	$js  = plugin_dir_url( __DIR__ ) . 'dist/js/main.js';
 	$css = plugin_dir_url( __DIR__ ) . 'dist/css/styles.css';
-	$ver = '1.0.0';
+
+	if ( ! function_exists( 'get_plugin_data' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+	}
+
+	$plugin = get_plugin_data( PLUGIN_FILE, false, false );
+	$ver = $plugin['Version'];
 
 	if ( Altis\get_environment_type() === 'local' ) {
 		// If working locally, load the unminified version of the js file.
