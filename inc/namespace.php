@@ -40,7 +40,6 @@ function bootstrap() {
 		add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 		add_action( 'wp_footer', __NAMESPACE__ . '\\load_consent_banner' );
 	}
-
 }
 
 /**
@@ -74,7 +73,6 @@ function enqueue_assets() {
 		 *
 		 * @var array An array of default categories to consent to automatically.
 		 */
-
 		'alwaysAllowCategories' => get_always_allowed_categories(),
 		'cookiePrefix' => cookie_prefix(),
 		'types' => consent_types(),
