@@ -188,7 +188,6 @@ function get_category_label( string $category ) : string {
 	return consent_category_labels()[ $category ] ?? '';
 }
 
-
 /**
  * Retrieve the always allowed categories.
  *

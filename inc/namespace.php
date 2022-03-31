@@ -67,6 +67,7 @@ function enqueue_assets() {
 
 	wp_enqueue_script( 'altis-consent', $js, [ 'altis-consent-api' ], $ver, true );
 	wp_enqueue_style( 'altis-consent', $css, [], $ver, 'screen' );
+
 	wp_localize_script( 'altis-consent', 'altisConsent', [
 		/**
 		 * Allow the array of categories that are always consented to be filtered.
