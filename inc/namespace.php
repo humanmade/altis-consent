@@ -41,7 +41,6 @@ function bootstrap() {
 		add_action( 'wp_footer', __NAMESPACE__ . '\\load_consent_banner' );
 	}
 
-	add_action( 'altis.consent.always_allow_categories', __NAMESPACE__ . '\\always_allow_categories', 20 );
 }
 
 /**
@@ -68,39 +67,18 @@ function enqueue_assets() {
 
 	wp_enqueue_script( 'altis-consent', $js, [ 'altis-consent-api' ], $ver, true );
 	wp_enqueue_style( 'altis-consent', $css, [], $ver, 'screen' );
-
 	wp_localize_script( 'altis-consent', 'altisConsent', [
 		/**
 		 * Allow the array of categories that are always consented to be filtered.
 		 *
 		 * @var array An array of default categories to consent to automatically.
 		 */
-		'alwaysAllowCategories' => apply_filters( 'altis.consent.always_allow_categories', [] ),
+
+		'alwaysAllowCategories' => get_always_allowed_categories(),
 		'cookiePrefix' => cookie_prefix(),
 		'types' => consent_types(),
 		'categories' => consent_categories(),
 		'values' => consent_values(),
 		'shouldDisplayBanner' => should_display_banner(),
 	] );
-}
-
-/**
- * Retrieve the always allowed categories
- *
- * @param array $allowed
- * @return array if $allowed is empty, return $default
- */
-function always_allow_categories( array $allowed ) {
-
-	if ( !empty( $allowed ) ) {
-		return $allowed;
-	}
-
-	$default = [
-		'functional',
-		'statistics-anonymous'
-	];
-
-	return $default;
-
 }

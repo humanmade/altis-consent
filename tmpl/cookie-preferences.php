@@ -12,15 +12,15 @@ $categories = Consent\consent_categories();
 
 <div class="cookie-preferences">
 	<?php
-	$alwaysAllowedCategories = apply_filters( 'altis.consent.always_allow_categories', [] );
+
 	foreach ( $categories as $category ) {
 		// Validate the consent category.
 		if ( ! Consent\validate_consent_item( $category, 'categories' ) ) {
 			continue;
 		}
 
-		// Ensure the functional category always shows, hide the always allowed categories
-		if ( 'functional' != $category && in_array( $category, $alwaysAllowedCategories, true ) ) {
+		// Ensure the functional category always shows, hide the always allowed categories.
+		if ( 'functional' !== $category && in_array( $category, Consent\get_always_allowed_categories(), true ) ) {
 			continue;
 		}
 		?>
