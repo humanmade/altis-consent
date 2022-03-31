@@ -194,7 +194,7 @@ function get_category_label( string $category ) : string {
  * @return array Returns always allowed categories.
  */
 function get_always_allowed_categories() {
-	$allowed = apply_filters( 'altis.consent.always_allow_categories',[] );
+	$allowed = apply_filters( 'altis.consent.always_allow_categories', [] );
 	if ( ! empty( $allowed ) ) {
 		return $allowed;
 	}
