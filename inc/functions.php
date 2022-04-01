@@ -194,15 +194,10 @@ function get_category_label( string $category ) : string {
  * @return array Returns always allowed categories.
  */
 function get_always_allowed_categories() {
-	$allowed = apply_filters( 'altis.consent.always_allow_categories', [] );
-	if ( ! empty( $allowed ) ) {
-		return $allowed;
-	}
-
-	$default = [
-		'functional',
-		'statistics-anonymous',
-	];
-
-	return $default;
+	/**
+	 * Filter the default cookie categories.
+	 *
+	 * @param array $categories The default always allowed consent categories.
+	 */
+	return apply_filters( 'altis.consent.always_allow_categories', [ 'functional', 'statistics-anonymous' ] );
 }
