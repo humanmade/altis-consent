@@ -18,8 +18,8 @@ $categories = Consent\consent_categories();
 			continue;
 		}
 
-		// Skip anonymous statistics category, don't need to ask permission explicitly.
-		if ( 'statistics-anonymous' === $category ) {
+		// Ensure the functional category always shows, hide the always allowed categories.
+		if ( 'functional' !== $category && in_array( $category, Consent\get_always_allowed_categories(), true ) ) {
 			continue;
 		}
 		?>

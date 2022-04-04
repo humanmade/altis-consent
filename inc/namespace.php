@@ -73,7 +73,7 @@ function enqueue_assets() {
 		 *
 		 * @var array An array of default categories to consent to automatically.
 		 */
-		'alwaysAllowCategories' => apply_filters( 'altis.consent.always_allow_categories', [ 'functional', 'statistics-anonymous' ] ),
+		'alwaysAllowCategories' => get_always_allowed_categories(),
 		'cookiePrefix' => cookie_prefix(),
 		'types' => consent_types(),
 		'categories' => consent_categories(),

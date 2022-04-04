@@ -187,3 +187,17 @@ function get_cookie_policy_url() : string {
 function get_category_label( string $category ) : string {
 	return consent_category_labels()[ $category ] ?? '';
 }
+
+/**
+ * Retrieve the always allowed categories.
+ *
+ * @return array Returns always allowed categories.
+ */
+function get_always_allowed_categories() {
+	/**
+	 * Filter the default cookie categories.
+	 *
+	 * @param array $categories The default always allowed consent categories.
+	 */
+	return apply_filters( 'altis.consent.always_allow_categories', [ 'functional', 'statistics-anonymous' ] );
+}
