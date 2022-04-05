@@ -1,3 +1,14 @@
+.consent-updated-message p {
+	display: grid;
+	grid-template-columns: 1fr 10px;
+	grid-gap: 10px;
+	align-items: center;
+
+	button {
+		grid-column-start: -1;
+	}
+}
+
 .consent-banner {
 	display: grid;
 	width: 100%;
@@ -36,16 +47,5 @@
 		button:nth-child(2):nth-last-child(2) {
 			grid-column: 3 / span 1;
 		}
-	}
-}
-
-.consent-updated-message p {
-	display: grid;
-	grid-template-columns: 1fr 10px;
-	grid-gap: 10px;
-	align-items: center;
-
-	button {
-		grid-column-start: -1;
 	}
 }
