@@ -1,7 +1,7 @@
 const del = require( 'del' ),
 	  gulp = require( 'gulp' ),
 	  csso = require( 'gulp-csso' ),
-	  sass = require( 'gulp-sass' ),
+	  sass = require( 'gulp-sass' )( require( 'node-sass' ) ),
 	  terser = require( 'gulp-terser' );
 
 gulp.task( 'styles', () => {
